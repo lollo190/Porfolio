@@ -1,0 +1,13 @@
+<svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor" class="nb-theme-icon nb-theme-icon-sun" aria-hidden="true">
+  <circle cx="256" cy="256" r="128"/>
+  <g>
+    <rect x="230" y="0" width="52" height="91" rx="26"/>
+    <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(45 256 256)"/>
+    <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(90 256 256)"/>
+    <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(135 256 256)"/>
+    <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(180 256 256)"/>
+    <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(225 256 256)"/>
+    <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(270 256 256)"/>
+    <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(315 256 256)"/>
+  </g>
+</svg>

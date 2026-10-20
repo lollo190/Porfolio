@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="it" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Lorenzo Kraja OS [PUBLIC DOMAIN]</title>
+    <meta name="description"
+        content="Operating System Desktop di Lorenzo Kraja — Product & Jewelry Designer. Curriculum Vitae, Motion Reel, Interactive Terminal & Design Philosophy.">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="About — Lorenzo Kraja OS">
+    <meta property="og:description"
+        content="Operating System Desktop di Lorenzo Kraja. Curriculum, Reel, Terminale Interattivo e Progetti.">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="kali-os-page">
+    <!-- Animated Film Grain Background Overlay (same as main site) -->
+    <div class="film-grain" aria-hidden="true"></div>
+
+    <!-- TOP SYSTEM BAR (Public Domain / Kali Linux Panel) -->
+    <header class="kali-os-topbar" role="banner">
+        <div class="kali-topbar-left">
+            <a href="index.html" class="kali-topbar-back" title="Torna al Portfolio principale">
+                <span class="kali-back-arrow">&#8592;</span>
+                <span class="kali-back-label">PORTFOLIO</span>
+            </a>
+            <span class="kali-topbar-sep">|</span>
+            <div class="kali-topbar-brand">
+                <span class="kali-brand-text">LORENZO KRAJA // OS</span>
+                <span class="kali-brand-tag">v2.4 [PUBLIC DOMAIN]</span>
+            </div>
+        </div>
+
+        <div class="kali-topbar-center">
+            <div class="kali-topbar-active-pill" id="kali-topbar-active">
+                <span class="kali-active-dot"></span>
+                <span id="kali-active-title">curriculum.pdf — Document Viewer</span>
+            </div>
+        </div>
+
+        <div class="kali-topbar-right">
+            <!-- Audio / Network Status indicators -->
+            <div class="kali-sys-indicators" aria-hidden="true">
+                <span class="kali-sys-pill" title="Network Connected">ETH0 &bull; OK</span>
+                <span class="kali-sys-pill" title="Audio Device">VOL 100%</span>
+            </div>
+
+            <!-- Live Clock (Rome Time) -->
+            <span id="live-clock" class="kali-topbar-clock">00:00:00 RM</span>
+
+            <!-- Theme Toggle (Animated Sun / Moon Icons) -->
+            <button id="theme-toggle" class="nb-theme-toggle" aria-label="Cambia tema chiaro / scuro"
+                title="Tema chiaro / scuro">
+                <span class="nb-theme-icon-wrap">
+                    <svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"
+                        class="nb-theme-icon nb-theme-icon-sun" aria-hidden="true">
+                        <circle cx="256" cy="256" r="128" />
+                        <g>
+                            <rect x="230" y="0" width="52" height="91" rx="26" />
+                            <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(45 256 256)" />
+                            <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(90 256 256)" />
+                            <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(135 256 256)" />
+                            <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(180 256 256)" />
+                            <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(225 256 256)" />
+                            <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(270 256 256)" />
+                            <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(315 256 256)" />
+                        </g>
+                    </svg>
+                    <svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor"
+                        class="nb-theme-icon nb-theme-icon-moon" aria-hidden="true">
+                        <path
+                            d="M 129 3 L 125 5 L 123 7 L 113 13 L 109 16 L 104 20 L 99 24 L 93 29 L 69 53 L 63 60 L 59 65 L 55 70 L 52 74 L 40 92 L 37 97 L 32 106 L 25 120 L 21 129 L 19 134 L 16 142 L 14 148 L 11 157 L 9 164 L 8 168 L 7 172 L 4 187 L 3 193 L 2 199 L 1 208 L 0 220 L 0 252 L 1 264 L 2 272 L 3 279 L 4 285 L 5 290 L 6 295 L 10 311 L 12 318 L 15 327 L 18 335 L 20 340 L 22 345 L 27 356 L 30 362 L 36 373 L 39 378 L 44 386 L 46 389 L 48 392 L 53 399 L 56 403 L 60 408 L 64 413 L 71 421 L 90 440 L 97 446 L 103 451 L 108 455 L 112 458 L 119 463 L 122 465 L 125 467 L 133 472 L 140 476 L 153 483 L 166 489 L 171 491 L 176 493 L 184 496 L 187 497 L 190 498 L 200 501 L 216 505 L 221 506 L 226 507 L 232 508 L 239 509 L 247 510 L 259 511 L 291 511 L 303 510 L 312 509 L 318 508 L 324 507 L 339 504 L 343 503 L 354 500 L 360 498 L 369 495 L 377 492 L 382 490 L 391 486 L 405 479 L 414 474 L 419 471 L 425 467 L 434 461 L 441 456 L 446 452 L 451 448 L 458 442 L 481 419 L 487 412 L 491 407 L 495 402 L 498 398 L 508 382 L 510 379 L 508 380 L 506 381 L 504 383 L 496 387 L 482 394 L 475 397 L 470 399 L 462 402 L 450 406 L 443 408 L 431 411 L 416 414 L 409 415 L 402 416 L 392 417 L 347 417 L 337 416 L 330 415 L 324 414 L 318 413 L 313 412 L 304 410 L 300 409 L 293 407 L 283 404 L 280 403 L 272 400 L 267 398 L 262 396 L 255 393 L 249 390 L 239 385 L 230 380 L 222 375 L 210 367 L 206 364 L 202 361 L 197 357 L 192 353 L 184 346 L 165 327 L 158 319 L 154 314 L 150 309 L 147 305 L 144 301 L 136 289 L 131 281 L 126 272 L 123 266 L 118 256 L 115 249 L 113 244 L 111 239 L 108 231 L 107 228 L 104 218 L 102 211 L 101 207 L 99 198 L 98 193 L 97 187 L 96 181 L 95 174 L 94 164 L 94 119 L 95 109 L 96 102 L 97 95 L 100 80 L 103 68 L 105 61 L 109 49 L 112 41 L 114 36 L 117 29 L 121 21 L 128 7 L 130 5 L 132 1 Z" />
+                    </svg>
+                </span>
+            </button>
+        </div>
+    </header>
+
+    <!-- DESKTOP WORKSPACE CANVAS -->
+    <main class="kali-os-desktop" id="kali-os-desktop" role="main">
+
+        <!-- DESKTOP ICONS GRID -->
+        <!-- DESKTOP ICONS (Disposte in modo casuale / organico, non troppo sparse) -->
+        <div class="kali-desktop-icons-layer" id="kali-icons-layer">
+
+            <!-- Icon 1: curriculum.pdf (Media Preview) -->
+            <div class="kali-desktop-icon kali-icon-pdf" id="icon-cv" tabindex="0" role="button"
+                aria-label="Apri curriculum.pdf" title="Doppio clic o Invio per aprire curriculum.pdf"
+                style="top: 36px; left: 40px;">
+                <div class="kali-icon-thumb kali-thumb-doc">
+                    <img src="assets/cv-preview.jpg" alt="curriculum.pdf" class="kali-preview-doc-img"
+                        draggable="false">
+                    <span class="kali-icon-badge kali-badge-pdf">PDF</span>
+                </div>
+                <span class="kali-icon-label">curriculum.pdf</span>
+            </div>
+
+            <!-- Icon 2: ARCHIVE (public---domain Cyan Folder) -->
+            <div class="kali-desktop-icon kali-icon-dir" id="icon-projects" tabindex="0" role="button"
+                aria-label="Apri ARCHIVE" title="Doppio clic o Invio per aprire archive"
+                style="top: 48px; left: 160px;">
+                <div class="kali-icon-thumb kali-thumb-cyan-folder">
+                    <svg viewBox="0 0 54 44" width="48" height="40" fill="none">
+                        <path d="M4 8a3 3 0 0 1 3-3h13l4 4h23a3 3 0 0 1 3 3v24a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8z"
+                            fill="#0097a7" />
+                        <rect x="7" y="11" width="40" height="4" rx="1" fill="#00838f" opacity="0.6" />
+                        <path d="M3 15a3 3 0 0 1 3-3h42a3 3 0 0 1 3 3v21a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V15z"
+                            fill="#00c5d4" />
+                        <path d="M6 13h42a3 3 0 0 1 3 3v1H3v-1a3 3 0 0 1 3-3z" fill="#33d6e2" opacity="0.35" />
+                    </svg>
+                    <span class="kali-icon-badge kali-badge-cyan">ARC</span>
+                </div>
+                <span class="kali-icon-label">archive</span>
+            </div>
+
+            <!-- Icon 3: reel.mp4 (Media Preview) -->
+            <div class="kali-desktop-icon kali-icon-video" id="icon-reel" tabindex="0" role="button"
+                aria-label="Apri reel.mp4" title="Doppio clic o Invio per aprire reel.mp4"
+                style="top: 175px; left: 50px;">
+                <div class="kali-icon-thumb kali-thumb-video">
+                    <img src="assets/reel-preview.jpg" alt="reel.mp4" class="kali-preview-video-img" draggable="false">
+                    <span class="kali-media-play-pill" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor">
+                            <polygon points="7 4 19 12 7 20 7 4"></polygon>
+                        </svg>
+                    </span>
+                    <span class="kali-icon-badge kali-badge-video">MP4</span>
+                </div>
+                <span class="kali-icon-label">reel.mp4</span>
+            </div>
+
+            <!-- Icon 4: trash (In alto a destra all'angolo) -->
+            <div class="kali-desktop-icon kali-icon-trash" id="icon-trash" tabindex="0" role="button"
+                aria-label="Cestino" title="Cestino di sistema" style="top: 24px; right: 28px; left: auto;">
+                <div class="kali-icon-thumb kali-thumb-trash">
+                    <img src="assets/trash.png" alt="trash" class="kali-trash-img" draggable="false">
+                </div>
+                <span class="kali-icon-label">trash</span>
+            </div>
+
+        </div>
+
+        <!-- ========================================================
+             WINDOW 1: CURRICULUM VITAE (Document Viewer)
+             ======================================================== -->
+        <div class="kali-window kali-window-cv is-closed" id="kali-win-cv" role="region"
+            aria-label="Finestra XFCE — curriculum.pdf">
+            <!-- Titlebar (macOS / Virgil Abloh Style with Gray Gradient) -->
+            <div class="kali-titlebar" id="kali-tb-cv">
+                <div class="kali-controls">
+                    <button class="kali-btn kali-btn-close" data-win="cv" aria-label="Chiudi" title="Chiudi"></button>
+                    <button class="kali-btn kali-btn-min" data-win="cv" aria-label="Riduci a icona"
+                        title="Riduci a icona"></button>
+                    <button class="kali-btn kali-btn-max" data-win="cv" aria-label="Ingrandisci"
+                        title="Ingrandisci"></button>
+                </div>
+                <div class="kali-title-info">
+                    <span class="kali-title-text">curriculum.pdf — Document Viewer</span>
+                </div>
+                <div class="kali-titlebar-spacer" aria-hidden="true"></div>
+            </div>
+
+            <!-- Menubar -->
+            <div class="kali-menubar">
+                <span class="kali-menu-item">File</span>
+                <span class="kali-menu-item">Edit</span>
+                <span class="kali-menu-item">View</span>
+                <span class="kali-menu-item">Go</span>
+                <span class="kali-menu-item">Help</span>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="kali-nav-toolbar">
+                <div class="kali-tool-group">
+                    <a href="assets/cv_lorenzo_kraja.pdf" download="CV_Lorenzo_Kraja.pdf" class="kali-tb-btn"
+                        title="Scarica PDF" aria-label="Scarica PDF">
+                        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <path d="M8 2v8m0 0l3-3m-3 3L5 7M3 13h10" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="kali-tb-label">Download PDF</span>
+                    </a>
+                    <a href="assets/cv_lorenzo_kraja.pdf" target="_blank" rel="noopener" class="kali-tb-btn"
+                        title="Apri in nuova scheda" aria-label="Apri in nuova scheda">
+                        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <path d="M12 9v4H3V4h4M9 3h4v4M13 3L7 9" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="kali-tb-label">Nuova scheda</span>
+                    </a>
+                    <button class="kali-tb-btn kali-tb-toggle-view" id="cv-toggle-view"
+                        title="Cambia vista tra PDF Nativo e Scheda Adattabile">
+                        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <rect x="2" y="2" width="12" height="12" rx="2" />
+                            <path d="M2 6h12M6 6v8" />
+                        </svg>
+                        <span class="kali-tb-label" id="cv-view-label">Vista Scheda</span>
+                    </button>
+                </div>
+
+                <div class="kali-tb-sep"></div>
+
+                <div class="kali-tool-group">
+                    <button class="kali-tb-btn" id="cv-zoom-out" title="Rimpicciolisci">
+                        <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
+                            <path d="M3 7.25h10v1.5H3z" />
+                        </svg>
+                    </button>
+                    <span class="kali-tb-info" id="cv-zoom-val">100%</span>
+                    <button class="kali-tb-btn" id="cv-zoom-in" title="Ingrandisci">
+                        <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
+                            <path d="M7.25 3v4.25H3v1.5h4.25V13h1.5V8.75H13v-1.5H8.75V3z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="kali-tb-sep"></div>
+
+                <div class="kali-tool-group kali-tb-right">
+                    <span class="kali-tb-info">Pagina 1 / 1</span>
+                </div>
+            </div>
+
+            <!-- Content Area: Native PDF iframe + Adaptive HTML sheet -->
+            <div class="kali-window-content kali-cv-content" id="kali-cv-content">
+                <!-- Native PDF view -->
+                <iframe id="kali-cv-iframe" class="kali-pdf-frame" src="assets/cv_lorenzo_kraja.pdf#view=FitH"
+                    title="Curriculum Vitae di Lorenzo Kraja"></iframe>
+
+                <!-- Adaptive Responsive HTML Sheet Preview -->
+                <div id="kali-cv-sheet" class="kali-doc-sheet-container" style="display:none;">
+                    <div class="kali-doc-sheet" id="kali-doc-sheet-zoom">
+                        <div class="cv-header">
+                            <div class="cv-name-wrap">
+                                <h1 class="cv-name">Kraja Lorenzo</h1>
+                                <div class="cv-contacts">
+                                    <span>3429787242</span> &bull;
+                                    <a href="mailto:lorenzokraja99@gmail.com">lorenzokraja99@gmail.com</a> &bull;
+                                    <a href="https://behance.net/SpiritWorks" target="_blank"
+                                        rel="noopener">behance.net/SpiritWorks</a>
+                                </div>
+                            </div>
+                            <div class="cv-roles">
+                                <div>Designer</div>
+                                <div>Photographer</div>
+                                <div>Videographer</div>
+                            </div>
+                        </div>
+
+                        <p class="cv-intro">
+                            Curious by nature and attentive to every detail, I base my work on observation and research.
+                            I turn my constant desire to learn into new practical skills, applying them directly to the
+                            development and growth of every project.
+                        </p>
+
+                        <div class="cv-section">
+                            <h2 class="cv-section-title">Experience:</h2>
+
+                            <div class="cv-entry">
+                                <div class="cv-entry-head">
+                                    <strong>Graphic Designer / Video Editor</strong>
+                                    <span class="cv-date">Nov 2025 - Present</span>
+                                </div>
+                                <div class="cv-company">Star Entertainment GmbH - (Berlin, Germany)</div>
+                            </div>
+
+                            <div class="cv-entry">
+                                <div class="cv-entry-head">
+                                    <strong>Jewelry Designer</strong>
+                                    <span class="cv-date">Giu 2024 - Giu 2025</span>
+                                </div>
+                                <div class="cv-company">Lupo Gioielli - DESAURUM s.a.s.</div>
+                                <div class="cv-desc">2D and 3D design, resin/wax prototyping, detailed finishing.</div>
+                            </div>
+
+                            <div class="cv-entry">
+                                <div class="cv-entry-head">
+                                    <strong>Contract Teaching Assistant / University Tutor - ISIA Pescara
+                                        Design</strong>
+                                    <span class="cv-date">Mar 2024 - Oct 2025</span>
+                                </div>
+                                <div class="cv-desc">Provided tutoring, support exercises, and assistance to students
+                                    during exam sessions.</div>
+                            </div>
+
+                            <div class="cv-entry">
+                                <div class="cv-entry-head">
+                                    <strong>Hackaton 2nd Place Winner</strong>
+                                    <span class="cv-date">Nov 2023</span>
+                                </div>
+                                <div class="cv-desc">Upcycling Tech Project</div>
+                            </div>
+
+                            <div class="cv-entry">
+                                <div class="cv-entry-head">
+                                    <strong>Graphic Designer & Video Editor</strong>
+                                    <span class="cv-date">Mar 2024 - Giu 2025</span>
+                                </div>
+                                <div class="cv-company">Hub-C - Forum Fra</div>
+                                <div class="cv-desc">Video shooting and editing, cinematics, color grading, graphics.
+                                </div>
+                            </div>
+
+                            <div class="cv-entry">
+                                <div class="cv-entry-head">
+                                    <strong>Graphic Designer</strong>
+                                    <span class="cv-date">Mar 2021 - Ott 2023</span>
+                                </div>
+                                <div class="cv-company">Simply Smile</div>
+                                <div class="cv-desc">Brand identity, packaging, social media management.</div>
+                            </div>
+
+                            <div class="cv-entry">
+                                <div class="cv-entry-head">
+                                    <strong>IT Technician</strong>
+                                    <span class="cv-date">Gen 2019 - Nov 2019</span>
+                                </div>
+                                <div class="cv-company">Vezzapp di Giuseppe Testini</div>
+                                <div class="cv-desc">Custom PC configurations and assembly, hardware and software
+                                    repairs.</div>
+                            </div>
+                        </div>
+
+                        <div class="cv-section">
+                            <h2 class="cv-section-title">Education:</h2>
+                            <div class="cv-entry">
+                                <div class="cv-entry-head">
+                                    <strong>Master’s Degree - Product Design</strong>
+                                    <span class="cv-date">Nov 2022 - Mar 2025</span>
+                                </div>
+                            </div>
+                            <div class="cv-entry">
+                                <div class="cv-entry-head">
+                                    <strong>Bachelor’s Degree - Product and Communication Design</strong>
+                                    <span class="cv-date">Nov 2019 - Mar 2023</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cv-footer-grid">
+                            <div class="cv-col">
+                                <h2 class="cv-section-title">Skills:</h2>
+                                <div class="cv-skills-grid">
+                                    <div>
+                                        <div class="cv-sub">Soft</div>
+                                        <div>Problem Solving</div>
+                                        <div>Teamwork and collaboration</div>
+                                        <div>Creativity and lateral thinking</div>
+                                        <div>Effective communication</div>
+                                    </div>
+                                    <div>
+                                        <div class="cv-sub">Technical</div>
+                                        <div>IT Technician</div>
+                                        <div>Video editing</div>
+                                        <div>Adobe Suite</div>
+                                        <div>3D Artist (Blender, C4D)</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cv-col">
+                                <h2 class="cv-section-title">Languages:</h2>
+                                <div class="cv-lang-item"><strong>Italian:</strong> /////</div>
+                                <div class="cv-lang-item"><strong>English:</strong> ///</div>
+                                <div class="cv-lang-item"><strong>Albanian:</strong> ///</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statusbar -->
+            <div class="kali-statusbar">
+                <div class="kali-status-left">
+                    <span>curriculum.pdf</span>
+                    <span class="kali-status-sep">&bull;</span>
+                    <span>1 Pagina &bull; 27.4 KB &bull; PDF 1.7</span>
+                </div>
+                <div class="kali-status-right">
+                    <span>Debian XFCE &bull; Press <kbd>Esc</kbd> to close</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================
+             WINDOW 2: MOTION REEL (Video Player)
+             ======================================================== -->
+        <div class="kali-window kali-window-reel is-closed" id="kali-win-reel" role="region"
+            aria-label="Finestra XFCE — reel.mp4">
+            <!-- Titlebar (macOS / Virgil Abloh Style with Gray Gradient) -->
+            <div class="kali-titlebar" id="kali-tb-reel">
+                <div class="kali-controls">
+                    <button class="kali-btn kali-btn-close" data-win="reel" aria-label="Chiudi" title="Chiudi"></button>
+                    <button class="kali-btn kali-btn-min" data-win="reel" aria-label="Riduci a icona"
+                        title="Riduci a icona"></button>
+                    <button class="kali-btn kali-btn-max" data-win="reel" aria-label="Ingrandisci"
+                        title="Ingrandisci"></button>
+                </div>
+                <div class="kali-title-info">
+                    <span class="kali-title-text">reel.mp4 — Video Player</span>
+                </div>
+                <div class="kali-titlebar-spacer" aria-hidden="true"></div>
+            </div>
+
+            <!-- Menubar -->
+            <div class="kali-menubar">
+                <span class="kali-menu-item">Media</span>
+                <span class="kali-menu-item">Playback</span>
+                <span class="kali-menu-item">Audio</span>
+                <span class="kali-menu-item">Video</span>
+                <span class="kali-menu-item">Help</span>
+            </div>
+
+            <!-- Action Toolbar -->
+            <div class="kali-nav-toolbar">
+                <div class="kali-tool-group">
+                    <button class="kali-tb-btn" id="video-btn-play" title="Play / Pausa">
+                        <span id="video-play-icon">&#9654;</span>
+                        <span class="kali-tb-label" id="video-play-label">Play</span>
+                    </button>
+                    <button class="kali-tb-btn" id="video-btn-restart" title="Riavvia video">&#8634; Replay</button>
+                    <button class="kali-tb-btn" id="video-btn-mute" title="Disattiva/Attiva Audio">&#128266;
+                        Audio</button>
+                </div>
+                <div class="kali-tb-sep"></div>
+                <div class="kali-tool-group kali-tb-right">
+                    <span class="kali-tb-info" id="video-time-display">00:00 / 00:00</span>
+                    <button class="kali-tb-btn" id="video-btn-fs" title="Schermo intero">
+                        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <path d="M2 5V2h3M14 5V2h-3M2 11v3h3M14 11v3h-3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Video Content -->
+            <div class="kali-window-content kali-video-content">
+                <video id="kali-os-video" src="images/reel/reel.mp4" muted loop playsinline
+                    aria-label="Lorenzo Kraja Motion Reel Video"
+                    onerror="this.style.display='none'; const fb = this.nextElementSibling; if(fb) fb.style.display='flex';"></video>
+                <div class="nb-reel-placeholder" style="display:none;" aria-label="Placeholder reel">
+                    <div class="nb-reel-placeholder-inner">
+                        <div class="nb-reel-placeholder-title">reel.mp4</div>
+                        <div class="nb-reel-placeholder-text">File posizionato in <strong>images/reel/reel.mp4</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statusbar -->
+            <div class="kali-statusbar">
+                <div class="kali-status-left">
+                    <span>reel.mp4</span>
+                    <span class="kali-status-sep">&bull;</span>
+                    <span>1920 &times; 1080 &bull; 27.7 MB</span>
+                    <span class="kali-status-sep">&bull;</span>
+                    <span>60.0 fps (H.264)</span>
+                </div>
+                <div class="kali-status-right">
+                    <span>Debian XFCE &bull; Press <kbd>Esc</kbd> to close</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================
+             WINDOW 3: ARCHIVE FILE MANAGER (public---domain.com Exact Style)
+             ======================================================== -->
+        <div class="kali-window kali-window-projects is-closed" id="kali-win-projects" role="region"
+            aria-label="Archive — File Manager">
+            <!-- Titlebar (macOS / Virgil Abloh Style with Gray Gradient) -->
+            <div class="kali-titlebar" id="kali-tb-projects">
+                <div class="kali-controls">
+                    <button class="kali-btn kali-btn-close" data-win="projects" aria-label="Chiudi"
+                        title="Chiudi"></button>
+                    <button class="kali-btn kali-btn-min" data-win="projects" aria-label="Riduci a icona"
+                        title="Riduci a icona"></button>
+                    <button class="kali-btn kali-btn-max" data-win="projects" aria-label="Ingrandisci"
+                        title="Ingrandisci"></button>
+                </div>
+                <div class="kali-title-info">
+                    <span class="kali-title-text">archive — public---domain</span>
+                </div>
+                <div class="kali-titlebar-spacer" aria-hidden="true"></div>
+            </div>
+
+            <!-- public---domain Toolbar (<, >, CURRENT_FOLDER) -->
+            <div class="pd-fm-toolbar">
+                <div class="pd-toolbar-left">
+                    <button class="pd-nav-btn" id="pd-btn-back" title="Cartella precedente"
+                        aria-label="Indietro">&#8249;</button>
+                    <button class="pd-nav-btn" id="pd-btn-forward" title="Cartella successiva"
+                        aria-label="Avanti">&#8250;</button>
+                    <span class="pd-current-path" id="pd-path-label">AETHER</span>
+                </div>
+                <div class="pd-toolbar-right">
+                    <span id="pd-item-count">5 items</span>
+                </div>
+            </div>
+
+            <!-- 3-Column Miller Columns Body from public---domain Reference -->
+            <div class="pd-fm-body pd-3col-body">
+                <!-- Column 1: Folders List with count pills -->
+                <nav class="pd-col-folders" id="pd-folders-list" aria-label="Cartelle Archive">
+                    <!-- Injected dynamically by desktop.js with AETHER, NOMOD, LUCA, HOBBIES -->
+                </nav>
+
+                <!-- Column 2: Files in Active Folder with blue selection & ▶ arrow -->
+                <section class="pd-col-files" id="pd-files-container" aria-label="File della cartella">
+                    <div class="pd-files-list" id="pd-files-list">
+                        <!-- Injected dynamically by desktop.js -->
+                    </div>
+                </section>
+
+                <!-- Column 3: Inspector / Preview Pane with Image, Title, Subtitle & Key-Value Metadata -->
+                <aside class="pd-col-inspector" id="pd-inspector" aria-label="Ispettore file">
+                    <div class="pd-inspector-inner">
+                        <!-- Visual Preview Box -->
+                        <div class="pd-preview-box">
+                            <img id="pd-preview-img" src="images/aether/ath_01.jpg" alt="Anteprima file"
+                                class="pd-preview-image">
+                        </div>
+
+                        <!-- Title & Type -->
+                        <div class="pd-preview-header">
+                            <h2 class="pd-preview-title" id="pd-preview-title">ath_01.jpg</h2>
+                            <div class="pd-preview-subtitle" id="pd-preview-sub">JPEG image - 1.3 MB</div>
+                        </div>
+
+                        <!-- Key-Value Metadata Table (Exact match to reference) -->
+                        <div class="pd-metadata-table" id="pd-meta-table">
+                            <div class="pd-meta-row">
+                                <span class="pd-meta-key">Created</span>
+                                <span class="pd-meta-val" id="pd-meta-created">5/29/2024, 12:09:41 AM</span>
+                            </div>
+                            <div class="pd-meta-row">
+                                <span class="pd-meta-key">Modified</span>
+                                <span class="pd-meta-val" id="pd-meta-modified">5/29/2024, 12:09:41 AM</span>
+                            </div>
+                            <div class="pd-meta-row">
+                                <span class="pd-meta-key">Size</span>
+                                <span class="pd-meta-val" id="pd-meta-size">1326546</span>
+                            </div>
+                            <div class="pd-meta-row">
+                                <span class="pd-meta-key">Content-Type</span>
+                                <span class="pd-meta-val" id="pd-meta-type">image/jpeg</span>
+                            </div>
+                            <div class="pd-meta-row">
+                                <span class="pd-meta-key">Dimensions</span>
+                                <span class="pd-meta-val" id="pd-meta-dims">1920 &times; 2400</span>
+                            </div>
+                            <div class="pd-meta-row">
+                                <span class="pd-meta-key">Project</span>
+                                <span class="pd-meta-val" id="pd-meta-project">Aether (Jewelry, 2025)</span>
+                            </div>
+                        </div>
+
+                        <!-- Action button: Apri nel Portfolio -->
+                        <div class="pd-inspector-action">
+                            <a id="pd-preview-link" href="index.html#project-0" class="pd-portfolio-action-btn"
+                                target="_blank" rel="noopener">
+                                <span>Apri nel Portfolio</span>
+                                <span>&#8599;</span>
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Statusbar -->
+            <div class="kali-statusbar">
+                <div class="kali-status-left" id="pd-status-left">
+                    <span>4 cartelle</span>
+                    <span class="kali-status-sep">&bull;</span>
+                    <span id="pd-status-summary">16 file &bull; Archivio Progetti &amp; Hobbies</span>
+                </div>
+                <div class="kali-status-right">
+                    <span>public---domain / archive &bull; Seleziona un file per visualizzarlo</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Applications Popup Menu -->
+    <div class="kali-app-menu" id="kali-app-menu" style="display:none;" role="menu">
+        <div class="kali-app-menu-header">
+            <span class="kali-app-menu-title">LORENZO KRAJA // OS</span>
+            <span class="kali-app-menu-sub">XFCE Application Menu</span>
+        </div>
+        <div class="kali-app-menu-list">
+            <button class="kali-app-menu-item" data-action="win" data-target="cv">
+                <span class="kali-app-icon">&#128196;</span>
+                <span class="kali-app-name">Document Viewer (curriculum.pdf)</span>
+            </button>
+            <button class="kali-app-menu-item" data-action="win" data-target="reel">
+                <span class="kali-app-icon">&#127916;</span>
+                <span class="kali-app-name">Video Player (reel.mp4)</span>
+            </button>
+            <button class="kali-app-menu-item" data-action="win" data-target="projects">
+                <span class="kali-app-icon">&#128193;</span>
+                <span class="kali-app-name">archive — File Manager</span>
+            </button>
+            <div class="kali-app-menu-sep"></div>
+            <a href="index.html" class="kali-app-menu-item">
+                <span class="kali-app-icon">&#8592;</span>
+                <span class="kali-app-name">Return to Portfolio Home</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- BOTTOM SYSTEM TASKBAR (Debian XFCE Taskbar / Window Dock) -->
+    <footer class="kali-os-taskbar" role="contentinfo">
+        <div class="kali-taskbar-left">
+            <!-- Applications Launcher button -->
+            <button class="kali-taskbar-launcher" id="kali-launcher-btn" title="Menu Applicazioni">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <circle cx="5" cy="5" r="2.5"></circle>
+                    <circle cx="12" cy="5" r="2.5"></circle>
+                    <circle cx="19" cy="5" r="2.5"></circle>
+                    <circle cx="5" cy="12" r="2.5"></circle>
+                    <circle cx="12" cy="12" r="2.5"></circle>
+                    <circle cx="19" cy="12" r="2.5"></circle>
+                    <circle cx="5" cy="19" r="2.5"></circle>
+                    <circle cx="12" cy="19" r="2.5"></circle>
+                    <circle cx="19" cy="19" r="2.5"></circle>
+                </svg>
+                <span>Applications</span>
+            </button>
+            <div class="kali-taskbar-sep"></div>
+        </div>
+
+        <!-- Running Window Tabs (Taskbar Pills) -->
+        <div class="kali-taskbar-windows" id="kali-taskbar-windows">
+            <button class="kali-task-tab" data-win="cv" id="tab-cv">
+                <span class="kali-tab-dot"></span>
+                <span>curriculum.pdf</span>
+            </button>
+            <button class="kali-task-tab active" data-win="projects" id="tab-projects">
+                <span class="kali-tab-dot"></span>
+                <span>archive</span>
+            </button>
+            <button class="kali-task-tab" data-win="reel" id="tab-reel" style="display:none;">
+                <span class="kali-tab-dot"></span>
+                <span>reel.mp4</span>
+            </button>
+        </div>
+
+        <!-- Taskbar Right: Workspace switcher & Minimize all -->
+        <div class="kali-taskbar-right">
+            <div class="kali-workspace-switch">
+                <span class="kali-ws-btn active">1</span>
+                <span class="kali-ws-btn">2</span>
+            </div>
+            <button class="kali-show-desktop-btn" id="kali-show-desktop" title="Mostra Desktop">
+                <span></span>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Dedicated Desktop OS Logic -->
+    <script src="js/desktop.js"></script>
+</body>
+
+</html>

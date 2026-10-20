@@ -1,0 +1,2875 @@
+/* ============================================================
+   PORTFOLIO — Stylesheet
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Mono&display=swap');
+
+/* --- Reset & Base ------------------------------------------ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Color Variables & Dark Theme --- */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #111111;
+    --text-muted: #767676;
+    --nav-bg: rgba(255, 255, 255, 0.90);
+    --border-color: #efefef;
+    --media-bg: #f4f4f4;
+    --placeholder-bg: rgba(255, 255, 255, 0.86);
+    --grain-opacity: 0.16;
+    /* Opacità grana tema chiaro (modificabile da 0.0 a 1.0) */
+
+    /* Window Theme (Light / Neutral #ececec with Virgil Abloh silver-gray gradient titlebar) */
+    --win-bg: #ececec;
+    --win-border: #b8b8b8;
+    --win-title-bg: linear-gradient(180deg, #f0f0f0 0%, #e2e2e2 50%, #d4d4d4 100%);
+    --win-title-color: #383838;
+    --win-title-border: #bcbcbc;
+    --win-menubar-bg: #ececec;
+    --win-menubar-color: #222222;
+    --win-toolbar-bg: #ececec;
+    --win-toolbar-border: #d4d4d4;
+    --win-btn-bg: #dedede;
+    --win-btn-hover: #ffffff;
+    --win-btn-border: #c8c8c8;
+    --win-status-bg: #ececec;
+    --win-status-color: #555555;
+    --win-video-bg: #000000;
+}
+
+body.dark-theme {
+    --bg-color: #202020;
+    --text-color: #ffffff;
+    --text-muted: #ffffff;
+    --nav-bg: rgba(32, 32, 32, 0.90);
+    --border-color: #383838;
+    --media-bg: #2a2a2a;
+    --placeholder-bg: rgba(32, 32, 32, 0.88);
+    --grain-opacity: 0.12;
+    /* Opacità grana tema scuro (modificabile da 0.0 a 1.0) */
+
+    /* Window Theme (Dark / Charcoal with sleek dark-gray gradient titlebar) */
+    --win-bg: #202020;
+    --win-border: #383838;
+    --win-title-bg: linear-gradient(180deg, #363636 0%, #2b2b2b 50%, #222222 100%);
+    --win-title-color: #e2e2e2;
+    --win-title-border: #1a1a1a;
+    --win-menubar-bg: #222222;
+    --win-menubar-color: #d8dee9;
+    --win-toolbar-bg: #262626;
+    --win-toolbar-border: #353535;
+    --win-btn-bg: #333333;
+    --win-btn-hover: #404040;
+    --win-btn-border: #444444;
+    --win-status-bg: #1c1c1c;
+    --win-status-color: #9aa2b1;
+    --win-video-bg: #141414;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 17px;
+    line-height: 1.35;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+}
+
+/* Base background layer in DOM stack so mix-blend-mode blends with page background */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-color: var(--bg-color);
+    z-index: -2;
+    pointer-events: none;
+    transition: background-color 0.3s ease;
+}
+
+/* --- Seamless Animated Film Grain Overlay --- */
+.film-grain {
+    position: fixed;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background-image: url('../assets/noise.png');
+    background-repeat: repeat;
+    background-size: 512px 512px;
+    opacity: var(--grain-opacity, 0.16);
+    pointer-events: none;
+    z-index: 0;
+    /* Rimane sotto a testi e immagini (che sono a z-index: 1) */
+    animation: animateGrain 8s steps(10) infinite;
+    will-change: transform;
+}
+
+@keyframes animateGrain {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-5%, -10%);
+    }
+
+    20% {
+        transform: translate(-15%, -20%);
+    }
+
+    30% {
+        transform: translate(-5%, -10%);
+    }
+
+    40% {
+        transform: translate(-15%, -20%);
+    }
+
+    50% {
+        transform: translate(-5%, -10%);
+    }
+
+    60% {
+        transform: translate(-15%, -20%);
+    }
+
+    70% {
+        transform: translate(-5%, -10%);
+    }
+
+    80% {
+        transform: translate(-15%, -20%);
+    }
+
+    90% {
+        transform: translate(-5%, -10%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .film-grain {
+        animation: none;
+    }
+}
+
+#app {
+    position: relative;
+    z-index: 1;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease, opacity 0.2s ease;
+}
+
+a:hover {
+    opacity: 0.6;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* --- Theme Toggle Switch (Animated Sun / Moon Icons) --- */
+.nb-clock-toggle-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
+#live-clock {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    min-width: 90px;
+    text-align: right;
+    display: inline-block;
+    color: inherit;
+    user-select: none;
+}
+
+.nb-theme-toggle {
+    background: none;
+    border: none;
+    padding: 2px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    outline: none;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nb-theme-toggle:hover {
+    opacity: 0.75;
+    transform: scale(1.08);
+}
+
+.nb-theme-toggle:active {
+    transform: scale(0.92);
+}
+
+.nb-theme-icon-wrap {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nb-theme-icon {
+    position: absolute;
+    inset: 0;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Light Theme (Default):
+   Sun is black (#111111), fully visible and resting at 0deg.
+   Moon is hidden, rotated out at -85deg and scaled down. */
+.nb-theme-icon-sun {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+    color: var(--text-color);
+}
+
+.nb-theme-icon-moon {
+    opacity: 0;
+    transform: rotate(-85deg) scale(0.35);
+    color: var(--text-color);
+}
+
+/* Dark Theme (body.dark-theme):
+   Sun rotates out, scales down and fades out.
+   Moon smoothly rotates into view from -85deg to 0deg, scales up to 1 and becomes white (#ffffff). */
+body.dark-theme .nb-theme-icon-sun {
+    opacity: 0;
+    transform: rotate(85deg) scale(0.35);
+}
+
+body.dark-theme .nb-theme-icon-moon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+    color: var(--text-color);
+}
+
+/* --- Mobile Hamburger Toggle Button (Desktop: hidden) --- */
+.nb-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.nb-menu-toggle:hover {
+    opacity: 0.75;
+}
+
+.nb-menu-toggle:active {
+    transform: scale(0.92);
+}
+
+.nb-menu-icon {
+    width: 18px;
+    height: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.nb-menu-line {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background-color: currentColor;
+    border-radius: 1px;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.2s ease,
+                background-color 0.25s ease;
+    transform-origin: center;
+}
+
+/* Transizione morbida in 'X' quando aperto */
+.nb-menu-toggle.is-open .nb-line-top {
+    transform: translateY(5.25px) rotate(45deg);
+}
+
+.nb-menu-toggle.is-open .nb-line-bottom {
+    transform: translateY(-5.25px) rotate(-45deg);
+}
+
+.nb-mobile-menu {
+    display: none;
+}
+
+/* --- Top Navigation (Monochrome Dynamic Contrast) --------- */
+.nb-top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: transparent;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 10px 14px 12px 14px;
+    font-size: 16px;
+    color: var(--text-color);
+    transition: color 0.25s ease;
+}
+
+.nb-nav-col-1,
+.nb-nav-col-3,
+.nb-nav-col-4 {
+    color: var(--text-color);
+    transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.nb-nav-col-1 a,
+.nb-nav-col-3 a,
+.nb-nav-col-4 a {
+    color: inherit;
+    transition: color 0.25s ease, opacity 0.2s ease, text-shadow 0.25s ease;
+}
+
+/* Inversione monocromatica (bianco puro con ombra morbida quando passa sopra immagini) */
+.nb-nav-col-1.nb-contrast-invert,
+.nb-nav-col-3.nb-contrast-invert,
+.nb-nav-col-4.nb-contrast-invert {
+    color: #ffffff !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+}
+
+.nb-nav-col-1.nb-contrast-invert a,
+.nb-nav-col-3.nb-contrast-invert a,
+.nb-nav-col-4.nb-contrast-invert a {
+    color: #ffffff !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+}
+
+.nb-contrast-invert .nb-theme-icon {
+    color: #ffffff !important;
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.65));
+}
+
+.nb-contrast-invert .nb-menu-line {
+    background-color: #ffffff !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
+}
+
+.nb-nav-col-1 {
+    grid-column: 1;
+}
+
+.nb-nav-home-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    font-weight: 500;
+    display: inline-block;
+    transition: opacity 0.2s ease, color 0.25s ease;
+}
+
+.nb-nav-home-link:hover {
+    opacity: 0.65;
+}
+
+.nb-nav-col-3 {
+    grid-column: 3;
+    display: flex;
+    align-items: center;
+}
+
+.nb-nav-col-4 {
+    grid-column: 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- Hero (Retained for archive / layout fallback) --------- */
+.nb-hero {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 135px;
+    margin-bottom: 195px;
+}
+
+.nb-hero-text {
+    grid-column: 1;
+    font-size: 21px;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    max-width: 340px;
+}
+
+/* --- Motion Reel (Fullscreen Rick Owens Style — A Filo con la Top Navbar) ------------ */
+.nb-reel.nb-reel-fullscreen {
+    position: relative;
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin: 0 0 100px 0;
+    height: calc(100vh - 48px);
+    min-height: calc(100svh - 48px);
+    overflow: hidden;
+    background: #000000;
+}
+
+.nb-reel-video-wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+}
+
+.nb-fullscreen-reel {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: #000000;
+}
+
+
+/* Kali Desktop Workspace (Transparent to show site background & film grain) */
+.kali-desktop {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 12px;
+    background: transparent;
+    border: 1px dashed var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    user-select: none;
+    transition: border-color 0.3s ease;
+}
+
+/* Desktop Icon (reel.mp4) - Draggable */
+.kali-desktop-icon {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 86px;
+    padding: 8px 6px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: grab;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    z-index: 10;
+    outline: none;
+    touch-action: none;
+}
+
+.kali-desktop-icon:active,
+.kali-desktop-icon.is-dragging {
+    cursor: grabbing;
+    opacity: 0.9;
+}
+
+.kali-desktop-icon:hover {
+    background: rgba(120, 120, 120, 0.12);
+}
+
+.kali-desktop-icon.is-selected,
+.kali-desktop-icon:focus-visible {
+    background: rgba(23, 147, 209, 0.18);
+    border-color: rgba(0, 180, 230, 0.55);
+    box-shadow: 0 0 10px rgba(0, 180, 230, 0.15);
+}
+
+.kali-icon-thumb {
+    position: relative;
+    width: 44px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2b7bb8;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    transition: color 0.3s ease;
+    pointer-events: none;
+}
+
+body.dark-theme .kali-icon-thumb {
+    color: #4ba3e3;
+}
+
+.kali-icon-badge {
+    position: absolute;
+    bottom: 2px;
+    right: -2px;
+    background: #00b4d8;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    padding: 1px 3px;
+    border-radius: 3px;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+}
+
+/* PDF Specific Icon Styling */
+.kali-icon-pdf .kali-icon-thumb,
+.kali-thumb-pdf {
+    color: #d93829 !important;
+}
+
+body.dark-theme .kali-icon-pdf .kali-icon-thumb,
+body.dark-theme .kali-thumb-pdf {
+    color: #ff5252 !important;
+}
+
+.kali-badge-pdf {
+    background: #d93829 !important;
+    color: #ffffff !important;
+}
+
+body.dark-theme .kali-badge-pdf {
+    background: #e04434 !important;
+    color: #ffffff !important;
+}
+
+.kali-badge-video,
+.kali-badge-mp4 {
+    background: #00838f !important;
+    color: #ffffff !important;
+}
+
+/* Document & Video Media Preview Desktop Thumbs */
+.kali-thumb-doc {
+    width: 44px;
+    height: 56px;
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(0, 0, 0, 0.14);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.kali-preview-doc-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.kali-thumb-video {
+    width: 54px;
+    height: 38px;
+    background: #0d0f12;
+    border-radius: 4px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.kali-preview-video-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.kali-media-play-pill {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(2px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.kali-desktop-icon:hover .kali-media-play-pill {
+    background: rgba(0, 180, 230, 0.9);
+    transform: scale(1.12);
+}
+
+.kali-desktop-icon:hover .kali-thumb-doc,
+.kali-desktop-icon:hover .kali-thumb-video {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(0, 180, 230, 0.4);
+}
+
+/* Trash Icon (Uploaded macOS-style wastebasket) */
+.kali-thumb-trash {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.kali-trash-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+}
+
+.kali-desktop-icon:hover .kali-trash-img {
+    transform: scale(1.08);
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+}
+
+.kali-icon-label {
+    color: var(--text-color);
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+    text-align: center;
+    word-break: break-all;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+    pointer-events: none;
+}
+
+/* XFCE / Debian Window Chrome - Draggable & Adaptive */
+.kali-window {
+    width: min(1040px, 94%);
+    height: min(640px, 86%);
+    background: var(--win-bg);
+    border: 1px solid var(--win-border);
+    border-radius: 8px;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22), 0 2px 6px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: absolute;
+    z-index: 20;
+    transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                width 0.25s ease,
+                height 0.25s ease,
+                background-color 0.25s ease,
+                border-color 0.25s ease;
+}
+
+.kali-window.is-dragging {
+    transition: none !important;
+    box-shadow: 0 25px 65px rgba(0, 0, 0, 0.65);
+}
+
+/* Window Closed / Minimized States */
+.kali-window.is-closed {
+    opacity: 0;
+    transform: scale(0.92) translateY(20px);
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.kali-window.is-minimized {
+    opacity: 0;
+    transform: scale(0.2) translate(-140%, -100%);
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+/* Maximized State */
+.kali-window.is-maximized {
+    width: 98% !important;
+    height: 96% !important;
+    top: 2% !important;
+    left: 1% !important;
+    border-radius: 2px;
+    transform: none !important;
+}
+
+/* Titlebar (macOS Style: subtle silver-gray gradient, centered title, traffic light buttons on left) */
+.kali-titlebar {
+    height: 32px;
+    background: var(--win-title-bg);
+    border-bottom: 1px solid var(--win-title-border);
+    color: var(--win-title-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    user-select: none;
+    flex-shrink: 0;
+    cursor: grab;
+    touch-action: none;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.kali-titlebar:active,
+.kali-titlebar.is-dragging {
+    cursor: grabbing;
+}
+
+.kali-title-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 10px;
+    pointer-events: none;
+}
+
+.kali-title-text {
+    color: var(--win-title-color);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+body.dark-theme .kali-title-text {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* Matching width spacer on the right so title is mathematically centered */
+.kali-titlebar-spacer {
+    width: 52px;
+    flex-shrink: 0;
+    pointer-events: none;
+}
+
+/* macOS Traffic Light Window Controls on Left */
+.kali-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 52px;
+    flex-shrink: 0;
+}
+
+.kali-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid transparent;
+    transition: transform 0.1s ease, filter 0.15s ease, opacity 0.15s ease;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+}
+
+.kali-btn:active {
+    transform: scale(0.88);
+}
+
+.kali-btn-close {
+    background-color: #ff5f56;
+    border-color: #e0443e;
+}
+
+.kali-btn-min {
+    background-color: #ffbd2e;
+    border-color: #dea123;
+}
+
+.kali-btn-max {
+    background-color: #27c93f;
+    border-color: #1aab29;
+}
+
+/* Subtle glyphs on hover inside the dots */
+.kali-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.kali-controls:hover .kali-btn::after {
+    opacity: 0.75;
+}
+
+.kali-btn-close::after {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 1.5l5 5m0-5l-5 5' stroke='%234d0000' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-size: 7px 7px;
+}
+
+.kali-btn-min::after {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 4h5' stroke='%235c4000' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-size: 7px 7px;
+}
+
+.kali-btn-max::after {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 2.5l5 3M6.5 2.5l-5 3' stroke='%23004d10' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-size: 7px 7px;
+}
+
+/* XFCE Menubar (File, Edit, View, Go, Help) */
+.kali-menubar {
+    height: 26px;
+    background: var(--win-menubar-bg);
+    border-bottom: 1px solid var(--win-toolbar-border);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 16px;
+    flex-shrink: 0;
+    user-select: none;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.kali-menu-item {
+    font-size: 13px;
+    color: var(--win-menubar-color);
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 2px;
+}
+
+.kali-menu-item:hover {
+    background: rgba(120, 120, 120, 0.18);
+}
+
+/* XFCE Navigation Toolbar */
+.kali-nav-toolbar {
+    height: 36px;
+    background: var(--win-toolbar-bg);
+    border-bottom: 1px solid var(--win-toolbar-border);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 8px;
+    flex-shrink: 0;
+    overflow-x: auto;
+    user-select: none;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.kali-tool-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.kali-tb-btn {
+    height: 26px;
+    min-width: 26px;
+    padding: 0 7px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--win-menubar-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    cursor: pointer;
+    transition: background 0.1s ease, border-color 0.1s ease;
+}
+
+.kali-tb-btn:hover {
+    background: var(--win-btn-bg);
+    border-color: var(--win-btn-border);
+}
+
+.kali-tb-sep {
+    width: 1px;
+    height: 18px;
+    background: var(--win-toolbar-border);
+    margin: 0 4px;
+}
+
+.kali-tb-right {
+    margin-left: auto;
+}
+
+.kali-tb-info {
+    font-size: 12px;
+    color: var(--win-status-color);
+    font-family: 'Space Mono', monospace;
+    margin-right: 6px;
+}
+
+/* Video Content Container */
+.kali-window-content {
+    flex: 1;
+    background: var(--win-video-bg);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.25s ease;
+}
+
+.kali-window-content video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: var(--win-video-bg);
+}
+
+/* Focused Window Stacking */
+.kali-window.is-focused {
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-theme .kali-window.is-focused {
+    box-shadow: 0 28px 75px rgba(0, 0, 0, 0.85), 0 0 0 1px var(--win-border);
+}
+
+/* CV Window & PDF Frame */
+.kali-window-cv {
+    width: min(540px, 94%);
+    height: min(620px, 86%);
+}
+
+.kali-pdf-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    background: #525659;
+}
+
+/* Adaptive CV Document Sheet (HTML View) */
+.kali-doc-sheet-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 30px 16px;
+    display: flex;
+    justify-content: center;
+    background: rgba(120, 120, 120, 0.12);
+}
+
+.kali-doc-sheet {
+    width: min(720px, 100%);
+    background: #ffffff;
+    color: #111111;
+    padding: 42px 48px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.45;
+    font-size: 13.5px;
+    transition: transform 0.2s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+body.dark-theme .kali-doc-sheet {
+    background: #181818;
+    color: #eeeeee;
+    border: 1px solid #333333;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.65);
+}
+
+.cv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #111111;
+}
+
+body.dark-theme .cv-header {
+    border-bottom-color: #4c566a;
+}
+
+.cv-name {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    line-height: 1.1;
+    color: inherit;
+}
+
+.cv-contacts {
+    font-size: 12px;
+    color: #666666;
+    font-family: 'Space Mono', monospace;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+
+body.dark-theme .cv-contacts {
+    color: #9aa2b1;
+}
+
+.cv-contacts a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.cv-roles {
+    text-align: right;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: #222222;
+}
+
+body.dark-theme .cv-roles {
+    color: #eceff4;
+}
+
+.cv-intro {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 22px;
+    color: #444444;
+}
+
+body.dark-theme .cv-intro {
+    color: #d8dee9;
+}
+
+.cv-section {
+    margin-bottom: 20px;
+}
+
+.cv-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 4px;
+    letter-spacing: -0.01em;
+}
+
+body.dark-theme .cv-section-title {
+    border-bottom-color: #3b4252;
+    color: #eceff4;
+}
+
+.cv-entry {
+    margin-bottom: 12px;
+}
+
+.cv-entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 13.5px;
+    gap: 8px;
+}
+
+.cv-entry-head strong {
+    font-weight: 600;
+}
+
+.cv-date {
+    font-size: 11.5px;
+    color: #777777;
+    font-family: 'Space Mono', monospace;
+    white-space: nowrap;
+}
+
+body.dark-theme .cv-date {
+    color: #999999;
+}
+
+.cv-company {
+    font-size: 12.5px;
+    color: #555555;
+}
+
+body.dark-theme .cv-company {
+    color: #bbbbbb;
+}
+
+.cv-desc {
+    font-size: 12px;
+    color: #666666;
+    margin-top: 2px;
+}
+
+body.dark-theme .cv-desc {
+    color: #aaaaaa;
+}
+
+.cv-footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24px;
+    margin-top: 16px;
+}
+
+.cv-skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    font-size: 12.5px;
+}
+
+.cv-sub {
+    font-weight: 700;
+    margin-bottom: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #777777;
+}
+
+body.dark-theme .cv-sub {
+    color: #aaaaaa;
+}
+
+.cv-lang-item {
+    font-size: 12.5px;
+    margin-bottom: 6px;
+    font-family: 'Space Mono', monospace;
+}
+
+.kali-tb-label {
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    margin-left: 4px;
+}
+
+/* XFCE Status Bar */
+.kali-statusbar {
+    height: 24px;
+    background: var(--win-status-bg);
+    border-top: 1px solid var(--win-toolbar-border);
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--win-status-color);
+    flex-shrink: 0;
+    user-select: none;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.kali-status-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.kali-status-sep {
+    opacity: 0.5;
+}
+
+.kali-status-right {
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.kali-status-right kbd {
+    background: var(--win-btn-bg);
+    padding: 0 4px;
+    border-radius: 2px;
+    border: 1px solid var(--win-btn-border);
+    color: var(--win-menubar-color);
+}
+
+
+.nb-reel-placeholder-inner {
+    position: relative;
+    z-index: 1;
+    background: var(--placeholder-bg);
+    padding: 14px 16px;
+    transition: background-color 0.3s ease;
+}
+
+.nb-reel-placeholder-title {
+    color: var(--text-color);
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+}
+
+.nb-reel-placeholder-text {
+    max-width: 320px;
+    line-height: 1.45;
+    color: var(--text-muted);
+}
+
+#app > main {
+    padding: 0 14px;
+}
+
+/* --- Project Block ---------------------------------------- */
+.nb-project {
+    margin-bottom: 110px;
+}
+
+.nb-project-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    align-items: center;
+    padding-bottom: 10px;
+    position: sticky;
+    top: 28px;
+    background: var(--nav-bg);
+    z-index: 90;
+    transition: background-color 0.3s ease;
+}
+
+.nb-project-title-wrap {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    font-size: 16px;
+}
+
+/* + button */
+.nb-btn-plus {
+    background: none;
+    border: none;
+    font-size: 19px;
+    line-height: 1;
+    color: var(--text-color);
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.nb-btn-plus.open {
+    transform: rotate(45deg);
+}
+
+/* Grid‑view toggle */
+.nb-project-view-toggle {
+    grid-column: 4;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nb-btn-grid {
+    background: none;
+    border: none;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nb-btn-grid svg {
+    width: 11px;
+    height: 11px;
+    fill: var(--text-color);
+    transition: fill 0.3s ease;
+}
+
+/* --- Project Details (always visible) --------------------- */
+.nb-project-details {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 0 0 28px 0;
+    font-size: 16px;
+}
+
+.nb-project-meta {
+    grid-column: 1;
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 16px;
+}
+
+.nb-project-meta .nb-meta-title {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.nb-project-meta .nb-meta-sep,
+.nb-project-meta .nb-meta-category,
+.nb-project-meta .nb-meta-year {
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.nb-project-description {
+    grid-column: 2 / span 2;
+    max-width: 520px;
+    line-height: 1.45;
+    color: var(--text-color);
+}
+
+/* --- Media Grid ------------------------------------------- */
+.nb-media-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.nb-media-track {
+    grid-column: 1 / span 4;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px 8px;
+    align-items: start;
+}
+
+.nb-media-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nb-media-box {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: var(--media-bg);
+    transition: background-color 0.3s ease;
+}
+
+/* Aspect ratios */
+.nb-aspect-tall {
+    aspect-ratio: 4 / 5.2;
+}
+
+.nb-aspect-landscape {
+    aspect-ratio: 16 / 10.5;
+}
+
+.nb-aspect-square {
+    aspect-ratio: 1 / 1;
+}
+
+.nb-media-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Overlay text on images */
+.nb-overlay-text {
+    position: absolute;
+    top: 53%;
+    left: 14px;
+    right: 14px;
+    display: flex;
+    justify-content: space-between;
+    color: #ffffff;
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+    text-transform: uppercase;
+}
+
+/* Caption */
+.nb-caption {
+    font-family: 'Space Mono', monospace;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+/* --- Footer ----------------------------------------------- */
+.nb-footer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 40px 14px 20px 14px;
+    border-top: 1px solid var(--border-color);
+    font-size: 16px;
+    color: var(--text-muted);
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.nb-footer-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* --- Responsive ------------------------------------------- */
+@media (max-width: 900px) {
+
+    .nb-hero,
+    .nb-project-bar,
+    .nb-project-details,
+    .nb-footer {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .nb-hero-text {
+        grid-column: 1 / -1;
+        max-width: 100%;
+    }
+
+    .nb-reel {
+        min-height: 300px;
+    }
+
+    .nb-media-track {
+        grid-column: 1 / -1;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .nb-project-title-wrap {
+        grid-column: 1;
+    }
+
+    .nb-project-view-toggle {
+        grid-column: 2;
+    }
+
+    .nb-project-meta {
+        grid-column: 1;
+    }
+
+    .nb-project-description {
+        grid-column: 1 / -1;
+    }
+}
+
+
+/* ============================================================
+   LORENZO KRAJA OS — Operating System Page & Desktop Styles
+   (Virgil Abloh public---domain.com + Debian Kali XFCE)
+   ============================================================ */
+
+body.kali-os-page {
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    user-select: none;
+}
+
+/* Base background layer in DOM stack */
+body.kali-os-page::before {
+    inset: 0;
+    position: fixed;
+    content: "";
+    background-color: var(--bg-color);
+    z-index: -2;
+}
+
+/* --- Top System Bar --- */
+.kali-os-topbar {
+    height: 36px;
+    flex-shrink: 0;
+    background: var(--win-toolbar-bg);
+    border-bottom: 1px solid var(--win-toolbar-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--text-color);
+    position: relative;
+    z-index: 1000;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.kali-topbar-left,
+.kali-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.kali-topbar-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: rgba(128, 128, 128, 0.12);
+    border: 1px solid var(--border-color);
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.kali-topbar-back:hover {
+    background: rgba(128, 128, 128, 0.24);
+    transform: translateX(-2px);
+}
+
+.kali-topbar-sep {
+    opacity: 0.35;
+}
+
+.kali-topbar-brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.kali-brand-text {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    font-size: 12px;
+}
+
+.kali-brand-tag {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+}
+
+/* Center active pill */
+.kali-topbar-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kali-topbar-active-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 10px;
+    border-radius: 12px;
+    background: rgba(128, 128, 128, 0.14);
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 320px;
+}
+
+.kali-active-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00b4d8;
+    box-shadow: 0 0 6px #00b4d8;
+}
+
+.kali-sys-indicators {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.kali-sys-pill {
+    font-size: 10px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    background: rgba(128, 128, 128, 0.15);
+    color: var(--text-muted);
+}
+
+.kali-topbar-clock {
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    min-width: 90px;
+    text-align: right;
+}
+
+/* --- Desktop Workspace --- */
+.kali-os-desktop {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 70px);
+    overflow: hidden;
+    padding: 0;
+}
+
+/* Desktop Icons Layer (Casual / Scattered Positioning) */
+.kali-desktop-icons-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.kali-desktop-icons-layer .kali-desktop-icon {
+    position: absolute;
+    pointer-events: auto;
+}
+
+/* Badges for icons */
+.kali-badge-txt {
+    background: #4c566a !important;
+    color: #ffffff !important;
+}
+
+.kali-badge-dir {
+    background: #00bcd4 !important;
+    color: #ffffff !important;
+}
+
+.kali-icon-txt .kali-icon-thumb {
+    color: #a3be8c !important;
+}
+
+.kali-icon-dir .kali-icon-thumb {
+    color: #00c5d4 !important;
+}
+
+.kali-icon-trash .kali-icon-thumb {
+    color: #b48ead !important;
+}
+
+/* ============================================================
+   VIRGIL ABLOH public---domain.com 3-Column Archive File Manager
+   (Disposizione identica alla reference: Cartelle | File | Ispettore Preview)
+   ============================================================ */
+.kali-window-projects {
+    width: min(780px, 96vw);
+    height: min(580px, 86vh);
+    background: var(--win-bg);
+    border: 1px solid var(--win-border);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+}
+
+/* public---domain Header Toolbar (<, >, PATH) */
+.pd-fm-toolbar {
+    height: 38px;
+    background: var(--win-toolbar-bg);
+    border-bottom: 1px solid var(--win-toolbar-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--text-color);
+    user-select: none;
+    flex-shrink: 0;
+    transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.pd-toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pd-nav-btn {
+    width: 26px;
+    height: 24px;
+    background: var(--win-btn-bg);
+    border: 1px solid var(--win-btn-border);
+    border-radius: 4px;
+    color: var(--text-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.pd-nav-btn:hover:not(:disabled) {
+    background: var(--win-btn-hover);
+}
+
+.pd-nav-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.pd-current-path {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: -0.01em;
+    padding: 2px 6px;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+
+.pd-toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* 3-Column Miller Columns Container */
+.pd-3col-body {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    background: var(--win-bg);
+    position: relative;
+}
+
+/* Column 1: Folders List */
+.pd-col-folders {
+    width: 200px;
+    min-width: 170px;
+    max-width: 230px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--win-toolbar-border);
+    background: var(--win-bg);
+    overflow-y: auto;
+    padding: 6px 0;
+    user-select: none;
+    transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+body.dark-theme .pd-col-folders {
+    background: var(--win-bg);
+}
+
+.pd-folder-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--text-color);
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background 0.1s ease;
+}
+
+.pd-folder-row:hover {
+    background: rgba(128, 128, 128, 0.09);
+}
+
+.pd-folder-row.active {
+    background: rgba(128, 128, 128, 0.18);
+    border-left-color: #00c5d4;
+    font-weight: 700;
+}
+
+body.dark-theme .pd-folder-row.active {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.pd-folder-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 6px;
+}
+
+/* Pill Count Badge from Reference Image (e.g. 4, 24, 102) */
+.pd-pill-count {
+    background: rgba(128, 128, 128, 0.25);
+    color: var(--text-color);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 7px;
+    border-radius: 999px;
+    min-width: 22px;
+    text-align: center;
+    line-height: 1.35;
+    flex-shrink: 0;
+}
+
+.pd-folder-row.active .pd-pill-count {
+    background: rgba(0, 197, 212, 0.28);
+    color: var(--text-color);
+}
+
+/* Column 2: Files in Selected Folder */
+.pd-col-files {
+    width: 240px;
+    min-width: 210px;
+    max-width: 270px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--win-toolbar-border);
+    overflow-y: auto;
+    background: var(--win-bg);
+    display: flex;
+    flex-direction: column;
+    padding: 4px 0;
+    transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.pd-files-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.pd-file-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-family: 'Space Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text-color);
+    transition: background 0.1s ease;
+    user-select: none;
+}
+
+.pd-file-row:hover:not(.active) {
+    background: rgba(128, 128, 128, 0.08);
+}
+
+/* Active File in Vibrant System Blue (Exact reference match) */
+.pd-file-row.active {
+    background: #007aff !important;
+    color: #ffffff !important;
+}
+
+.pd-file-row.active .pd-file-icon,
+.pd-file-row.active .pd-arrow-glyph {
+    color: #ffffff !important;
+}
+
+.pd-file-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pd-file-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+}
+
+.pd-file-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Right Arrow Glyph (▶) */
+.pd-arrow-glyph {
+    color: rgba(128, 128, 128, 0.45);
+    font-size: 9px;
+    flex-shrink: 0;
+    margin-left: 6px;
+}
+
+/* Column 3: Inspector / Preview Pane (Exact Reference) */
+.pd-col-inspector {
+    flex: 1;
+    overflow-y: auto;
+    background: var(--win-bg);
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.25s ease;
+}
+
+.pd-inspector-inner {
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.pd-preview-box {
+    width: 100%;
+    min-height: 180px;
+    max-height: 250px;
+    background: rgba(128, 128, 128, 0.1);
+    border: 1px solid var(--win-toolbar-border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 16px;
+    padding: 10px;
+    transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+body.dark-theme .pd-preview-box {
+    background: #181818;
+}
+
+.pd-preview-image {
+    max-width: 100%;
+    max-height: 230px;
+    object-fit: contain;
+    display: block;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+}
+
+.pd-preview-header {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.pd-preview-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-color);
+    letter-spacing: -0.01em;
+    word-break: break-all;
+    margin-bottom: 4px;
+}
+
+.pd-preview-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* Key-Value Metadata Table (Exact Reference Styling) */
+.pd-metadata-table {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    border-top: 1px solid var(--win-toolbar-border);
+    padding-top: 14px;
+    margin-bottom: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11.5px;
+}
+
+.pd-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+}
+
+.pd-meta-key {
+    color: var(--text-color);
+    font-weight: 600;
+    opacity: 0.85;
+}
+
+.pd-meta-val {
+    color: var(--text-color);
+    text-align: right;
+    word-break: break-word;
+    font-weight: 400;
+}
+
+.pd-inspector-action {
+    display: flex;
+    justify-content: center;
+}
+
+.pd-portfolio-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 6px 16px;
+    border-radius: 4px;
+    background: rgba(128, 128, 128, 0.12);
+    border: 1px solid var(--win-toolbar-border);
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.pd-portfolio-action-btn:hover {
+    background: rgba(128, 128, 128, 0.22);
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+
+.kali-badge-cyan {
+    background: #00bcd4 !important;
+    color: #ffffff !important;
+}
+
+.kali-thumb-cyan-folder {
+    color: #00c5d4;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25));
+}
+
+/* --- Bottom Taskbar --- */
+.kali-os-taskbar {
+    height: 34px;
+    flex-shrink: 0;
+    background: var(--win-toolbar-bg);
+    border-top: 1px solid var(--win-toolbar-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    position: relative;
+    z-index: 1000;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+}
+
+.kali-taskbar-left,
+.kali-taskbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.kali-taskbar-launcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.kali-taskbar-launcher:hover {
+    background: var(--win-btn-bg);
+}
+
+.kali-taskbar-windows {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    flex: 1;
+    margin: 0 8px;
+}
+
+.kali-task-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(128, 128, 128, 0.12);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    padding: 3px 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-color);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.kali-task-tab.active {
+    background: rgba(23, 147, 209, 0.2);
+    border-color: rgba(0, 180, 230, 0.6);
+    font-weight: 700;
+}
+
+.kali-tab-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00b4d8;
+}
+
+.kali-task-tab:not(.active) .kali-tab-dot {
+    background: #767676;
+}
+
+.kali-workspace-switch {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.kali-ws-btn {
+    padding: 2px 6px;
+    border-radius: 2px;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.kali-ws-btn.active {
+    background: var(--win-btn-bg);
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+.kali-show-desktop-btn {
+    width: 12px;
+    height: 22px;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.kali-show-desktop-btn:hover {
+    background: var(--win-btn-bg);
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN (Mobile & Tablet <= 768px)
+   Virgil Abloh public---domain.com Style for BOTH index and about
+   ============================================================ */
+@media (max-width: 768px) {
+    /* --- INDEX.HTML: Portfolio Mobile Experience --- */
+    body:not(.kali-os-page) {
+        padding: 8px 10px;
+    }
+
+    /* Top Navigation: Clean, High-Contrast Header */
+    .nb-top-nav {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 10px 8px 12px 8px !important;
+        background: transparent !important;
+        grid-template-columns: none !important;
+        gap: 8px !important;
+    }
+
+    .nb-nav-col-1 {
+        flex: 0 0 auto !important;
+    }
+
+    .nb-nav-home-link {
+        font-size: 14.5px !important;
+        font-weight: 600 !important;
+        letter-spacing: -0.01em !important;
+        white-space: nowrap !important;
+    }
+
+    .nb-nav-col-3 {
+        display: none !important; /* About and Contact are accessible via mobile hamburger menu */
+    }
+
+    .nb-nav-col-4 {
+        display: flex !important;
+        align-items: center !important;
+        margin-left: auto !important;
+        gap: 8px !important;
+        flex: 0 0 auto !important;
+    }
+
+    .nb-nav-contact-link {
+        display: none !important;
+    }
+
+    .nb-clock-toggle-wrap {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .nb-menu-toggle {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* Mobile Hamburger Menu Dropdown Overlay */
+    .nb-mobile-menu {
+        display: block !important;
+        position: fixed !important;
+        top: 46px !important;
+        left: 10px !important;
+        right: 10px !important;
+        z-index: 9999 !important;
+        background: rgba(255, 255, 255, 0.94) !important;
+        backdrop-filter: blur(28px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+        border: 1px solid rgba(0, 0, 0, 0.12) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transform: translateY(-8px) scale(0.98) !important;
+        transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                    visibility 0.22s !important;
+        visibility: hidden !important;
+    }
+
+    .nb-mobile-menu.is-open {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: translateY(0) scale(1) !important;
+        visibility: visible !important;
+    }
+
+    body.dark-theme .nb-mobile-menu {
+        background: rgba(18, 18, 18, 0.95) !important;
+        border-color: rgba(255, 255, 255, 0.14) !important;
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65), 0 2px 10px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    .nb-mobile-menu-inner {
+        padding: 14px 12px 12px 12px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .nb-mobile-menu-nav {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+    }
+
+    .nb-mobile-link {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 12px 14px !important;
+        border-radius: 8px !important;
+        text-decoration: none !important;
+        color: var(--text-color) !important;
+        background: rgba(0, 0, 0, 0.035) !important;
+        border: 1px solid rgba(0, 0, 0, 0.06) !important;
+        transition: background 0.18s ease, transform 0.12s ease !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+
+    .nb-mobile-link:active {
+        transform: scale(0.985) !important;
+        background: rgba(0, 0, 0, 0.07) !important;
+    }
+
+    body.dark-theme .nb-mobile-link {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    body.dark-theme .nb-mobile-link:active {
+        background: rgba(255, 255, 255, 0.09) !important;
+    }
+
+    .nb-mobile-link-text {
+        font-size: 15.5px !important;
+        font-weight: 600 !important;
+        letter-spacing: -0.01em !important;
+    }
+
+    .nb-mobile-link-tag {
+        font-family: 'Space Mono', monospace !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        opacity: 0.6 !important;
+        letter-spacing: 0.03em !important;
+    }
+
+    .nb-mobile-menu-footer {
+        padding-top: 10px !important;
+        border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+    }
+
+    body.dark-theme .nb-mobile-menu-footer {
+        border-top-color: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .nb-mobile-meta-item {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        font-size: 10.5px !important;
+        font-family: 'Space Mono', monospace !important;
+        color: var(--text-color) !important;
+        opacity: 0.7 !important;
+    }
+
+    .nb-mobile-meta-label {
+        letter-spacing: 0.05em !important;
+        text-transform: uppercase !important;
+        font-size: 10px !important;
+    }
+
+    .nb-mobile-meta-val,
+    .nb-mobile-meta-email {
+        color: inherit !important;
+        text-decoration: none !important;
+        font-weight: 500 !important;
+    }
+
+    .nb-mobile-meta-email:hover {
+        text-decoration: underline !important;
+    }
+
+    #live-clock {
+        font-family: 'Space Mono', monospace !important;
+        font-size: 11.5px !important;
+        letter-spacing: 0.03em !important;
+        min-width: auto !important;
+        white-space: nowrap !important;
+    }
+
+    /* Fullscreen Motion Reel on Mobile (Perfect 100% width, no offset) */
+    .nb-reel.nb-reel-fullscreen {
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        height: calc(100svh - 52px) !important;
+        min-height: calc(100svh - 52px) !important;
+        margin-top: 0 !important;
+        margin-bottom: 56px !important;
+    }
+
+    #app > main {
+        padding: 0 12px !important;
+    }
+
+    /* Projects Section on Mobile */
+    .nb-project {
+        margin-bottom: 76px !important;
+    }
+
+    .nb-project-details {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        padding: 0 4px 20px 4px !important;
+        grid-template-columns: none !important;
+    }
+
+    .nb-project-meta {
+        font-size: 15px !important;
+        gap: 6px !important;
+    }
+
+    .nb-project-description {
+        font-size: 14.5px !important;
+        line-height: 1.5 !important;
+        max-width: 100% !important;
+        grid-column: auto !important;
+    }
+
+    /* Media Track: Editorial Hero (Full Width) + 2-Col Details */
+    .nb-media-container {
+        display: block !important;
+    }
+
+    .nb-media-track {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 14px 8px !important;
+        width: 100% !important;
+    }
+
+    /* First item (Hero image of each project) spans full width */
+    .nb-media-track .nb-media-item:first-child {
+        grid-column: 1 / -1 !important;
+    }
+
+    .nb-media-track .nb-media-item:first-child .nb-aspect-landscape,
+    .nb-media-track .nb-media-item:first-child .nb-aspect-tall {
+        aspect-ratio: 4 / 3.8 !important;
+    }
+
+    .nb-overlay-text {
+        font-size: 12px !important;
+        left: 10px !important;
+        right: 10px !important;
+    }
+
+    .nb-caption {
+        font-size: 12px !important;
+        padding: 2px 2px 0 2px !important;
+    }
+
+    /* Footer on Mobile */
+    .nb-footer {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        padding-top: 36px !important;
+        padding-bottom: 24px !important;
+        font-size: 14px !important;
+        grid-template-columns: none !important;
+    }
+
+    .nb-footer-end {
+        justify-content: flex-start !important;
+    }
+
+    /* ============================================================
+       ABOUT.HTML: Public Domain Mobile Desktop OS Canvas
+       (Identico alle reference: canvas scrollabile, finestre stacked)
+       ============================================================ */
+    body.kali-os-page {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        min-height: 100svh !important;
+        position: relative !important;
+    }
+
+    /* Topbar on Mobile */
+    body.kali-os-page .kali-topbar {
+        position: sticky !important;
+        top: 0 !important;
+        height: 38px !important;
+        padding: 0 10px !important;
+        z-index: 1000 !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+    }
+
+    body.kali-os-page .kali-topbar-brand .kali-brand-tag,
+    body.kali-os-page .kali-sys-indicators,
+    body.kali-os-page .kali-topbar-center,
+    body.kali-os-page .kali-active-window-title,
+    body.kali-os-page .kali-topbar-sep {
+        display: none !important;
+    }
+
+    body.kali-os-page .kali-brand-link strong {
+        font-size: 13.5px !important;
+        letter-spacing: -0.01em !important;
+    }
+
+    body.kali-os-page .kali-clock-block {
+        font-size: 12px !important;
+    }
+
+    /* Desktop Canvas: vertically scrollable feed */
+    body.kali-os-page .kali-os-desktop {
+        min-height: calc(100svh - 78px) !important;
+        height: auto !important;
+        overflow-y: visible !important;
+        overflow-x: hidden !important;
+        padding: 10px 8px 56px 8px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        position: relative !important;
+    }
+
+    /* Desktop Icons Grid: Clean Top Row */
+    body.kali-os-page .kali-desktop-icons-layer {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px 4px !important;
+        position: static !important;
+        padding: 6px 2px 14px 2px !important;
+        width: 100% !important;
+        max-width: 560px !important;
+        margin: 0 auto !important;
+        order: 1 !important;
+    }
+
+    body.kali-os-page .kali-desktop-icon {
+        display: flex !important;
+        width: auto !important;
+        position: static !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+        padding: 6px 2px !important;
+    }
+
+    body.kali-os-page .kali-icon-label {
+        font-size: 11px !important;
+    }
+
+    /* Floating Windows: Stacked and fluidly scrollable down the page */
+    body.kali-os-page .kali-window {
+        position: relative !important;
+        inset: auto !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: 100% !important;
+        max-width: 560px !important;
+        margin: 0 auto 16px auto !important;
+        border-radius: 8px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.24) !important;
+        transform: none !important;
+        z-index: 20 !important;
+        order: 2 !important;
+    }
+
+    body.kali-os-page .kali-window.is-closed {
+        display: none !important;
+    }
+
+    body.kali-os-page .kali-window.is-minimized {
+        display: none !important;
+    }
+
+    body.kali-os-page .kali-window.is-focused {
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 180, 230, 0.5) !important;
+    }
+
+    /* Window Header Controls on Mobile */
+    body.kali-os-page .kali-titlebar {
+        height: 34px !important;
+        padding: 0 10px !important;
+        cursor: default !important;
+    }
+
+    body.kali-os-page .kali-title-text {
+        font-size: 10.5px !important;
+        letter-spacing: 0.04em !important;
+    }
+
+    body.kali-os-page .kali-btn-max {
+        display: none !important;
+    }
+
+    body.kali-os-page .kali-controls,
+    body.kali-os-page .kali-titlebar-spacer {
+        width: 32px !important;
+    }
+
+    /* Menubar hidden on mobile for cleaner height */
+    body.kali-os-page .kali-menubar {
+        display: none !important;
+    }
+
+    /* Specific Window 1: archive (public---domain file manager) */
+    body.kali-os-page .kali-window-projects {
+        height: 520px !important;
+        max-height: 80vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* In screenshot 1: Folders & Files side-by-side (Row 1), Inspector below (Row 2)! */
+    body.kali-os-page .pd-3col-body {
+        display: grid !important;
+        grid-template-columns: 44% 56% !important;
+        grid-template-rows: 195px 1fr !important;
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+    }
+
+    body.kali-os-page .pd-col-folders {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        overflow-y: auto !important;
+        border-right: 1px solid var(--win-toolbar-border) !important;
+        border-bottom: 1px solid var(--win-toolbar-border) !important;
+    }
+
+    body.kali-os-page .pd-col-files {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        max-height: 100% !important;
+        overflow-y: auto !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--win-toolbar-border) !important;
+    }
+
+    body.kali-os-page .pd-col-inspector {
+        grid-column: 1 / span 2 !important;
+        grid-row: 2 !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow-y: auto !important;
+        padding: 12px 14px !important;
+    }
+
+    body.kali-os-page .pd-preview-img-box {
+        max-height: 160px !important;
+    }
+
+    /* Specific Window 2: curriculum.pdf (Document Viewer) */
+    body.kali-os-page .kali-window-cv {
+        height: 560px !important;
+        max-height: 84vh !important;
+    }
+
+    body.kali-os-page .kali-nav-toolbar {
+        padding: 4px 6px !important;
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+    }
+
+    body.kali-os-page .kali-tb-btn {
+        padding: 3px 6px !important;
+        font-size: 11px !important;
+    }
+
+    body.kali-os-page .kali-tb-info {
+        font-size: 10px !important;
+    }
+
+    body.kali-os-page .kali-doc-sheet {
+        padding: 18px 14px !important;
+        font-size: 11px !important;
+    }
+
+    body.kali-os-page .cv-header {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    body.kali-os-page .cv-name {
+        font-size: 20px !important;
+    }
+
+    body.kali-os-page .cv-roles {
+        text-align: left !important;
+        font-size: 11px !important;
+    }
+
+    body.kali-os-page .cv-footer-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Specific Window 3: reel.mp4 (Video Player) */
+    body.kali-os-page .kali-window-reel {
+        height: auto !important;
+        max-height: 75vh !important;
+    }
+
+    body.kali-os-page .kali-video-wrap {
+        aspect-ratio: 16 / 9 !important;
+        height: auto !important;
+        max-height: 280px !important;
+    }
+
+    /* Bottom Taskbar on Mobile */
+    body.kali-os-page .kali-os-taskbar {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: 38px !important;
+        z-index: 2000 !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+    }
+
+    body.kali-os-page .kali-taskbar-launcher span,
+    body.kali-os-page .kali-workspace-switch {
+        display: none !important;
+    }
+
+    body.kali-os-page .kali-task-tab {
+        padding: 3px 8px !important;
+        font-size: 11px !important;
+    }
+}
+
+/* Applications Popup Menu */
+.kali-app-menu {
+    position: fixed;
+    bottom: 38px;
+    left: 8px;
+    width: 290px;
+    background: var(--win-bg);
+    border: 1px solid var(--win-border);
+    border-radius: 6px;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: menuFadeIn 0.15s ease-out;
+}
+
+@keyframes menuFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.kali-app-menu-header {
+    padding: 10px 14px;
+    background: var(--win-title-bg);
+    color: var(--win-title-color);
+    border-bottom: 1px solid var(--win-toolbar-border);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.kali-app-menu-title {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+}
+
+.kali-app-menu-sub {
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+.kali-app-menu-list {
+    padding: 6px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.kali-app-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: transparent;
+    border: none;
+    text-decoration: none;
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.1s ease;
+}
+
+.kali-app-menu-item:hover {
+    background: rgba(23, 147, 209, 0.18);
+    color: #00b4d8;
+}
+
+.kali-app-icon {
+    font-size: 15px;
+    width: 20px;
+    text-align: center;
+}
+
+.kali-app-menu-sep {
+    height: 1px;
+    background: var(--win-toolbar-border);
+    margin: 4px 0;
+}
+
+.kali-window-reel {
+    width: min(480px, 92%);
+    height: min(340px, 60%);
+}
