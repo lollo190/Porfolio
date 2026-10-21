@@ -215,15 +215,91 @@ function renderReel() {
         </div>`;
 }
 
+// --------------- Render Hero Windows (Kali OS Style) -------
+function renderHeroWindow(project, idx, customClass = "") {
+    const firstItem = project.items && project.items[0];
+    const imgSrc = firstItem ? escapeHTML(firstItem.image) : "";
+    const winId = "hero-win-" + idx;
+    const fileSlug = (project.title || "project").toLowerCase().replace(/[^a-z0-9]/g, "_") + ".prj";
+
+    return `
+        <div class="fg-hero-window ${customClass}" id="${winId}">
+            <!-- 1. Titlebar (macOS Style: subtle silver-gray gradient, centered title, traffic light buttons on left) -->
+            <div class="kali-titlebar">
+                <div class="kali-controls">
+                    <span class="kali-btn kali-btn-close" aria-label="Chiudi" title="Chiudi"></span>
+                    <span class="kali-btn kali-btn-min" aria-label="Riduci a icona" title="Riduci a icona"></span>
+                    <span class="kali-btn kali-btn-max" aria-label="Ingrandisci" title="Ingrandisci"></span>
+                </div>
+                <div class="kali-title-info">
+                    <span class="kali-title-text">${escapeHTML(fileSlug)} — Project Viewer</span>
+                </div>
+                <div class="kali-titlebar-spacer" aria-hidden="true"></div>
+            </div>
+
+            <!-- 2. Menubar (XFCE Style) -->
+            <div class="kali-menubar">
+                <span class="kali-menu-item">File</span>
+                <span class="kali-menu-item">Edit</span>
+                <span class="kali-menu-item">View</span>
+                <span class="kali-menu-item">Go</span>
+                <span class="kali-menu-item">Help</span>
+            </div>
+
+            <!-- 3. Toolbar -->
+            <div class="kali-nav-toolbar">
+                <div class="kali-tool-group">
+                    <a href="#project-${idx}" class="kali-tb-btn fg-window-view-btn" title="Vai al progetto">
+                        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 9v4H3V4h4M9 3h4v4M13 3L7 9" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="kali-tb-label">Vedi Progetto</span>
+                    </a>
+                </div>
+                <div class="kali-tb-sep"></div>
+                <div class="kali-tool-group kali-tb-right">
+                    <span class="kali-tb-info">${escapeHTML(project.meta || "")}</span>
+                </div>
+            </div>
+
+            <!-- 4. Content Area -->
+            <a href="#project-${idx}" class="fg-hero-window-content" aria-label="Esplora ${escapeHTML(project.title)}">
+                ${imgSrc ? `<img src="${imgSrc}" alt="${escapeHTML(project.title)}" loading="lazy" draggable="false">` : `<div class="fg-hero-window-placeholder">${escapeHTML(project.title)}</div>`}
+                <span class="fg-window-badge">ESPLORA &rarr;</span>
+            </a>
+
+            <!-- 5. Statusbar -->
+            <div class="kali-statusbar">
+                <div class="kali-status-left">
+                    <span>${escapeHTML(project.title)}</span>
+                    <span class="kali-status-sep">&bull;</span>
+                    <span>${escapeHTML(project.meta || "")}</span>
+                </div>
+                <div class="kali-status-right">
+                    <span>Lorenzo Kraja OS</span>
+                </div>
+            </div>
+        </div>`;
+}
+
 // --------------- Build Page --------------------------------
 function buildPage() {
     const app = document.getElementById("app");
+
+    // Pick first 2 projects for hero windows
+    const heroProjects = PROJECTS.slice(0, 2);
 
     app.innerHTML = `
         <!-- TOP BAR -->
         <nav class="nb-top-nav">
             <div class="nb-nav-col-1">
-                <a href="index.html" class="nb-nav-home-link" aria-label="Torna alla Home">${escapeHTML(CONFIG.designerName)}</a>
+                <a href="index.html" class="nb-nav-home-link" aria-label="Torna alla Home">
+                    <span class="nb-nav-home-text">${escapeHTML(CONFIG.designerName)}</span>
+                    <span class="nb-nav-logo-dock" id="nb-nav-logo-dock" aria-label="Lorenzo Kraja Home">
+                        <img src="assets/lorenzo-spinning.gif" alt="Lorenzo Kraja" class="nb-dock-gif nb-dock-light" draggable="false">
+                        <img src="assets/lorenzo-spinning-dark.gif" alt="Lorenzo Kraja" class="nb-dock-gif nb-dock-dark" draggable="false">
+                    </span>
+                </a>
             </div>
             <div class="nb-nav-col-3">
                 <a href="about.html" class="nb-nav-about-link">About</a>
@@ -288,8 +364,56 @@ function buildPage() {
             </div>
         </div>
 
-        <!-- MOTION REEL (A FILO CON LA TOP NAVBAR / FULLSCREEN RICK OWENS STYLE) -->
-        <section class="nb-reel nb-reel-fullscreen">
+        <!-- ============================================================
+             FREE GAME HERO SECTION (Virgil Abloh public---domain Style)
+             ============================================================ -->
+        <section class="fg-hero">
+            <!-- Row 1: Bio + Logo on Left, FROM A-Z (TOC) on Right (Matching Foto 2) -->
+            <div class="fg-hero-grid">
+                <!-- Left Column: Intro Bio Text + Spinning Logo GIF -->
+                <div class="fg-hero-col-left">
+                    <div class="fg-intro-text">
+                        <p>Curious by nature and attentive to every detail, I base my work on observation and
+research. I turn my constant desire to learn into new practical skills, applying them
+directly to the development and growth of every project.</p>
+                    </div>
+                    <div class="fg-hero-logo-wrap" id="fg-hero-logo-anchor">
+                        <div class="fg-hero-logo-placeholder" aria-hidden="true"></div>
+                    </div>
+                </div>
+
+                <!-- Right Column: FROM A - Z (TABLE OF CONTENTS) + 2 Columns in Blue -->
+                <div class="fg-hero-col-right">
+                    <div class="fg-toc">
+                        <div class="fg-toc-header">
+                            <span class="fg-toc-label-main">FROM A - Z</span>
+                            <span class="fg-toc-label-sub">(TABLE OF CONTENTS)</span>
+                        </div>
+                        <nav class="fg-toc-list">
+                            <div class="fg-toc-col">
+                                <a href="about.html" class="fg-toc-item"><span class="fg-toc-num">1.</span> ABOUT</a>
+                                <a href="#contact" class="fg-toc-item fg-toc-scroll"><span class="fg-toc-num">2.</span> CONTACT</a>
+                                <a href="#project-0" class="fg-toc-item fg-toc-scroll"><span class="fg-toc-num">3.</span> AETHER</a>
+                            </div>
+                            <div class="fg-toc-col">
+                                <a href="#project-1" class="fg-toc-item fg-toc-scroll"><span class="fg-toc-num">4.</span> NOMOD</a>
+                                <a href="#project-2" class="fg-toc-item fg-toc-scroll"><span class="fg-toc-num">5.</span> LUCA</a>
+                                <a href="#motion-reel" class="fg-toc-item fg-toc-scroll"><span class="fg-toc-num">6.</span> MOTION REEL</a>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Staggered Asymmetrical Windows matching Allegato 1 -->
+            <div class="fg-hero-windows">
+                ${renderHeroWindow(heroProjects[0], 0, "fg-hero-window-left")}
+                ${renderHeroWindow(heroProjects[1], 1, "fg-hero-window-right")}
+            </div>
+        </section>
+
+        <!-- MOTION REEL (Below Hero — Fullscreen) -->
+        <section class="nb-reel nb-reel-fullscreen" id="motion-reel">
             ${renderReel()}
         </section>
 
@@ -313,6 +437,135 @@ function buildPage() {
 
     startClock();
     bindEvents();
+    bindHeroTocLinks();
+    initHeroLogoDock();
+}
+
+// --------------- Hero TOC smooth scroll --------------------
+function bindHeroTocLinks() {
+    document.querySelectorAll(".fg-toc-scroll, .fg-window-view-btn, .fg-hero-window-content").forEach(link => {
+        link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            if (href && href.startsWith("#")) {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        });
+    });
+
+    const logoLink = document.querySelector(".fg-hero-logo-link");
+    if (logoLink) {
+        logoLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    }
+}
+
+// --------------- Hero Logo Dock Animation ------------------
+function initHeroLogoDock() {
+    const navLink = document.querySelector('.nb-nav-home-link');
+    const dock = document.getElementById('nb-nav-logo-dock');
+    const heroAnchor = document.getElementById('fg-hero-logo-anchor');
+    if (!navLink || !dock || !heroAnchor) return;
+
+    document.body.classList.add('has-dock-logo');
+
+    let deltaX = 0;
+    let deltaY = 0;
+    let scaleFactor = 1;
+    let isInitialized = false;
+
+    function computeMeasurements() {
+        // Temporarily reset transform to measure natural sizes
+        const prevTransform = dock.style.transform;
+        const prevTransition = dock.style.transition;
+        dock.style.transition = 'none';
+        dock.style.transform = 'translate3d(0, 0, 0) scale(1)';
+
+        const navRect = navLink.getBoundingClientRect();
+        const heroRect = heroAnchor.getBoundingClientRect();
+
+        const dockedWidth = dock.offsetWidth || (navRect.width > 0 ? navRect.width : 115);
+        const heroWidth = heroAnchor.offsetWidth || heroRect.width || 580;
+
+        scaleFactor = heroWidth / (dockedWidth || 1);
+
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        const navPageTop = navRect.top + scrollY;
+        const heroPageTop = heroRect.top + scrollY;
+
+        deltaX = heroRect.left - navRect.left;
+        deltaY = heroPageTop - navPageTop;
+
+        dock.style.transition = prevTransition;
+        dock.style.transform = prevTransform;
+
+        applyState(false);
+    }
+
+    function applyState(smooth = true) {
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        const shouldDock = scrollY > 28;
+
+        if (!smooth) {
+            dock.style.transition = 'none';
+        } else {
+            dock.style.transition = 'transform 0.46s cubic-bezier(0.16, 1, 0.3, 1)';
+        }
+
+        if (shouldDock) {
+            document.body.classList.add('is-docked');
+            dock.style.transform = 'translate3d(0px, 0px, 0) scale(1)';
+        } else {
+            document.body.classList.remove('is-docked');
+            dock.style.transform = `translate3d(${deltaX.toFixed(2)}px, ${deltaY.toFixed(2)}px, 0) scale(${scaleFactor.toFixed(4)})`;
+        }
+
+        if (!smooth) {
+            dock.offsetHeight;
+            dock.style.transition = 'transform 0.46s cubic-bezier(0.16, 1, 0.3, 1)';
+        }
+    }
+
+    computeMeasurements();
+    setTimeout(() => {
+        computeMeasurements();
+        isInitialized = true;
+    }, 60);
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!isInitialized) return;
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                applyState(true);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+        computeMeasurements();
+    });
+
+    navLink.addEventListener('click', (e) => {
+        if (document.body.classList.contains('is-docked')) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+
+    dock.addEventListener('click', (e) => {
+        if (!document.body.classList.contains('is-docked')) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
 }
 
 // --------------- Theme & Event Handling --------------------

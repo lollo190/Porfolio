@@ -2,7 +2,7 @@
    PORTFOLIO — Stylesheet
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&family=Space+Mono&display=swap');
 
 /* --- Reset & Base ------------------------------------------ */
 *,
@@ -407,12 +407,80 @@ body.dark-theme .nb-theme-icon-moon {
     color: inherit;
     cursor: pointer;
     font-weight: 500;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    white-space: nowrap;
+    min-height: 22px;
     transition: opacity 0.2s ease, color 0.25s ease;
 }
 
 .nb-nav-home-link:hover {
-    opacity: 0.65;
+    opacity: 0.82;
+}
+
+.nb-nav-home-text {
+    display: inline-block;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+/* Fallback for pages without docking logo (e.g. about.html) */
+body:not(.has-dock-logo) .nb-nav-home-text {
+    opacity: 1;
+}
+
+/* --- Docking 3D Spinning Logo GIF --- */
+.nb-nav-logo-dock {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    transform-origin: 0 0;
+    display: inline-flex;
+    align-items: center;
+    pointer-events: auto;
+    cursor: pointer;
+    will-change: transform;
+    z-index: 105;
+    transition: transform 0.46s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.is-docked .nb-nav-logo-dock {
+    transform: translate3d(0, 0, 0) scale(1) !important;
+}
+
+.nb-dock-gif {
+    height: 19px;
+    width: auto;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.nb-dock-light {
+    display: block;
+}
+
+.nb-dock-dark {
+    display: none;
+}
+
+body.dark-theme .nb-dock-light {
+    display: none;
+}
+
+body.dark-theme .nb-dock-dark {
+    display: block;
+}
+
+/* Hero placeholder maintaining exact spacing */
+.fg-hero-logo-placeholder {
+    width: 100%;
+    aspect-ratio: 460 / 74;
+    max-height: 96px;
+    pointer-events: none;
+    visibility: hidden;
 }
 
 .nb-nav-col-3 {
@@ -444,6 +512,321 @@ body.dark-theme .nb-theme-icon-moon {
     letter-spacing: -0.02em;
     font-weight: 400;
     max-width: 340px;
+}
+
+/* ============================================================
+   FREE GAME HERO — Virgil Abloh public---domain.com Style
+   Font: Courier Prime for bio, Helvetica Neue Bold for TOC & headers
+   ============================================================ */
+
+.fg-hero {
+    padding: 16px 14px 20px 14px;
+    margin-bottom: 20px;
+}
+
+/* --- Row 1: Grid matching Foto 2 (Left: Bio + Logo; Right: TOC) --- */
+.fg-hero-grid {
+    display: grid;
+    grid-template-columns: 1.32fr 0.78fr;
+    gap: 40px;
+    align-items: flex-start;
+    margin-bottom: 32px;
+}
+
+.fg-hero-col-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.fg-intro-text {
+    width: 100%;
+    max-width: 820px;
+}
+
+.fg-intro-text p {
+    font-family: 'Courier Prime', 'Courier New', Courier, monospace;
+    font-size: 26px;
+    line-height: 1.25;
+    font-weight: 400;
+    color: var(--text-color);
+    letter-spacing: 0.005em;
+    margin: 0;
+    transition: color 0.25s ease;
+}
+
+/* 3D Spinning Logo GIF (Sitting under bio text on the left, matching Foto 2) */
+.fg-hero-logo-wrap {
+    margin: 16px 0 0 0;
+    width: 100%;
+    max-width: 640px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.fg-hero-logo-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.fg-hero-logo-link:hover {
+    opacity: 0.88;
+}
+
+.fg-hero-spinning-logo {
+    width: 100%;
+    height: auto;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.fg-logo-light {
+    display: block;
+}
+
+.fg-logo-dark {
+    display: none;
+}
+
+body.dark-theme .fg-logo-light {
+    display: none;
+}
+
+body.dark-theme .fg-logo-dark {
+    display: block;
+}
+
+/* --- Right Column: Table of Contents (Matching Foto 2) --- */
+.fg-hero-col-right {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 2px;
+}
+
+.fg-toc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fg-toc-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.fg-toc-label-main,
+.fg-toc-label-sub {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--text-color);
+    transition: color 0.25s ease;
+}
+
+.fg-toc-list {
+    display: flex;
+    gap: 36px;
+}
+
+.fg-toc-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.fg-toc-item {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #0000ff !important;
+    text-decoration: none;
+    line-height: 1.22;
+    transition: opacity 0.15s ease, color 0.25s ease;
+    white-space: nowrap;
+}
+
+body.dark-theme .fg-toc-item {
+    color: #5b8cff !important;
+}
+
+.fg-toc-item:hover {
+    text-decoration: underline;
+    opacity: 0.82;
+}
+
+.fg-toc-num {
+    margin-right: 6px;
+}
+
+/* --- Row 2: Staggered Asymmetrical Windows matching Allegato 1 --- */
+.fg-hero-windows {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 4vw;
+    margin: 36px 0 48px 0;
+    min-height: auto;
+}
+
+.fg-hero-window {
+    background: var(--win-bg);
+    border: 1px solid var(--win-border);
+    border-radius: 8px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: box-shadow 0.25s ease, transform 0.25s ease,
+                background-color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Left window (Aether) - sitting lower down on the left, smaller */
+.fg-hero-window-left {
+    width: 29vw;
+    max-width: 410px;
+    min-width: 270px;
+    margin-top: 80px; /* Staggered downwards matching Allegato 1 */
+    margin-left: 2vw;
+    z-index: 5;
+}
+
+/* Right window (NOMOD) - sitting higher up on the right, slightly wider */
+.fg-hero-window-right {
+    width: 33vw;
+    max-width: 470px;
+    min-width: 300px;
+    margin-top: 0; /* Sits higher up matching Allegato 1 */
+    margin-right: 3vw;
+    z-index: 6;
+}
+
+.fg-hero-window:hover {
+    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.22), 0 4px 10px rgba(0, 0, 0, 0.08);
+    transform: translateY(-3px);
+}
+
+.fg-hero-window .kali-titlebar {
+    height: 30px;
+    cursor: default;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.fg-hero-window .kali-menubar {
+    height: 24px;
+    font-size: 11px;
+}
+
+.fg-hero-window .kali-nav-toolbar {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background: var(--win-toolbar-bg);
+    border-bottom: 1px solid var(--win-toolbar-border);
+    font-size: 11px;
+}
+
+/* Content Area — Image Preview (More compact / smaller) */
+.fg-hero-window-content {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--media-bg);
+    height: 230px !important;
+    max-height: 230px !important;
+    min-height: 230px !important;
+    flex: none !important;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+.fg-hero-window-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fg-hero-window:hover .fg-hero-window-content img {
+    transform: scale(1.03);
+}
+
+.fg-hero-window-placeholder {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.fg-window-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.78);
+    color: #ffffff;
+    padding: 3px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.fg-hero-window:hover .fg-window-badge {
+    background: #0000ff;
+    transform: scale(1.05);
+}
+
+body.dark-theme .fg-window-badge {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+body.dark-theme .fg-hero-window:hover .fg-window-badge {
+    background: #3b82f6;
+    border-color: #60a5fa;
+}
+
+.fg-hero-window .kali-statusbar {
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    background: var(--win-status-bg);
+    border-top: 1px solid var(--win-border);
+    font-family: 'Space Mono', monospace;
+    font-size: 9.5px;
+    color: var(--win-status-color);
 }
 
 /* --- Motion Reel (Fullscreen Rick Owens Style — A Filo con la Top Navbar) ------------ */
@@ -2236,7 +2619,7 @@ body.dark-theme .pd-preview-box {
         align-items: center !important;
         justify-content: space-between !important;
         padding: 10px 8px 12px 8px !important;
-        background: transparent !important;
+        background: transparent;
         grid-template-columns: none !important;
         gap: 8px !important;
     }
@@ -2250,6 +2633,10 @@ body.dark-theme .pd-preview-box {
         font-weight: 600 !important;
         letter-spacing: -0.01em !important;
         white-space: nowrap !important;
+    }
+
+    .nb-dock-gif {
+        height: 16.5px !important;
     }
 
     .nb-nav-col-3 {
@@ -2416,6 +2803,94 @@ body.dark-theme .pd-preview-box {
         letter-spacing: 0.03em !important;
         min-width: auto !important;
         white-space: nowrap !important;
+    }
+
+    /* Free Game Hero on Mobile */
+    .fg-hero {
+        padding: 6px 4px 16px 4px !important;
+        margin-bottom: 24px !important;
+    }
+
+    .fg-hero-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 18px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .fg-intro-text {
+        max-width: 100% !important;
+    }
+
+    .fg-intro-text p {
+        font-size: clamp(20px, 5.8vw, 26px) !important;
+        line-height: 1.25 !important;
+    }
+
+    .fg-hero-logo-wrap {
+        margin: 8px 0 16px 0 !important;
+        max-width: 100% !important;
+    }
+
+    .fg-hero-spinning-logo {
+        max-width: 100% !important;
+    }
+
+    .fg-hero-col-right {
+        padding-top: 0 !important;
+    }
+
+    .fg-toc {
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    .fg-toc-header {
+        align-items: center !important;
+        text-align: center !important;
+        margin-bottom: 12px !important;
+    }
+
+    .fg-toc-label-main,
+    .fg-toc-label-sub {
+        font-size: clamp(18px, 5.2vw, 24px) !important;
+    }
+
+    .fg-toc-list {
+        width: 100% !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px 12px !important;
+    }
+
+    .fg-toc-item {
+        font-size: clamp(15px, 4.2vw, 20px) !important;
+        line-height: 1.25 !important;
+        white-space: normal !important;
+    }
+
+    .fg-hero-windows {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        padding: 0 !important;
+        margin: 20px 0 36px 0 !important;
+        min-height: auto !important;
+    }
+
+    .fg-hero-window-left,
+    .fg-hero-window-right {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .fg-hero-window-content {
+        height: 220px !important;
+        min-height: 180px !important;
     }
 
     /* Fullscreen Motion Reel on Mobile (Perfect 100% width, no offset) */
