@@ -16,6 +16,14 @@
     <meta name="twitter:title" content="Lorenzo Kraja — Product & Jewelry Designer">
     <meta name="twitter:description" content="Product & Jewelry designer che esplora l'intersezione tra materia, scultura indossabile e design industriale.">
 
+    <meta name="view-transition" content="same-origin">
+    <script>
+        (function() {
+            var t = sessionStorage.getItem('macos_space_transition');
+            if (t === 'to_about') document.documentElement.dataset.vtDirection = 'forward';
+            else if (t === 'to_portfolio') document.documentElement.dataset.vtDirection = 'backward';
+        })();
+    </script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>

@@ -14,6 +14,14 @@
     <meta property="og:description"
         content="Operating System Desktop di Lorenzo Kraja. Curriculum, Reel, Terminale Interattivo e Progetti.">
 
+    <meta name="view-transition" content="same-origin">
+    <script>
+        (function() {
+            var t = sessionStorage.getItem('macos_space_transition');
+            if (t === 'to_about') document.documentElement.dataset.vtDirection = 'forward';
+            else if (t === 'to_portfolio') document.documentElement.dataset.vtDirection = 'backward';
+        })();
+    </script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -661,6 +669,11 @@
             </button>
         </div>
     </footer>
+
+    <!-- Floating Side PORTFOLIO Button (Right Edge, Mid-Height, Vice-Versa) -->
+    <div class="fg-side-about fg-side-about-back" id="about-side-back">
+        <a href="index.html" class="fg-desktop-about-link" aria-label="Torna al Portfolio principale">&larr; PORTFOLIO</a>
+    </div>
 
     <!-- Dedicated Desktop OS Logic -->
     <script src="js/desktop.js"></script>

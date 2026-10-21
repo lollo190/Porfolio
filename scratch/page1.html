@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="view-transition" content="same-origin">
+<style>
+@view-transition { navigation: auto; }
+body { margin: 0; background: #e0e0e0; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+::view-transition-old(root) { animation: slideOutLeft 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+::view-transition-new(root) { animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes slideOutLeft { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
+a { font-size: 24px; padding: 16px 32px; background: #000; color: #fff; text-decoration: none; border-radius: 8px; }
+</style>
+</head>
+<body>
+<div style="text-align:center;">
+  <h1>DESKTOP 1 (Portfolio)</h1>
+  <a href="page2.html" id="link-to-2">Switch to Desktop 2 (About) &rarr;</a>
+</div>
+</body>
+</html>

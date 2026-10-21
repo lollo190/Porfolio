@@ -1260,6 +1260,112 @@
         arrangeScatteredWindows();
     });
 
+    // --------------- macOS Spaces Desktop Switch Transition -----
+    function ensureMacosHud() {
+        let hud = document.getElementById('macos-spaces-hud');
+        if (!hud) {
+            hud = document.createElement('div');
+            hud.id = 'macos-spaces-hud';
+            hud.className = 'macos-spaces-hud';
+            hud.setAttribute('aria-hidden', 'true');
+            hud.innerHTML = `
+                <div class="macos-hud-pill">
+                    <span class="macos-hud-icon">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="4" width="9" height="7" rx="1.5"></rect>
+                            <rect x="13" y="4" width="9" height="7" rx="1.5"></rect>
+                            <rect x="2" y="13" width="9" height="7" rx="1.5"></rect>
+                            <rect x="13" y="13" width="9" height="7" rx="1.5"></rect>
+                        </svg>
+                    </span>
+                    <span class="macos-hud-text" id="macos-hud-text">DESKTOP 1 &rarr; DESKTOP 2</span>
+                    <div class="macos-hud-dots">
+                        <span class="macos-hud-dot macos-dot-1" id="macos-dot-1"></span>
+                        <span class="macos-hud-dot macos-dot-2 active" id="macos-dot-2"></span>
+                    </div>
+                </div>`;
+            document.body.appendChild(hud);
+        }
+        return hud;
+    }
+
+    function showMacosHud(fromDesktop, toDesktop, duration = 1100) {
+        const hud = ensureMacosHud();
+        const text = document.getElementById('macos-hud-text');
+        const dot1 = document.getElementById('macos-dot-1');
+        const dot2 = document.getElementById('macos-dot-2');
+
+        if (text) {
+            text.innerHTML = `DESKTOP ${fromDesktop} &rarr; DESKTOP ${toDesktop}`;
+        }
+        if (dot1 && dot2) {
+            if (toDesktop === 2) {
+                dot1.classList.remove('active');
+                dot2.classList.add('active');
+            } else {
+                dot2.classList.remove('active');
+                dot1.classList.add('active');
+            }
+        }
+
+        hud.classList.add('is-visible');
+        clearTimeout(hud._timer);
+        hud._timer = setTimeout(() => {
+            hud.classList.remove('is-visible');
+        }, duration);
+    }
+
+    function initMacosSpacesDesktopTransition() {
+        // 1. Check if entering from Portfolio (Desktop 1 -> Desktop 2)
+        const pendingTrans = sessionStorage.getItem('macos_space_transition');
+        if (pendingTrans === 'to_about') {
+            document.documentElement.dataset.vtDirection = 'forward';
+            sessionStorage.removeItem('macos_space_transition');
+            showMacosHud(1, 2, 1000);
+        }
+
+        // 2. Set Workspace 2 as active in taskbar switch
+        const wsButtons = document.querySelectorAll('.kali-workspace-switch .kali-ws-btn');
+        if (wsButtons.length >= 2) {
+            wsButtons[0].classList.remove('active');
+            wsButtons[1].classList.add('active');
+            wsButtons[0].setAttribute('title', 'Passa a Desktop 1 (Portfolio)');
+            wsButtons[0].style.cursor = 'pointer';
+
+            // Clicking Workspace 1 switches back to Desktop 1
+            wsButtons[0].addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateBackToPortfolio();
+            });
+        }
+
+        function navigateBackToPortfolio(targetUrl = 'index.html') {
+            document.documentElement.dataset.vtDirection = 'backward';
+            sessionStorage.setItem('macos_space_transition', 'to_portfolio');
+            showMacosHud(2, 1, 1400);
+
+            if (document.startViewTransition) {
+                window.location.href = targetUrl;
+            } else {
+                document.body.classList.add('macos-space-slide-out-right');
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 460);
+            }
+        }
+
+        // 3. Intercept all links back to Portfolio (index.html)
+        const backLinks = document.querySelectorAll('a[href="index.html"], a[href^="index.html#"], .kali-topbar-back');
+        backLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+                e.preventDefault();
+                const href = link.getAttribute('href') || 'index.html';
+                navigateBackToPortfolio(href);
+            });
+        });
+    }
+
     // --------------- Document Ready ---------------------
     document.addEventListener('DOMContentLoaded', () => {
         initTheme();
@@ -1269,6 +1375,7 @@
         initCvControls();
         initVideoControls();
         initPublicDomainFileManager();
+        initMacosSpacesDesktopTransition();
 
         // Open scattered side-by-side workspace on entering about
         openScatteredWorkspace();
