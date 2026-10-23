@@ -15,7 +15,7 @@
     // --------------- State ---------------
     let highestZIndex = 50;
     const windows = {};
-    const winKeys = ['cv', 'reel', 'projects'];
+    const winKeys = ['cv', 'reel', 'projects', 'contact'];
     let activeWinKey = 'projects';
     let allMinimized = false;
     let prevStatesBeforeShowDesktop = {};
@@ -91,6 +91,9 @@
                 setupWindowDragging(key, el, titlebar);
             }
         });
+
+        // Window Resizing (Corners & Edges)
+        initWindowResizing();
 
         // Window Control Buttons
         document.querySelectorAll('.kali-btn-close').forEach(btn => {
@@ -238,6 +241,7 @@
             case 'cv': return 'curriculum.pdf — Document Viewer';
             case 'reel': return 'reel.mp4 — Video Player';
             case 'projects': return 'archive — public---domain';
+            case 'contact': return 'contacts.txt — Text Editor';
             default: return 'Desktop';
         }
     }
@@ -339,33 +343,7 @@
         let startX = 0, startY = 0;
         let initialLeft = 0, initialTop = 0;
 
-        handleEl.addEventListener('pointerdown', (e) => {
-            // Ignore if maximized or clicking control buttons
-            if (windows[key].isMaximized || e.target.closest('.kali-controls') || e.target.closest('button')) {
-                return;
-            }
-
-            windows[key].hasBeenDragged = true;
-            bringToFront(key);
-            isDragging = true;
-            winEl.classList.add('is-dragging');
-            handleEl.setPointerCapture(e.pointerId);
-
-            startX = e.clientX;
-            startY = e.clientY;
-
-            // Accurate parent-relative coordinates (fixes cursor jump and top gap)
-            const parent = winEl.offsetParent || document.getElementById('kali-os-desktop') || document.body;
-            const parentRect = parent.getBoundingClientRect();
-            const rect = winEl.getBoundingClientRect();
-
-            initialLeft = rect.left - parentRect.left;
-            initialTop = rect.top - parentRect.top;
-
-            e.preventDefault();
-        });
-
-        handleEl.addEventListener('pointermove', (e) => {
+        const onPointerMove = (e) => {
             if (!isDragging) return;
 
             const dx = e.clientX - startX;
@@ -386,21 +364,217 @@
             winEl.style.left = `${newLeft}px`;
             winEl.style.top = `${newTop}px`;
             winEl.style.margin = '0';
-        });
+        };
 
         const stopDrag = (e) => {
             if (isDragging) {
                 isDragging = false;
                 winEl.classList.remove('is-dragging');
+                document.body.classList.remove('is-window-interacting');
                 try {
                     handleEl.releasePointerCapture(e.pointerId);
                 } catch { }
+                window.removeEventListener('pointermove', onPointerMove);
+                window.removeEventListener('pointerup', stopDrag);
+                window.removeEventListener('pointercancel', stopDrag);
             }
         };
 
-        handleEl.addEventListener('pointerup', stopDrag);
-        handleEl.addEventListener('pointercancel', stopDrag);
-        window.addEventListener('pointerup', stopDrag);
+        handleEl.addEventListener('pointerdown', (e) => {
+            // Ignore if maximized or clicking control buttons
+            if (windows[key].isMaximized || e.target.closest('.kali-controls') || e.target.closest('button')) {
+                return;
+            }
+
+            windows[key].hasBeenDragged = true;
+            bringToFront(key);
+            isDragging = true;
+            winEl.classList.add('is-dragging');
+            document.body.classList.add('is-window-interacting');
+            try {
+                handleEl.setPointerCapture(e.pointerId);
+            } catch { }
+
+            startX = e.clientX;
+            startY = e.clientY;
+
+            // Accurate parent-relative coordinates (fixes cursor jump and top gap)
+            const parent = winEl.offsetParent || document.getElementById('kali-os-desktop') || document.body;
+            const parentRect = parent.getBoundingClientRect();
+            const rect = winEl.getBoundingClientRect();
+
+            initialLeft = rect.left - parentRect.left;
+            initialTop = rect.top - parentRect.top;
+
+            window.addEventListener('pointermove', onPointerMove);
+            window.addEventListener('pointerup', stopDrag);
+            window.addEventListener('pointercancel', stopDrag);
+
+            e.preventDefault();
+        });
+    }
+
+    // --------------- Window Resizing (Corners & Edges) ---
+    function initWindowResizing() {
+        winKeys.forEach(key => {
+            const win = windows[key];
+            if (!win || !win.el) return;
+            const winEl = win.el;
+
+            const directions = ['n', 's', 'e', 'w', 'nw', 'ne', 'sw', 'se'];
+            directions.forEach(dir => {
+                let handle = winEl.querySelector(`.kali-resize-${dir}`);
+                if (!handle) {
+                    handle = document.createElement('div');
+                    handle.className = `kali-resize-handle kali-resize-${dir}`;
+                    handle.dataset.dir = dir;
+                    handle.dataset.win = key;
+                    handle.setAttribute('aria-hidden', 'true');
+                    winEl.appendChild(handle);
+                }
+                setupWindowResizeHandle(key, winEl, handle, dir);
+            });
+        });
+    }
+
+    function setupWindowResizeHandle(key, winEl, handleEl, dir) {
+        let isResizing = false;
+        let startX = 0, startY = 0;
+        let initialLeft = 0, initialTop = 0;
+        let initialWidth = 0, initialHeight = 0;
+
+        const onPointerMove = (e) => {
+            if (!isResizing) return;
+
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+
+            let minW = 280;
+            let minH = 200;
+            if (key === 'projects') {
+                minW = 380;
+                minH = 240;
+            } else if (key === 'cv') {
+                minW = 280;
+                minH = 220;
+            } else if (key === 'contact') {
+                minW = 260;
+                minH = 200;
+            } else if (key === 'reel') {
+                minW = 300;
+                minH = 200;
+            }
+
+            const parent = winEl.offsetParent || document.getElementById('kali-os-desktop') || document.body;
+            const maxDesktopW = parent.clientWidth;
+            const maxDesktopH = parent.clientHeight;
+
+            let newLeft = initialLeft;
+            let newTop = initialTop;
+            let newWidth = initialWidth;
+            let newHeight = initialHeight;
+
+            // East: adjust width
+            if (dir.indexOf('e') !== -1) {
+                newWidth = Math.max(minW, Math.min(initialWidth + dx, maxDesktopW - initialLeft));
+            }
+
+            // West: adjust left and width
+            if (dir.indexOf('w') !== -1) {
+                let proposedW = initialWidth - dx;
+                let proposedLeft = initialLeft + dx;
+                if (proposedW < minW) {
+                    proposedLeft = initialLeft + (initialWidth - minW);
+                    proposedW = minW;
+                }
+                if (proposedLeft < 0) {
+                    proposedW += proposedLeft;
+                    proposedLeft = 0;
+                }
+                newLeft = proposedLeft;
+                newWidth = Math.max(minW, proposedW);
+            }
+
+            // South: adjust height
+            if (dir.indexOf('s') !== -1) {
+                newHeight = Math.max(minH, Math.min(initialHeight + dy, maxDesktopH - initialTop));
+            }
+
+            // North: adjust top and height
+            if (dir.indexOf('n') !== -1) {
+                let proposedH = initialHeight - dy;
+                let proposedTop = initialTop + dy;
+                if (proposedH < minH) {
+                    proposedTop = initialTop + (initialHeight - minH);
+                    proposedH = minH;
+                }
+                if (proposedTop < 0) {
+                    proposedH += proposedTop;
+                    proposedTop = 0;
+                }
+                newTop = proposedTop;
+                newHeight = Math.max(minH, proposedH);
+            }
+
+            winEl.style.left = `${Math.round(newLeft)}px`;
+            winEl.style.top = `${Math.round(newTop)}px`;
+            winEl.style.width = `${Math.round(newWidth)}px`;
+            winEl.style.height = `${Math.round(newHeight)}px`;
+            winEl.style.margin = '0';
+        };
+
+        const stopResize = (e) => {
+            if (isResizing) {
+                isResizing = false;
+                winEl.classList.remove('is-resizing');
+                document.body.classList.remove('is-window-interacting');
+                document.body.style.cursor = '';
+                try {
+                    handleEl.releasePointerCapture(e.pointerId);
+                } catch { }
+                window.removeEventListener('pointermove', onPointerMove);
+                window.removeEventListener('pointerup', stopResize);
+                window.removeEventListener('pointercancel', stopResize);
+            }
+        };
+
+        handleEl.addEventListener('pointerdown', (e) => {
+            if (windows[key].isMaximized || winEl.classList.contains('is-closed') || winEl.classList.contains('is-minimized')) {
+                return;
+            }
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            windows[key].hasBeenDragged = true;
+            bringToFront(key);
+
+            isResizing = true;
+            winEl.classList.add('is-resizing');
+            document.body.classList.add('is-window-interacting');
+            try {
+                handleEl.setPointerCapture(e.pointerId);
+            } catch { }
+
+            const activeCursor = window.getComputedStyle(handleEl).cursor;
+            document.body.style.cursor = activeCursor;
+
+            startX = e.clientX;
+            startY = e.clientY;
+
+            const parent = winEl.offsetParent || document.getElementById('kali-os-desktop') || document.body;
+            const parentRect = parent.getBoundingClientRect();
+            const rect = winEl.getBoundingClientRect();
+
+            initialLeft = rect.left - parentRect.left;
+            initialTop = rect.top - parentRect.top;
+            initialWidth = rect.width;
+            initialHeight = rect.height;
+
+            window.addEventListener('pointermove', onPointerMove);
+            window.addEventListener('pointerup', stopResize);
+            window.addEventListener('pointercancel', stopResize);
+        });
     }
 
     // --------------- Desktop Icons Dragging & Clicks -----
@@ -408,12 +582,14 @@
         const iconCv = document.getElementById('icon-cv');
         const iconReel = document.getElementById('icon-reel');
         const iconProjects = document.getElementById('icon-projects');
+        const iconContact = document.getElementById('icon-contact');
         const iconTrash = document.getElementById('icon-trash');
 
         const map = [
             { el: iconCv, key: 'cv' },
             { el: iconProjects, key: 'projects' },
             { el: iconReel, key: 'reel' },
+            { el: iconContact, key: 'contact' },
         ];
 
         map.forEach(item => {
@@ -1161,49 +1337,109 @@
         const winCv = windows['cv'];
         const winProjects = windows['projects'];
         const winReel = windows['reel'];
+        const winContact = windows['contact'];
 
         if (!winCv || !winProjects) return;
 
         if (w >= 1400) {
-            // Large screens: Archive in center-left, CV on the right (matching screenshot exactly)
+            // Large screens (Exact match to requested user composition):
+            // 1. Archive in center-top
+            // 2. Contacts in lower-left
+            // 3. CV on right
+
+            // Archive (Center-Top)
             if (!winProjects.hasBeenDragged && !winProjects.isMaximized) {
-                const projW = Math.min(780, Math.floor(w * 0.48));
-                const projLeft = Math.max(340, Math.floor(w * 0.22));
+                const projW = Math.round(Math.min(740, w * 0.38));
+                const projLeft = Math.round(w * 0.285);
+                const projTop = Math.round(Math.max(46, desktopH * 0.05));
+                const projH = Math.round(Math.min(590, desktopH * 0.64));
                 winProjects.el.style.left = `${projLeft}px`;
-                winProjects.el.style.top = `${Math.max(60, Math.floor(desktopH * 0.14))}px`;
+                winProjects.el.style.top = `${projTop}px`;
                 winProjects.el.style.width = `${projW}px`;
-                winProjects.el.style.height = `${Math.min(590, Math.floor(desktopH * 0.84))}px`;
+                winProjects.el.style.height = `${projH}px`;
             }
 
+            // Contacts (Lower-Left, shifted slightly right)
+            if (winContact && !winContact.hasBeenDragged && !winContact.isMaximized) {
+                const contactW = Math.round(Math.min(390, w * 0.245));
+                const contactLeft = Math.round(Math.max(80, w * 0.095));
+                const contactTop = Math.round(Math.max(220, desktopH * 0.36));
+                const contactH = Math.round(Math.min(460, desktopH * 0.52));
+                winContact.el.style.left = `${contactLeft}px`;
+                winContact.el.style.top = `${contactTop}px`;
+                winContact.el.style.width = `${contactW}px`;
+                winContact.el.style.height = `${contactH}px`;
+            }
+
+            // CV (Right side)
             if (!winCv.hasBeenDragged && !winCv.isMaximized) {
-                const cvW = Math.min(540, Math.floor(w * 0.36));
-                const cvLeft = Math.min(w - cvW - 40, Math.floor(w * 0.60));
+                const cvW = Math.round(Math.min(460, w * 0.27));
+                const cvLeft = Math.round(Math.min(w - cvW - 28, w * 0.70));
+                const cvTop = Math.round(Math.max(68, desktopH * 0.08));
+                const cvH = Math.round(Math.min(700, desktopH * 0.76));
                 winCv.el.style.left = `${cvLeft}px`;
-                winCv.el.style.top = `${Math.max(120, Math.floor(desktopH * 0.20))}px`;
+                winCv.el.style.top = `${cvTop}px`;
                 winCv.el.style.width = `${cvW}px`;
-                winCv.el.style.height = `${Math.min(620, Math.floor(desktopH * 0.86))}px`;
+                winCv.el.style.height = `${cvH}px`;
             }
         } else if (w >= 980) {
-            // Medium screens: Archive left/center, CV on right
+            // Medium screens (1024 - 1399px)
             if (!winProjects.hasBeenDragged && !winProjects.isMaximized) {
-                const projW = Math.min(700, Math.floor(w * 0.54));
-                winProjects.el.style.left = '220px';
-                winProjects.el.style.top = '40px';
+                const projW = Math.round(Math.min(540, w * 0.40));
+                const projLeft = Math.round(w * 0.27);
+                const projTop = 44;
+                const projH = Math.round(Math.min(520, desktopH * 0.63));
+                winProjects.el.style.left = `${projLeft}px`;
+                winProjects.el.style.top = `${projTop}px`;
                 winProjects.el.style.width = `${projW}px`;
-                winProjects.el.style.height = `${Math.min(560, Math.floor(desktopH * 0.84))}px`;
+                winProjects.el.style.height = `${projH}px`;
+            }
+
+            if (winContact && !winContact.hasBeenDragged && !winContact.isMaximized) {
+                const contactW = Math.round(Math.min(350, w * 0.25));
+                const contactLeft = Math.round(Math.max(60, w * 0.085));
+                const contactTop = Math.round(Math.max(190, desktopH * 0.38));
+                const contactH = Math.round(Math.min(420, desktopH * 0.50));
+                winContact.el.style.left = `${contactLeft}px`;
+                winContact.el.style.top = `${contactTop}px`;
+                winContact.el.style.width = `${contactW}px`;
+                winContact.el.style.height = `${contactH}px`;
             }
 
             if (!winCv.hasBeenDragged && !winCv.isMaximized) {
-                const cvW = Math.min(480, Math.floor(w * 0.40));
-                const cvLeft = Math.max(20, w - cvW - 24);
+                const cvW = Math.round(Math.min(390, w * 0.28));
+                const cvLeft = Math.round(Math.min(w - cvW - 20, w * 0.69));
+                const cvTop = Math.round(Math.max(72, desktopH * 0.09));
+                const cvH = Math.round(Math.min(590, desktopH * 0.74));
                 winCv.el.style.left = `${cvLeft}px`;
-                winCv.el.style.top = '100px';
+                winCv.el.style.top = `${cvTop}px`;
                 winCv.el.style.width = `${cvW}px`;
-                winCv.el.style.height = `${Math.min(580, Math.floor(desktopH * 0.82))}px`;
+                winCv.el.style.height = `${cvH}px`;
+            }
+        } else if (w > 768) {
+            // Small desktop / Tablet landscape (769 - 979px)
+            if (!winProjects.hasBeenDragged && !winProjects.isMaximized) {
+                winProjects.el.style.left = '190px';
+                winProjects.el.style.top = '40px';
+                winProjects.el.style.width = `${Math.min(440, w - 210)}px`;
+                winProjects.el.style.height = `${Math.min(460, desktopH * 0.58)}px`;
+            }
+            if (winContact && !winContact.hasBeenDragged && !winContact.isMaximized) {
+                winContact.el.style.left = '45px';
+                winContact.el.style.top = `${Math.round(desktopH * 0.44)}px`;
+                winContact.el.style.width = '300px';
+                winContact.el.style.height = `${Math.min(380, desktopH * 0.50)}px`;
+            }
+            if (!winCv.hasBeenDragged && !winCv.isMaximized) {
+                const cvW = 300;
+                winCv.el.style.left = `${w - cvW - 16}px`;
+                winCv.el.style.top = '70px';
+                winCv.el.style.width = `${cvW}px`;
+                winCv.el.style.height = `${Math.min(500, desktopH * 0.70)}px`;
             }
         } else {
-            // Mobile & small screens (w <= 768): Clean fluid vertical cascade (public---domain mobile layout)
-            [winCv, winProjects, winReel].forEach(wObj => {
+            // Mobile & small screens (w <= 768): Clean fluid vertical cascade
+            [winCv, winProjects, winReel, winContact].forEach(wObj => {
                 if (wObj && !wObj.hasBeenDragged) {
                     wObj.el.style.left = '';
                     wObj.el.style.top = '';
@@ -1226,14 +1462,15 @@
     function openScatteredWorkspace() {
         arrangeScatteredWindows();
 
-        // Staggered animated opening sequence: CV -> Archive (Projects in front)
-        // reel.mp4 is kept closed on the desktop, not in playback
+        // Staggered animated opening sequence: CV -> Contact -> Archive (Projects in front)
+        // reel.mp4 is kept closed initially, ready to open on icon click
         const sequence = [
             { key: 'cv', delay: 40 },
-            { key: 'projects', delay: 180 }
+            { key: 'contact', delay: 140 },
+            { key: 'projects', delay: 280 }
         ];
 
-        // Ensure reel is closed and paused on start
+        // Ensure reel is closed on start
         const winReel = windows['reel'];
         if (winReel) {
             winReel.el.classList.add('is-closed');
@@ -1329,7 +1566,7 @@
         if (wsButtons.length >= 2) {
             wsButtons[0].classList.remove('active');
             wsButtons[1].classList.add('active');
-            wsButtons[0].setAttribute('title', 'Passa a Desktop 1 (Portfolio)');
+            wsButtons[0].setAttribute('title', 'Passa a Desktop 1 (Home)');
             wsButtons[0].style.cursor = 'pointer';
 
             // Clicking Workspace 1 switches back to Desktop 1
@@ -1366,6 +1603,36 @@
         });
     }
 
+    // --------------- Contact Window Actions -----------------
+    function initContactWindowActions() {
+        const copyBtn = document.getElementById('copy-email-btn');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigator.clipboard.writeText('lorenzokraja99@gmail.com').then(() => {
+                    copyBtn.textContent = 'COPIATO!';
+                    copyBtn.classList.add('copied');
+                    setTimeout(() => {
+                        copyBtn.textContent = 'COPIA';
+                        copyBtn.classList.remove('copied');
+                    }, 2000);
+                }).catch(() => {
+                    copyBtn.textContent = 'COPIATO!';
+                    setTimeout(() => {
+                        copyBtn.textContent = 'COPIA';
+                    }, 2000);
+                });
+            });
+        }
+
+        // Auto-open if URL has #contact
+        if (window.location.hash === '#contact' || window.location.search.includes('contact')) {
+            setTimeout(() => {
+                openWindow('contact');
+            }, 300);
+        }
+    }
+
     // --------------- Document Ready ---------------------
     document.addEventListener('DOMContentLoaded', () => {
         initTheme();
@@ -1375,6 +1642,7 @@
         initCvControls();
         initVideoControls();
         initPublicDomainFileManager();
+        initContactWindowActions();
         initMacosSpacesDesktopTransition();
 
         // Open scattered side-by-side workspace on entering about

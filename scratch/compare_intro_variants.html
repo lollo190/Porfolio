@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        margin: 0;
+        background: #000;
+        display: flex;
+        flex-direction: column;
+        width: 1440px;
+        height: 2700px;
+        font-family: 'Helvetica Neue', Helvetica, 'Arial Black', Arial, sans-serif;
+    }
+    .variant {
+        width: 1440px;
+        height: 900px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 4px solid #ff3366;
+    }
+    .variant-label {
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        z-index: 10;
+        background: rgba(0,0,0,0.8);
+        color: #fff;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-family: monospace;
+        border-radius: 4px;
+    }
+    /* V1: Raw Blue Noise GIF */
+    .v1 .bg-gif {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .v1 .logo-img {
+        position: relative;
+        z-index: 2;
+        width: 680px;
+        height: auto;
+        filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
+    }
+
+    /* V2: Monochrome Noise GIF (Dark Theme Aesthetic) */
+    .v2 {
+        background-color: #121212;
+    }
+    .v2 .bg-gif {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(1) contrast(1.2);
+        opacity: 0.35;
+    }
+    .v2 .logo-img {
+        position: relative;
+        z-index: 2;
+        width: 680px;
+        height: auto;
+        filter: drop-shadow(0 4px 24px rgba(0,0,0,0.8));
+    }
+
+    /* V3: Seamless Film Grain (Matching Website Background) */
+    .v3 {
+        background-color: #f7f7f7;
+    }
+    .v3 .grain {
+        position: absolute;
+        inset: 0;
+        background-image: url('../assets/noise.png');
+        background-repeat: repeat;
+        background-size: 512px 512px;
+        opacity: 0.22;
+    }
+    .v3 .logo-img {
+        position: relative;
+        z-index: 2;
+        width: 680px;
+        height: auto;
+    }
+</style>
+</head>
+<body>
+    <!-- V1: Blue Static Noise GIF -->
+    <div class="variant v1">
+        <div class="variant-label">OPZIONE 1: Blue Static Noise GIF (dal desktop dell'utente) + Testo Bianco</div>
+        <img class="bg-gif" src="../assets/noise-intro.gif">
+        <img class="logo-img" src="../assets/intro-logo-white.png">
+    </div>
+
+    <!-- V2: Dark Monochrome Noise GIF -->
+    <div class="variant v2">
+        <div class="variant-label">OPZIONE 2: Monochrome Noise GIF + Dark Background (#121212) + Testo Bianco</div>
+        <img class="bg-gif" src="../assets/noise-intro.gif">
+        <img class="logo-img" src="../assets/intro-logo-white.png">
+    </div>
+
+    <!-- V3: Website Film Grain Minimal Light -->
+    <div class="variant v3">
+        <div class="variant-label">OPZIONE 3: Film Grain del sito (Tema chiaro #f7f7f7) + Testo Nero</div>
+        <div class="grain"></div>
+        <img class="logo-img" src="../assets/intro-logo-black.png">
+    </div>
+</body>
+</html>

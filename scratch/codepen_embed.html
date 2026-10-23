@@ -1,0 +1,345 @@
+<html lang="en"><head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>CodePen Embed - Animated Film Grain effect</title>
+
+  <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="aBAUVf2U7o263N9eIrHSeE1ge4A-4Ng3k-NATIBcJaszDS2szqKoBI2HPlfjLjo0rwM-VAsr3Jy6BawNteaXhQ">
+
+  <link rel="stylesheet" href="https://cpwebassets.codepen.io/assets/embed/embed-6dad059416bc5e0209c8fa32940f0db727ed347b47f80a96544fc0579c3a3de8.css" media="all">
+
+  <style>
+    .hide {
+      display: none !important;
+    }
+    .embed-footer,
+    .embed-nav {
+      background: #3d3d3e;
+      
+    }
+    .embed-nav .code-types a,
+    .embed-nav .result-button-list a,
+    .action-button {
+      color: #ffffff;
+      background-color: #666666;
+    }
+    .embed-nav .code-types a.active,
+    .embed-nav .result-button-list a.active,
+    .action-button.active {
+      background: #888888;
+      color: #ffffff;
+      box-shadow: inset 0px 3px #dddddd;
+    }
+    .embed-nav .logo-wrap .edit-on-codepen {
+      color: #ffffff;
+    }
+
+    .embed-nav svg {
+      stroke: #ffffff !important;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://cpwebassets.codepen.io/assets/editor/themes/twilight-17aa2c8bbfe74907b477e19b46d4dcb9165990a73d66fa82db594bcb16475591.css" media="all">
+
+</head>
+
+<body id="the-body" style="border: 1px solid #555555; --borderWidth: 1px;" class="codepen-embed-body split-output static results-active">
+
+  <nav class="embed-nav group" id="embed-nav">
+
+  <ul class="code-types">
+
+
+        <li class="code-type">
+          <a id="html-link" href="#html-box" role="button" class="active" aria-pressed="true">
+              HTML
+          </a>
+        </li>
+
+
+        <li class="code-type">
+          <a id="css-link" href="#css-box" role="button" aria-pressed="false">
+              CSS
+          </a>
+        </li>
+
+
+
+
+  </ul>
+
+  <ul class="result-button-list">
+    <li class="results results-type">
+      <a id="result-link" href="#result-box" class="active" aria-pressed="true" role="button">
+        Result
+      </a>
+    </li>
+    <li>
+      <a href="#resources-link" id="skip-results-iframe-link">Skip Results Iframe</a>
+    </li>
+  </ul>
+
+
+    <div class="logo-wrap" id="edit-area">
+
+        <a class="edit-on-codepen" target="_blank" rel="noopener" href="https://codepen.io/ooblek/pen/vYxYomx" title="Edit on CodePen">
+            <div class="large-logo">
+    <span id="edit-on-text" class="open-on">EDIT ON</span>
+    <svg id="embed-codepen-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 138 26" fill="none" stroke="#000" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="CodePen">
+  <path d="M80 6h-9v14h9m34-14h-9v14h9m-3-7h-6m-28 0h-6m51 7V6l11 14V6M22 16.7L33 24l11-7.3V9.3L33 2 22 9.3v7.4zm22 0L33 9.3l-11 7.4m0-7.4l11 7.3 11-7.3M33 2v7.3m0 7.4V24m55-10h6c2.2 0 4-1.8 4-4s-1.8-4-4-4h-6v14M15 8c-1.3-1.3-3-2-5-2-4 0-7 3-7 7s3 7 7 7c2 0 3.7-.8 5-2m49-5c0 4-3 7-7 7h-5V6h5c4 0 7 3 7 7z"></path>
+</svg>
+  </div>
+  <div class="box-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="20 0 26 26" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" role="img" aria-label="Edit on CodePen">
+  <path id="icon-codepen-box" d="M22 16.7L33 24l11-7.3V9.3L33 2 22 9.3v7.4zm22 0L33 9.3l-11 7.4m0-7.4l11 7.3 11-7.3M33 2v7.3m0 7.4V24"></path>
+</svg>
+  </div>
+        </a>
+
+    
+    </div>
+
+
+</nav>
+
+
+  <div id="output" data-border-style="thin" data-header="true">
+
+
+
+        <div id="html-box" class="code-wrap code-box box active" role="region" aria-label="HTML">
+
+
+          <pre tabindex="0"><code data-lang="htmlmixed" id="actual-html-code" class=" cm-s-default"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">div</span> <span class="cm-attribute">class</span>=<span class="cm-string">"hero"</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">div</span> <span class="cm-attribute">class</span>=<span class="cm-string">"overlay"</span><span class="cm-tag cm-bracket">&gt;</span><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span>
+  <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">h1</span> <span class="cm-attribute">class</span>=<span class="cm-string">"headerText"</span><span class="cm-tag cm-bracket">&gt;</span>
+    The<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">br</span><span class="cm-tag cm-bracket">&gt;</span> Outside <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">br</span><span class="cm-tag cm-bracket">&gt;</span> Experience
+  <span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">h1</span><span class="cm-tag cm-bracket">&gt;</span>
+  
+  <span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">div</span> <span class="cm-attribute">class</span>=<span class="cm-string">"bottomArrow"</span> <span class="cm-tag cm-bracket">/&gt;</span>
+<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span>
+
+</code></pre>
+
+        </div>
+
+
+
+        <div id="css-box" class="code-wrap code-box box " role="region" aria-label="CSS">
+
+
+          <pre tabindex="0"><code data-lang="css" id="actual-css-code" class=" cm-s-default">*{
+  <span class="cm-property">margin</span>:<span class="cm-atom">auto</span>;
+}
+<span class="cm-tag">body</span>{
+  <span class="cm-property">display</span>:<span class="cm-atom">flex</span> <span class="cm-keyword">!important</span>;
+  <span class="cm-property">flex-direction</span>:<span class="cm-atom">column</span>
+}
+<span class="cm-qualifier">.overlay</span>{
+  <span class="cm-property">position</span>:<span class="cm-atom">absolute</span>;
+  <span class="cm-property">width</span>:<span class="cm-number">100vw</span>;
+  <span class="cm-property">height</span>:<span class="cm-number">100vh</span>;
+  <span class="cm-property">background-image</span>:<span class="cm-variable cm-callee">linear-gradient</span>(<span class="cm-atom">transparent</span>,<span class="cm-variable cm-callee">rgba</span>(<span class="cm-number">0</span>,<span class="cm-number">0</span>,<span class="cm-number">0</span>,<span class="cm-number">0.5</span>));
+  <span class="cm-property">z-index</span>:<span class="cm-number">1</span>
+}
+<span class="cm-qualifier">.hero</span>{
+  
+  <span class="cm-property">display</span>:<span class="cm-atom">flex</span>;
+  <span class="cm-property">justify-content</span>:<span class="cm-atom">center</span>;
+  <span class="cm-property">align-items</span>:<span class="cm-atom">center</span>;
+  <span class="cm-property">width</span>:<span class="cm-number">100%</span>;
+  <span class="cm-property">height</span>:<span class="cm-number">100vh</span>;
+  <span class="cm-property">background-image</span>:<span class="cm-variable cm-callee">url</span>(<span class="cm-string">'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/St_Michael%27s_Mount_II5302_x_2982.jpg/1416px-St_Michael%27s_Mount_II5302_x_2982.jpg'</span>);
+  <span class="cm-property">background-position</span>:<span class="cm-atom">center</span>;
+  <span class="cm-property">background-repeat</span>: <span class="cm-atom">no-repeat</span>;
+  <span class="cm-property">background-size</span>: <span class="cm-atom">cover</span>;
+  
+  
+}
+
+<span class="cm-qualifier">.hero</span>:<span class="cm-variable-3">after</span>{
+  <span class="cm-property">content</span>:<span class="cm-string">""</span>;
+  <span class="cm-property">background-image</span>:<span class="cm-variable cm-callee">url</span>(<span class="cm-string">"https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png"</span>);
+  <span class="cm-property">height</span>: <span class="cm-number">300%</span>;
+  <span class="cm-property">width</span>: <span class="cm-number">300%</span>;
+  <span class="cm-property">position</span>: <span class="cm-atom">fixed</span>;
+  <span class="cm-property">opacity</span>:<span class="cm-number">0.1</span>;
+   <span class="cm-property">animation</span>: <span class="cm-variable">animateGrain</span> <span class="cm-number">8s</span> <span class="cm-variable cm-callee">steps</span>(<span class="cm-number">10</span>) <span class="cm-atom">infinite</span>;
+}
+
+<span class="cm-def">@keyframes</span> <span class="cm-variable">animateGrain</span>{
+  <span class="cm-number">0%</span>, <span class="cm-number">100%</span> { <span class="cm-property">transform</span>:<span class="cm-variable cm-callee">translate</span>(<span class="cm-number">0</span>, <span class="cm-number">0</span>) }
+  <span class="cm-number">10%</span>{
+    <span class="cm-property">transform</span>:<span class="cm-variable cm-callee">translate</span>(<span class="cm-number">-5%</span>,<span class="cm-number">-10%</span>)
+  }
+  <span class="cm-number">20%</span>{
+    <span class="cm-property">transform</span>:<span class="cm-variable cm-callee">translate</span>(<span class="cm-number">-15%</span>,<span class="cm-number">-20%</span>)
+  }
+  <span class="cm-number">30%</span>{
+    <span class="cm-property">transform</span>:<span class="cm-variable cm-callee">translate</span>(<span class="cm-number">-5%</span>,<span class="cm-number">-10%</span>)
+  }
+  <span class="cm-number">40%</span>{
+    <span class="cm-property">transform</span>:<span class="cm-variable cm-callee">translate</span>(<span class="cm-number">-15%</span>,<span class="cm-number">-20%</span>)
+  }
+  
+  <span class="cm-number">50%</span>{
+    <span class="cm-property">transform</span>:<span class="cm-variable cm-callee">translate</span>(<span class="cm-number">-5%</span>,<span class="cm-number">-10%</span>)
+  }
+  <span class="cm-number">60%</span>{
+    <span class="cm-property">transform</span>:<span class="cm-variable cm-callee">translate</span>(<span class="cm-number">-15%</span>,<span class="cm-number">-20%</span>)
+  }
+  <span class="cm-number">70%</span>{
+    <span class="cm-property">transform</span>:<span class="cm-variable cm-callee">translate</span>(<span class="cm-number">-5%</span>,<span class="cm-number">-10%</span>)
+  }
+  <span class="cm-number">80%</span>{
+    <span class="cm-property">transform</span>:<span class="cm-variable cm-callee">translate</span>(<span class="cm-number">-15%</span>,<span class="cm-number">-20%</span>)
+  }
+  <span class="cm-number">90%</span>{
+    <span class="cm-property">transform</span>:<span class="cm-variable cm-callee">translate</span>(<span class="cm-number">-5%</span>,<span class="cm-number">-10%</span>)
+  }
+  <span class="cm-number">100%</span>{
+    <span class="cm-property">transform</span>:<span class="cm-variable cm-callee">translate</span>(<span class="cm-number">-15%</span>,<span class="cm-number">-20%</span>)
+  }
+ 
+}
+
+<span class="cm-qualifier">.headerText</span>{
+  <span class="cm-property">color</span>:<span class="cm-keyword">white</span>;
+  <span class="cm-property">font-size</span>:<span class="cm-number">3rem</span>;
+  <span class="cm-property">font-family</span>: <span class="cm-string">'Raleway'</span>, <span class="cm-atom">sans-serif</span>;
+  <span class="cm-property">z-index</span>:<span class="cm-number">5</span>
+}
+
+<span class="cm-qualifier">.section2</span>{
+  <span class="cm-property">width</span>:<span class="cm-number">100vw</span>;
+  <span class="cm-property">height</span>:<span class="cm-number">100vh</span>;
+  <span class="cm-property">display</span>:<span class="cm-atom">flex</span>;
+  <span class="cm-property">justify-content</span>:<span class="cm-atom">center</span>;
+  <span class="cm-property">align-items</span>:<span class="cm-atom">center</span>;
+  <span class="cm-property">background-color</span>:<span class="cm-keyword">red</span>;
+}
+
+<span class="cm-qualifier">.bottomArrow</span>{
+  <span class="cm-property">position</span>:<span class="cm-atom">absolute</span>;
+  <span class="cm-property">bottom</span>:<span class="cm-number">2em</span>;
+  <span class="cm-property">width</span>:<span class="cm-number">3em</span>;
+  <span class="cm-property">height</span>:<span class="cm-number">3em</span>;;
+  <span class="cm-property">background-color</span>:<span class="cm-atom">transparent</span>;
+  <span class="cm-property">transform</span>:<span class="cm-variable cm-callee">rotateZ</span>(<span class="cm-number">45deg</span>);
+  <span class="cm-property">border-width</span>:<span class="cm-number">0</span> <span class="cm-number">10px</span> <span class="cm-number">10px</span> <span class="cm-number">0</span>;
+  <span class="cm-property">border-color</span>:<span class="cm-keyword">white</span>;
+  <span class="cm-property">border-style</span>:<span class="cm-atom">dotted</span>;
+  <span class="cm-property">z-index</span>:<span class="cm-number">5</span>
+}</code></pre>
+
+        </div>
+
+
+
+
+
+    <div id="result-box" class="code-box active zoom-1" role="region" aria-label="Result">
+
+
+  <iframe allow="accelerometer *; bluetooth *; camera *; clipboard-read *; clipboard-write *; display-capture *; encrypted-media *; geolocation *; gyroscope *; language-detector *; language-model *; local-network-access *; microphone *; midi *; rewriter *; serial *; summarizer *; translator *; web-share *; writer *; xr-spatial-tracking *" allowfullscreen="true" allowpaymentrequest="true" allowtransparency="true" class="result-iframe  " frameborder="0" id="result-iframe" loading="lazy" name="CodePen Preview for Animated Film Grain effect" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" scrolling="yes" title="CodePen Preview for Animated Film Grain effect" data-src="https://codepen.io/ooblek/fullembedgrid/vYxYomx?animations=run&amp;type=embed" src="https://codepen.io/ooblek/fullembedgrid/vYxYomx?animations=run&amp;type=embed">
+  </iframe>
+
+
+</div>
+
+
+    <div id="about-box">
+
+  <div class="about-container">
+
+
+    <div class="about-user">
+
+        <a href="https://codepen.io/ooblek" target="_blank" rel="noopener"><img src="https://assets.codepen.io/3634169/internal/avatars/users/default.png?fit=crop&amp;format=auto&amp;height=256&amp;version=1569589218&amp;width=256" loading="lazy" alt="" class="about-image"></a>
+
+      <div class="about-user-info">
+
+
+        <p>
+          This Pen is owned by <a href="https://codepen.io/ooblek" target="_blank" rel="noopener">Ooblek</a> on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+
+        </p>
+
+        <p>
+          <a href="/ooblek" target="_blank" rel="noopener" class="about-user-more">
+          See more by @ooblek on CodePen
+          </a>
+        </p>
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+    <div id="resources-box" class="resources-box">
+
+  <h3>External CSS</h3>
+    <p>
+      This Pen doesn't use any external CSS resources.
+    </p>
+
+  <h3>External JavaScript</h3>
+    <p>
+      This Pen doesn't use any external JavaScript resources.
+    </p>
+
+</div>
+
+
+  </div>
+
+    <footer class="embed-footer" id="embed-footer">
+
+    <button id="resources-link" class="resources-link action-button bottom left" href="#resources-box" aria-pressed="false" role="button">
+      Resources
+    </button>
+
+    <ul class="scaling-choices bottom right">
+  <li><button class="action-button" id="zoom-button-1">1×</button></li>
+  <li><button class="action-button" id="zoom-button-05">0.5×</button></li>
+  <li><button class="action-button" id="zoom-button-025">0.25×</button></li>
+</ul>
+
+<button id="rerun-button" class="action-button rerun-button bottom right">
+  Rerun
+</button>
+
+  </footer>
+
+
+
+  <script nonce="">
+    __processedPen = {"html":"&lt;div class=&quot;hero&quot;&gt;\n  &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt;\n  &lt;h1 class=&quot;headerText&quot;&gt;\n    The&lt;br&gt; Outside &lt;br&gt; Experience\n  &lt;/h1&gt;\n  \n  &lt;div class=&quot;bottomArrow&quot; /&gt;\n&lt;/div&gt;","css":"*{\n  margin:auto;\n}\nbody{\n  display:flex !important;\n  flex-direction:column\n}\n.overlay{\n  position:absolute;\n  width:100vw;\n  height:100vh;\n  background-image:linear-gradient(transparent,rgba(0,0,0,0.5));\n  z-index:1\n}\n.hero{\n  \n  display:flex;\n  justify-content:center;\n  align-items:center;\n  width:100%;\n  height:100vh;\n  background-image:url(&#39;https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/St_Michael%27s_Mount_II5302_x_2982.jpg/1416px-St_Michael%27s_Mount_II5302_x_2982.jpg&#39;);\n  background-position:center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  \n  \n}\n\n.hero:after{\n  content:&quot;&quot;;\n  background-image:url(&quot;https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png&quot;);\n  height: 300%;\n  width: 300%;\n  position: fixed;\n  opacity:0.1;\n   animation: animateGrain 8s steps(10) infinite;\n}\n\n@keyframes animateGrain{\n  0%, 100% { transform:translate(0, 0) }\n  10%{\n    transform:translate(-5%,-10%)\n  }\n  20%{\n    transform:translate(-15%,-20%)\n  }\n  30%{\n    transform:translate(-5%,-10%)\n  }\n  40%{\n    transform:translate(-15%,-20%)\n  }\n  \n  50%{\n    transform:translate(-5%,-10%)\n  }\n  60%{\n    transform:translate(-15%,-20%)\n  }\n  70%{\n    transform:translate(-5%,-10%)\n  }\n  80%{\n    transform:translate(-15%,-20%)\n  }\n  90%{\n    transform:translate(-5%,-10%)\n  }\n  100%{\n    transform:translate(-15%,-20%)\n  }\n \n}\n\n.headerText{\n  color:white;\n  font-size:3rem;\n  font-family: &#39;Raleway&#39;, sans-serif;\n  z-index:5\n}\n\n.section2{\n  width:100vw;\n  height:100vh;\n  display:flex;\n  justify-content:center;\n  align-items:center;\n  background-color:red;\n}\n\n.bottomArrow{\n  position:absolute;\n  bottom:2em;\n  width:3em;\n  height:3em;;\n  background-color:transparent;\n  transform:rotateZ(45deg);\n  border-width:0 10px 10px 0;\n  border-color:white;\n  border-style:dotted;\n  z-index:5\n}","js":""};
+    __preprocessors = {
+      "html": "none",
+      "css": "none",
+      "js": "none"
+    };
+    __preprocessorNames = {
+      "html": "HTML",
+      "css": "CSS",
+      "js": "JS"
+    };
+    __editable = false;
+    __embed_prefill = false;
+  </script>
+
+  <script src="https://cpwebassets.codepen.io/assets/embed/embed-50d861d75bb97f2181b72b0f24b62024635276fb87a74c1a5abb8758d0eb77d1.js"></script>
+
+
+<script nonce="">(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.nonce='azzCLn0wDkY=';d.innerHTML="window.__CF$cv$params={r:'a4e440055b5bee6a',t:'MTc5MjYyNzUyMw=='};var a=document.createElement('script');a.nonce='azzCLn0wDkY=';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; visibility: hidden;"></iframe>
+
+</body></html>

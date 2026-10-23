@@ -32,9 +32,9 @@
     <!-- TOP SYSTEM BAR (Public Domain / Kali Linux Panel) -->
     <header class="kali-os-topbar" role="banner">
         <div class="kali-topbar-left">
-            <a href="index.html" class="kali-topbar-back" title="Torna al Portfolio principale">
+            <a href="index.html" class="kali-topbar-back" title="Torna alla Home">
                 <span class="kali-back-arrow">&#8592;</span>
-                <span class="kali-back-label">PORTFOLIO</span>
+                <span class="kali-back-label">HOME</span>
             </a>
             <span class="kali-topbar-sep">|</span>
             <div class="kali-topbar-brand">
@@ -95,22 +95,10 @@
         <!-- DESKTOP ICONS (Disposte in modo casuale / organico, non troppo sparse) -->
         <div class="kali-desktop-icons-layer" id="kali-icons-layer">
 
-            <!-- Icon 1: curriculum.pdf (Media Preview) -->
-            <div class="kali-desktop-icon kali-icon-pdf" id="icon-cv" tabindex="0" role="button"
-                aria-label="Apri curriculum.pdf" title="Doppio clic o Invio per aprire curriculum.pdf"
-                style="top: 36px; left: 40px;">
-                <div class="kali-icon-thumb kali-thumb-doc">
-                    <img src="assets/cv-preview.jpg" alt="curriculum.pdf" class="kali-preview-doc-img"
-                        draggable="false">
-                    <span class="kali-icon-badge kali-badge-pdf">PDF</span>
-                </div>
-                <span class="kali-icon-label">curriculum.pdf</span>
-            </div>
-
-            <!-- Icon 2: ARCHIVE (public---domain Cyan Folder) -->
+            <!-- Icon 1: ARCHIVE (public---domain Cyan Folder) -->
             <div class="kali-desktop-icon kali-icon-dir" id="icon-projects" tabindex="0" role="button"
                 aria-label="Apri ARCHIVE" title="Doppio clic o Invio per aprire archive"
-                style="top: 48px; left: 160px;">
+                style="top: 24px; left: 24px;">
                 <div class="kali-icon-thumb kali-thumb-cyan-folder">
                     <svg viewBox="0 0 54 44" width="48" height="40" fill="none">
                         <path d="M4 8a3 3 0 0 1 3-3h13l4 4h23a3 3 0 0 1 3 3v24a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8z"
@@ -125,10 +113,41 @@
                 <span class="kali-icon-label">archive</span>
             </div>
 
-            <!-- Icon 3: reel.mp4 (Media Preview) -->
+            <!-- Icon 2: contacts.txt (Text File) -->
+            <div class="kali-desktop-icon kali-icon-txt" id="icon-contact" tabindex="0" role="button"
+                aria-label="Apri contacts.txt" title="Doppio clic o Invio per aprire contacts.txt"
+                style="top: 116px; left: 24px;">
+                <div class="kali-icon-thumb kali-thumb-txt">
+                    <svg class="kali-svg-doc" viewBox="0 0 42 50" width="44" height="48" fill="none">
+                        <path d="M4 3C4 1.89543 4.89543 1 6 1H28L38 11V47C38 48.1046 37.1046 49 36 49H6C4.89543 49 4 48.1046 4 47V3Z" fill="#FFFFFF" stroke="#c0c4cc" stroke-width="1.3" stroke-linejoin="round"/>
+                        <path d="M28 1V9C28 10.1046 28.8954 11 30 11H38" fill="#F3F4F6" stroke="#c0c4cc" stroke-width="1.3" stroke-linejoin="round"/>
+                        <path d="M28 1L38 11H30C28.8954 11 28 10.1046 28 9V1Z" fill="#E5E7EB"/>
+                        <rect x="9" y="18" width="24" height="2" rx="1" fill="#475569"/>
+                        <rect x="9" y="24" width="20" height="2" rx="1" fill="#94A3B8"/>
+                        <rect x="9" y="30" width="22" height="2" rx="1" fill="#94A3B8"/>
+                        <rect x="9" y="36" width="14" height="2" rx="1" fill="#CBD5E1"/>
+                    </svg>
+                    <span class="kali-icon-badge kali-badge-txt">TXT</span>
+                </div>
+                <span class="kali-icon-label">contacts.txt</span>
+            </div>
+
+            <!-- Icon 3: curriculum.pdf (Media Preview) -->
+            <div class="kali-desktop-icon kali-icon-pdf" id="icon-cv" tabindex="0" role="button"
+                aria-label="Apri curriculum.pdf" title="Doppio clic o Invio per aprire curriculum.pdf"
+                style="top: 24px; left: 122px;">
+                <div class="kali-icon-thumb kali-thumb-doc">
+                    <img src="assets/cv-preview.jpg" alt="curriculum.pdf" class="kali-preview-doc-img"
+                        draggable="false">
+                    <span class="kali-icon-badge kali-badge-pdf">PDF</span>
+                </div>
+                <span class="kali-icon-label">curriculum.pdf</span>
+            </div>
+
+            <!-- Icon 4: reel.mp4 (Media Preview) -->
             <div class="kali-desktop-icon kali-icon-video" id="icon-reel" tabindex="0" role="button"
                 aria-label="Apri reel.mp4" title="Doppio clic o Invio per aprire reel.mp4"
-                style="top: 175px; left: 50px;">
+                style="top: 116px; left: 122px;">
                 <div class="kali-icon-thumb kali-thumb-video">
                     <img src="assets/reel-preview.jpg" alt="reel.mp4" class="kali-preview-video-img" draggable="false">
                     <span class="kali-media-play-pill" aria-hidden="true">
@@ -141,7 +160,7 @@
                 <span class="kali-icon-label">reel.mp4</span>
             </div>
 
-            <!-- Icon 4: trash (In alto a destra all'angolo) -->
+            <!-- Icon 5: trash (In alto a destra all'angolo) -->
             <div class="kali-desktop-icon kali-icon-trash" id="icon-trash" tabindex="0" role="button"
                 aria-label="Cestino" title="Cestino di sistema" style="top: 24px; right: 28px; left: auto;">
                 <div class="kali-icon-thumb kali-thumb-trash">
@@ -592,6 +611,83 @@
             </div>
         </div>
 
+        <!-- ========================================================
+             WINDOW 4: CONTACTS.TXT (Text Editor)
+             ======================================================== -->
+        <div class="kali-window kali-window-contact is-closed" id="kali-win-contact" role="region"
+            aria-label="Finestra Text Editor — contacts.txt">
+            <!-- Titlebar -->
+            <div class="kali-titlebar" id="kali-tb-contact">
+                <div class="kali-controls">
+                    <button class="kali-btn kali-btn-close" data-win="contact" aria-label="Chiudi" title="Chiudi"></button>
+                    <button class="kali-btn kali-btn-min" data-win="contact" aria-label="Riduci a icona" title="Riduci a icona"></button>
+                    <button class="kali-btn kali-btn-max" data-win="contact" aria-label="Ingrandisci" title="Ingrandisci"></button>
+                </div>
+                <div class="kali-title-info">
+                    <span class="kali-title-text">contacts.txt — Text Editor</span>
+                </div>
+                <div class="kali-titlebar-spacer" aria-hidden="true"></div>
+            </div>
+
+            <!-- Menubar -->
+            <div class="kali-menubar">
+                <span class="kali-menu-item">File</span>
+                <span class="kali-menu-item">Edit</span>
+                <span class="kali-menu-item">Format</span>
+                <span class="kali-menu-item">View</span>
+                <span class="kali-menu-item">Help</span>
+            </div>
+
+            <!-- Content Area -->
+            <div class="kali-window-content kali-contact-content">
+                <div class="kali-contact-header">
+                    <div class="kali-contact-stamp">// CONTACT &amp; DIRECTORY</div>
+                    <h3 class="kali-contact-title">LORENZO KRAJA</h3>
+                    <p class="kali-contact-subtitle">Product &amp; Jewelry Designer &bull; Rome [RM], Italy</p>
+                </div>
+                <div class="kali-contact-body">
+                    <div class="kali-contact-row">
+                        <span class="kali-contact-label">EMAIL:</span>
+                        <a href="mailto:lorenzokraja99@gmail.com" class="kali-contact-val">lorenzokraja99@gmail.com</a>
+                        <button type="button" class="kali-contact-copy-btn" id="copy-email-btn" title="Copia email">COPIA</button>
+                    </div>
+                    <div class="kali-contact-row">
+                        <span class="kali-contact-label">INSTAGRAM:</span>
+                        <a href="https://www.instagram.com/lorenzo.kraja?vrfl=emV0cDFlbW51NWFm" target="_blank" rel="noopener noreferrer" class="kali-contact-val">lorenzo.kraja &rarr;</a>
+                    </div>
+                    <div class="kali-contact-row">
+                        <span class="kali-contact-label">LINKEDIN:</span>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener" class="kali-contact-val">Lorenzo Kraja &rarr;</a>
+                    </div>
+                    <div class="kali-contact-row">
+                        <span class="kali-contact-label">CURRICULUM:</span>
+                        <a href="assets/cv_lorenzo_kraja.pdf" download="CV_Lorenzo_Kraja.pdf" class="kali-contact-val">cv_lorenzo_kraja.pdf &darr;</a>
+                    </div>
+                    <div class="kali-contact-row">
+                        <span class="kali-contact-label">TIMEZONE:</span>
+                        <span class="kali-contact-val">Europe/Rome (GMT+1 / GMT+2)</span>
+                    </div>
+                </div>
+                <div class="kali-contact-footer">
+                    <span>&copy; 2026 Lorenzo Kraja. All rights reserved.</span>
+                </div>
+            </div>
+
+            <!-- Statusbar -->
+            <div class="kali-statusbar">
+                <div class="kali-status-left">
+                    <span>Plain Text Document</span>
+                    <span class="kali-status-sep">&bull;</span>
+                    <span>UTF-8</span>
+                </div>
+                <div class="kali-status-right">
+                    <span>Ln 1, Col 1</span>
+                    <span class="kali-status-sep">&bull;</span>
+                    <span>100%</span>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Applications Popup Menu -->
@@ -613,10 +709,14 @@
                 <span class="kali-app-icon">&#128193;</span>
                 <span class="kali-app-name">archive — File Manager</span>
             </button>
+            <button class="kali-app-menu-item" data-action="win" data-target="contact">
+                <span class="kali-app-icon">&#128221;</span>
+                <span class="kali-app-name">Text Editor (contacts.txt)</span>
+            </button>
             <div class="kali-app-menu-sep"></div>
             <a href="index.html" class="kali-app-menu-item">
                 <span class="kali-app-icon">&#8592;</span>
-                <span class="kali-app-name">Return to Portfolio Home</span>
+                <span class="kali-app-name">Return to Home</span>
             </a>
         </div>
     </div>
@@ -656,6 +756,10 @@
                 <span class="kali-tab-dot"></span>
                 <span>reel.mp4</span>
             </button>
+            <button class="kali-task-tab" data-win="contact" id="tab-contact" style="display:none;">
+                <span class="kali-tab-dot"></span>
+                <span>contacts.txt</span>
+            </button>
         </div>
 
         <!-- Taskbar Right: Workspace switcher & Minimize all -->
@@ -670,9 +774,20 @@
         </div>
     </footer>
 
-    <!-- Floating Side PORTFOLIO Button (Right Edge, Mid-Height, Vice-Versa) -->
+    <!-- Floating Side HOME Button (Left Edge, Mid-Height, Adv Scam Style with Left Arrow) -->
     <div class="fg-side-about fg-side-about-back" id="about-side-back">
-        <a href="index.html" class="fg-desktop-about-link" aria-label="Torna al Portfolio principale">&larr; PORTFOLIO</a>
+        <a href="index.html" class="sd-scam-about-link sd-scam-home-link" aria-label="Torna alla Home">
+            <span class="sd-scam-arrow-wrap sd-scam-arrow-left-wrap" aria-hidden="true">
+                <svg class="sd-scam-arrow-svg sd-scam-arrow-left-svg" viewBox="0 0 16 16" width="18" height="18" fill="currentColor">
+                    <rect x="1" y="7" width="1" height="2"/>
+                    <rect x="2" y="6" width="2" height="4"/>
+                    <rect x="4" y="4" width="2" height="8"/>
+                    <rect x="6" y="2" width="2" height="12"/>
+                    <rect x="8" y="6" width="7" height="4"/>
+                </svg>
+            </span>
+            <span class="sd-scam-about-text">HOME</span>
+        </a>
     </div>
 
     <!-- Dedicated Desktop OS Logic -->

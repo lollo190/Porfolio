@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="it" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luca (2024) — Lorenzo Kraja</title>
+    <meta name="description" content="Luca — Progetto Eyewear & Hardware di Lorenzo Kraja. Dettagli metallici, precisione formale e acetato scultoreo.">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Luca (2024) — Lorenzo Kraja">
+    <meta property="og:description" content="Luca — Eyewear & Hardware di Lorenzo Kraja.">
+    <meta property="og:image" content="images/luca/luca_01.jpg">
+
+    <meta name="view-transition" content="same-origin">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="proj-page-body">
+    <!-- Film Grain Texture Overlay -->
+    <div class="film-grain" aria-hidden="true"></div>
+
+    <!-- TOP NAVIGATION BAR -->
+    <nav class="nb-top-nav">
+        <div class="nb-nav-col-1">
+            <a href="index.html" class="nb-nav-home-link" aria-label="Torna alla Home">
+                <span class="nb-nav-home-text">&larr; Lorenzo Kraja</span>
+            </a>
+        </div>
+        <div class="nb-nav-col-3">
+            <a href="about.html" class="nb-nav-about-link">About</a>
+        </div>
+        <div class="nb-nav-col-4">
+            <a href="index.html#contact" class="nb-nav-contact-link">Contact</a>
+            <div class="nb-clock-toggle-wrap">
+                <span id="live-clock">00:00:00 RM</span>
+                <button id="theme-toggle" class="nb-theme-toggle" aria-label="Cambia tema chiaro / scuro" title="Tema chiaro / scuro">
+                    <span class="nb-theme-icon-wrap">
+                        <svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor" class="nb-theme-icon nb-theme-icon-sun" aria-hidden="true">
+                            <circle cx="256" cy="256" r="128"/>
+                            <g>
+                                <rect x="230" y="0" width="52" height="91" rx="26"/>
+                                <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(45 256 256)"/>
+                                <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(90 256 256)"/>
+                                <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(135 256 256)"/>
+                                <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(180 256 256)"/>
+                                <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(225 256 256)"/>
+                                <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(270 256 256)"/>
+                                <rect x="230" y="0" width="52" height="91" rx="26" transform="rotate(315 256 256)"/>
+                            </g>
+                        </svg>
+                        <svg viewBox="0 0 512 512" width="20" height="20" fill="currentColor" class="nb-theme-icon nb-theme-icon-moon" aria-hidden="true">
+                            <path d="M 129 3 L 125 5 L 123 7 L 113 13 L 109 16 L 104 20 L 99 24 L 93 29 L 69 53 L 63 60 L 59 65 L 55 70 L 52 74 L 40 92 L 37 97 L 32 106 L 25 120 L 21 129 L 19 134 L 16 142 L 14 148 L 11 157 L 9 164 L 8 168 L 7 172 L 4 187 L 3 193 L 2 199 L 1 208 L 0 220 L 0 252 L 1 264 L 2 272 L 3 279 L 4 285 L 5 290 L 6 295 L 10 311 L 12 318 L 15 327 L 18 335 L 20 340 L 22 345 L 27 356 L 30 362 L 36 373 L 39 378 L 44 386 L 46 389 L 48 392 L 53 399 L 56 403 L 60 408 L 64 413 L 71 421 L 90 440 L 97 446 L 103 451 L 108 455 L 112 458 L 119 463 L 122 465 L 125 467 L 133 472 L 140 476 L 153 483 L 166 489 L 171 491 L 176 493 L 184 496 L 187 497 L 190 498 L 200 501 L 216 505 L 221 506 L 226 507 L 232 508 L 239 509 L 247 510 L 259 511 L 291 511 L 303 510 L 312 509 L 318 508 L 324 507 L 339 504 L 343 503 L 354 500 L 360 498 L 369 495 L 377 492 L 382 490 L 391 486 L 405 479 L 414 474 L 419 471 L 425 467 L 434 461 L 441 456 L 446 452 L 451 448 L 458 442 L 481 419 L 487 412 L 491 407 L 495 402 L 498 398 L 508 382 L 510 379 L 508 380 L 506 381 L 504 383 L 496 387 L 482 394 L 475 397 L 470 399 L 462 402 L 450 406 L 443 408 L 431 411 L 416 414 L 409 415 L 402 416 L 392 417 L 347 417 L 337 416 L 330 415 L 324 414 L 318 413 L 313 412 L 304 410 L 300 409 L 293 407 L 283 404 L 280 403 L 272 400 L 267 398 L 262 396 L 255 393 L 249 390 L 239 385 L 230 380 L 222 375 L 210 367 L 206 364 L 202 361 L 197 357 L 192 353 L 184 346 L 165 327 L 158 319 L 154 314 L 150 309 L 147 305 L 144 301 L 136 289 L 131 281 L 126 272 L 123 266 L 118 256 L 115 249 L 113 244 L 111 239 L 108 231 L 107 228 L 104 218 L 102 211 L 101 207 L 99 198 L 98 193 L 97 187 L 96 181 L 95 174 L 94 164 L 94 119 L 95 109 L 96 102 L 97 95 L 100 80 L 103 68 L 105 61 L 109 49 L 112 41 L 114 36 L 117 29 L 121 21 L 128 7 L 130 5 L 132 1 Z"/>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN PROJECT CONTAINER -->
+    <main class="proj-page-container">
+        <!-- PROJECT HERO HEADER -->
+        <header class="proj-page-hero">
+            <span class="proj-page-tag">// PROJECT 03 &bull; EYEWEAR &amp; HARDWARE</span>
+            <h1 class="proj-page-title">LUCA</h1>
+            <div class="proj-page-meta-row">
+                <span>Lorenzo Kraja</span>
+                <span class="proj-page-meta-sep">&bull;</span>
+                <span>Eyewear &amp; Hardware, 2024</span>
+                <span class="proj-page-meta-sep">&bull;</span>
+                <span>Milan / Rome, Italy</span>
+                <span class="proj-page-meta-sep">&bull;</span>
+                <span>Status: Capsule Collection</span>
+            </div>
+
+            <div class="proj-page-statement-grid">
+                <p class="proj-page-statement">
+                    Per Luca, un brand di lifestyle ed eyewear, abbiamo disegnato i dettagli metallici delle cerniere e la struttura delle montature in acetato. Il cliente voleva posizionarsi all’intersezione tra moda, ingegneria di precisione e cultura contemporanea.
+                </p>
+                <div class="proj-page-specs">
+                    <div class="proj-spec-item">
+                        <span class="proj-spec-label">TIPOLOGIA</span>
+                        <span class="proj-spec-val">Eyewear &amp; Hardware scultoreo</span>
+                    </div>
+                    <div class="proj-spec-item">
+                        <span class="proj-spec-label">MATERIALI</span>
+                        <span class="proj-spec-val">Acetato Mazzucchelli 8mm, Titanio Grado 5</span>
+                    </div>
+                    <div class="proj-spec-item">
+                        <span class="proj-spec-label">LAVORAZIONE</span>
+                        <span class="proj-spec-val">Fresatura CNC pantografo, Burattatura artigianale 72h</span>
+                    </div>
+                    <div class="proj-spec-item">
+                        <span class="proj-spec-label">FINITURA</span>
+                        <span class="proj-spec-val">Lucidatura manuale con paste abrasive e cere naturali</span>
+                    </div>
+                    <div class="proj-spec-item">
+                        <span class="proj-spec-label">DETTAGLI</span>
+                        <span class="proj-spec-val">Cerniere a 7 snodi con rivetti a vista</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- LOOKBOOK GALLERY SECTION -->
+        <section class="proj-gallery-grid" aria-label="Galleria Immagini Luca">
+            <!-- 1. Front View -->
+            <article class="proj-gallery-card">
+                <img src="images/luca/luca_01.jpg" alt="Luca — Vista frontale montatura" loading="eager">
+                <div class="proj-gallery-meta-overlay">
+                    <span>LUCA_01.JPG</span>
+                    <span>VISTA FRONTALE MONTATURA</span>
+                    <span>2024</span>
+                </div>
+            </article>
+
+            <!-- 2. Hinge Detail -->
+            <article class="proj-gallery-card">
+                <img src="images/luca/luca_02.jpg" alt="Luca — Dettaglio cerniera metallica" loading="lazy">
+                <div class="proj-gallery-meta-overlay">
+                    <span>LUCA_02.JPG</span>
+                    <span>DETTAGLIO CERNIERA &amp; METALLO</span>
+                    <span>2024</span>
+                </div>
+            </article>
+
+            <!-- 3. Profile & Thickness -->
+            <article class="proj-gallery-card">
+                <img src="images/luca/luca_03.jpg" alt="Luca — Profilo e spessore acetato" loading="lazy">
+                <div class="proj-gallery-meta-overlay">
+                    <span>LUCA_03.JPG</span>
+                    <span>PROFILO &amp; SPESSORE ACETATO</span>
+                    <span>2024</span>
+                </div>
+            </article>
+        </section>
+
+        <!-- PAGE FOOTER NAVIGATION -->
+        <footer class="proj-page-nav-bar">
+            <a href="index.html" class="proj-nav-back">&larr; Torna alla Home</a>
+            <a href="harp-chair.html" class="proj-nav-next">Prossimo Progetto: Harp Chair &rarr;</a>
+        </footer>
+    </main>
+
+    <!-- THEME & CLOCK SCRIPT -->
+    <script>
+        function startClock() {
+            const el = document.getElementById("live-clock");
+            if (!el) return;
+            const tick = () => {
+                try {
+                    const now = new Date();
+                    el.textContent = new Intl.DateTimeFormat("en-US", {
+                        timeZone: "Europe/Rome",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        hour12: false,
+                    }).format(now) + " RM";
+                } catch {
+                    el.textContent = "08:22:30 RM";
+                }
+            };
+            tick();
+            setInterval(tick, 1000);
+        }
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem("portfolio_theme");
+            if (savedTheme === "dark") {
+                document.body.classList.add("dark-theme");
+            }
+            const btn = document.getElementById("theme-toggle");
+            if (btn) {
+                btn.addEventListener("click", () => {
+                    const isDark = document.body.classList.toggle("dark-theme");
+                    localStorage.setItem("portfolio_theme", isDark ? "dark" : "light");
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initTheme();
+            startClock();
+        });
+    </script>
+</body>
+</html>

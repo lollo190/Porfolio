@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro Test</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #f7f7f7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Mock content behind intro */
+        .mock-desktop {
+            width: 100vw;
+            height: 100vh;
+            background: #e5e5e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #333;
+        }
+
+        /* Intro Overlay */
+        .site-intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #000000;
+            cursor: pointer;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+        }
+
+        .site-intro-overlay.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Noise Background */
+        .intro-noise-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Center Typography matching Lorenzo Kraja 3D GIF */
+        .intro-logo-center {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .intro-title-text {
+            font-family: 'Helvetica Neue', Helvetica, 'Arial Black', Arial, sans-serif;
+            font-weight: 900;
+            font-size: clamp(42px, 8vw, 110px);
+            letter-spacing: -0.04em;
+            color: #ffffff;
+            white-space: nowrap;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+            text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="mock-desktop">
+        Site Content (Desktop / Windows / Navbar)
+    </div>
+
+    <div id="site-intro-overlay" class="site-intro-overlay">
+        <img class="intro-noise-bg" src="../assets/noise-intro.gif" alt="" draggable="false">
+        <div class="intro-logo-center">
+            <h1 class="intro-title-text">Lorenzo Kraja</h1>
+        </div>
+    </div>
+
+    <script>
+        // Smooth fade out after 1.4s
+        window.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('site-intro-overlay');
+            const timer = setTimeout(() => {
+                triggerFade();
+            }, 1400);
+
+            overlay.addEventListener('click', () => {
+                clearTimeout(timer);
+                triggerFade();
+            });
+
+            function triggerFade() {
+                overlay.classList.add('is-hidden');
+            }
+        });
+    </script>
+</body>
+</html>

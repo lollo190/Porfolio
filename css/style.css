@@ -46,6 +46,7 @@ html {
     --win-status-bg: #ececec;
     --win-status-color: #555555;
     --win-video-bg: #000000;
+    --retro-blue: #0000ee;
 }
 
 body.dark-theme {
@@ -58,6 +59,7 @@ body.dark-theme {
     --placeholder-bg: rgba(32, 32, 32, 0.88);
     --grain-opacity: 0.12;
     /* Opacità grana tema scuro (modificabile da 0.0 a 1.0) */
+    --retro-blue: #4d94ff;
 
     /* Window Theme (Dark / Charcoal with sleek dark-gray gradient titlebar) */
     --win-bg: #202020;
@@ -344,15 +346,15 @@ body.dark-theme .nb-theme-icon-moon {
     display: none;
 }
 
-/* --- Top Navigation (Monochrome Dynamic Contrast) --------- */
+/* --- Top Navigation (Clean Two-Column Layout: Logo Left, Utilities Right) --- */
 .nb-top-nav {
     position: sticky;
     top: 0;
     z-index: 100;
     background: transparent;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 14px 12px 14px;
     font-size: 16px;
     color: var(--text-color);
@@ -360,14 +362,18 @@ body.dark-theme .nb-theme-icon-moon {
 }
 
 .nb-nav-col-1,
-.nb-nav-col-3,
 .nb-nav-col-4 {
     color: var(--text-color);
     transition: color 0.25s ease, text-shadow 0.25s ease;
+    display: flex;
+    align-items: center;
+}
+
+.nb-nav-col-4 {
+    justify-content: flex-end;
 }
 
 .nb-nav-col-1 a,
-.nb-nav-col-3 a,
 .nb-nav-col-4 a {
     color: inherit;
     transition: color 0.25s ease, opacity 0.2s ease, text-shadow 0.25s ease;
@@ -375,14 +381,12 @@ body.dark-theme .nb-theme-icon-moon {
 
 /* Inversione monocromatica (bianco puro con ombra morbida quando passa sopra immagini) */
 .nb-nav-col-1.nb-contrast-invert,
-.nb-nav-col-3.nb-contrast-invert,
 .nb-nav-col-4.nb-contrast-invert {
     color: #ffffff !important;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
 }
 
 .nb-nav-col-1.nb-contrast-invert a,
-.nb-nav-col-3.nb-contrast-invert a,
 .nb-nav-col-4.nb-contrast-invert a {
     color: #ffffff !important;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
@@ -398,10 +402,6 @@ body.dark-theme .nb-theme-icon-moon {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.65);
 }
 
-.nb-nav-col-1 {
-    grid-column: 1;
-}
-
 .nb-nav-home-link {
     text-decoration: none;
     color: inherit;
@@ -409,6 +409,7 @@ body.dark-theme .nb-theme-icon-moon {
     font-weight: 500;
     display: inline-flex;
     align-items: center;
+    gap: 10px;
     position: relative;
     white-space: nowrap;
     min-height: 22px;
@@ -419,10 +420,40 @@ body.dark-theme .nb-theme-icon-moon {
     opacity: 0.82;
 }
 
+.nb-nav-about-top {
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: inherit;
+    margin-right: 28px;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    white-space: nowrap;
+    transition: opacity 0.2s ease, color 0.25s ease;
+}
+
+.nb-nav-about-top:hover {
+    opacity: 0.72;
+}
+
+.nb-nav-home-text {
+    display: inline-block;
+    opacity: 1 !important;
+}
+
+.nb-nav-logo-dock {
+    position: static !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    transform: none !important;
+}
+
 .nb-nav-home-text {
     display: inline-block;
     transition: opacity 0.3s ease;
-    opacity: 1;
+    opacity: 0;
 }
 
 /* Fallback for pages without docking logo (e.g. about.html) */
@@ -520,7 +551,7 @@ body.dark-theme .nb-dock-dark {
    ============================================================ */
 
 .fg-hero {
-    padding: 16px 14px 72px 14px;
+    padding: 16px 14px 40px 14px;
     margin-bottom: 0;
 }
 
@@ -530,7 +561,7 @@ body.dark-theme .nb-dock-dark {
     grid-template-columns: 1.32fr 0.78fr;
     gap: 40px;
     align-items: flex-start;
-    margin-bottom: 175px;
+    margin-bottom: 44px;
 }
 
 .fg-hero-col-left {
@@ -731,693 +762,135 @@ body.dark-theme .fg-toc-item {
     margin-right: 6px;
 }
 
-/* --- Desktop Windows Workspace (Projects File Manager + VLC Media Player) --- */
-.fg-hero-windows {
+/* --- Bottom Section: Table of Contents (Right-aligned Virgil Abloh Style) --- */
+.fg-bottom-toc-section {
     position: relative;
     width: 100%;
-    min-height: 770px;
-    margin: 10px 0 36px 0;
-    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding: 60px 4vw 80px 4vw;
+    box-sizing: border-box;
+    scroll-margin-top: 80px;
 }
 
+.fg-bottom-toc-wrap {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* ============================================================
+   PROJECTS SHOWCASE (Alternating Left / Right OS Windows)
+   ============================================================ */
+.fg-projects-showcase {
+    position: relative;
+    width: 100%;
+    padding: 60px 4vw 100px 4vw;
+    display: flex;
+    flex-direction: column;
+    gap: 90px;
+    box-sizing: border-box;
+}
+
+.fg-project-row {
+    position: relative;
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    scroll-margin-top: 80px;
+}
+
+/* Staggered Alternating Cadence */
+.fg-project-row.is-left {
+    justify-content: flex-start;
+}
+
+.fg-project-row.is-right {
+    justify-content: flex-end;
+}
+
+.fg-project-window-shell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(840px, 54vw);
+    max-width: 880px;
+}
+
+.fg-project-row.is-left .fg-project-window-shell {
+    margin-left: 2vw;
+    margin-right: auto;
+}
+
+.fg-project-row.is-right .fg-project-window-shell {
+    margin-left: auto;
+    margin-right: 2vw;
+}
+
+/* Editorial Project Stamp above window (Virgil Abloh public---domain typography) */
+.fg-project-row-stamp {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+}
+
+.fg-stamp-num {
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+.fg-stamp-title {
+    color: var(--text-color);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.fg-stamp-meta {
+    opacity: 0.75;
+    margin-left: 4px;
+}
+
+/* Windows General Styling */
 .fg-hero-window {
     background: var(--win-bg);
     border: 1px solid var(--win-border);
     border-radius: 8px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.06);
-    overflow: visible !important;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    transition: box-shadow 0.25s ease, transform 0.25s ease,
-        background-color 0.25s ease, border-color 0.25s ease;
-    min-width: 280px;
-    min-height: 220px;
-    touch-action: none;
-}
-
-.fg-hero-window.is-closed {
-    display: none !important;
-}
-
-.fg-hero-window.is-minimized {
-    height: 30px !important;
-    min-height: 30px !important;
-    overflow: hidden !important;
-}
-
-.fg-hero-window.is-dragging,
-.fg-hero-window.is-resizing {
-    transition: none !important;
-    user-select: none !important;
-    -webkit-user-select: none !important;
-    will-change: width, height, transform;
-}
-
-body.is-window-resizing,
-body.is-window-dragging {
-    user-select: none !important;
-    -webkit-user-select: none !important;
-}
-
-body.is-window-resizing *,
-body.is-window-dragging * {
-    user-select: none !important;
-    -webkit-user-select: none !important;
-}
-
-.fg-hero-window.is-resizing *,
-.fg-hero-window.is-dragging * {
-    pointer-events: none !important;
-}
-
-.fg-hero-window.is-resizing .fg-win-resize-handle,
-.fg-hero-window.is-resizing .kali-resize-grip {
-    pointer-events: auto !important;
-}
-
-.fg-hero-window.is-dragging {
-    box-shadow: 0 32px 75px rgba(0, 0, 0, 0.28), 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.16), 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+    user-select: none;
+    position: relative;
 }
 
 .fg-hero-window.is-focused {
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22), 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 52px rgba(0, 0, 0, 0.22), 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-body.dark-theme .fg-hero-window.is-focused {
-    box-shadow: 0 28px 75px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--win-border);
+.fg-hero-window.is-dragging {
+    transition: none !important;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35), 0 8px 20px rgba(0, 0, 0, 0.18) !important;
+    cursor: grabbing !important;
+    z-index: 999 !important;
 }
 
-/* ============================================================
-   Window 1: ARCHIVE / PROJECTS FILE MANAGER (macOS Miller Columns Style)
-   ============================================================ */
-.fg-hero-window.fg-win-projects {
-    position: absolute;
-    top: 18px;
-    left: 3.5vw;
-    width: 896px;
-    height: 730px;
-    min-width: 420px;
-    min-height: 300px;
-    margin: 0;
-    z-index: 10;
-    border-radius: 8px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18), 0 2px 10px rgba(0, 0, 0, 0.08);
-    background: #e8e8e8;
+.fg-hero-window.is-resizing {
+    transition: none !important;
+    user-select: none !important;
+    z-index: 999 !important;
 }
 
-body.dark-theme .fg-hero-window.fg-win-projects {
-    background: #232323;
-    border-color: #383838;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px #383838;
-}
-
-/* 1. Archive Window Titlebar */
-.fg-hero-window.fg-win-projects .kali-titlebar {
-    height: 32px;
-    background: #e8e8e8;
-    border-bottom: 1px solid #d1d1d1;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .kali-titlebar {
-    background: #2b2b2b;
-    border-bottom: 1px solid #383838;
-}
-
-.fg-hero-window.fg-win-projects .kali-title-text {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: #404040;
-    letter-spacing: -0.01em;
-    text-transform: none !important;
-    text-shadow: none !important;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .kali-title-text {
-    color: #cccccc;
-}
-
-/* 2. Archive Window Toolbar (<, >, FOLDER_NAME) */
-.fg-hero-window.fg-win-projects .pd-fm-toolbar {
-    height: 36px;
-    background: #dedede;
-    border-bottom: 1px solid #c8c8c8;
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
-    flex-shrink: 0;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-fm-toolbar {
-    background: #222222;
-    border-bottom: 1px solid #333333;
-}
-
-.pd-nav-segment {
-    display: inline-flex;
-    align-items: center;
-    background: #ffffff;
-    border: 1px solid #c2c2c2;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-right: 14px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-body.dark-theme .pd-nav-segment {
-    background: #1c1c1c;
-    border-color: #383838;
-}
-
-.pd-nav-segment .pd-nav-btn {
-    width: 24px;
-    height: 22px;
-    border: none;
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #444444;
-    cursor: pointer;
-    line-height: 1;
-    transition: background 0.15s ease;
-}
-
-body.dark-theme .pd-nav-segment .pd-nav-btn {
-    color: #bbbbbb;
-}
-
-.pd-nav-segment .pd-btn-back {
-    border-right: 1px solid #e0e0e0;
-}
-
-body.dark-theme .pd-nav-segment .pd-btn-back {
-    border-right: 1px solid #383838;
-}
-
-.pd-nav-segment .pd-nav-btn:hover:not(:disabled) {
-    background: #ececec;
-}
-
-body.dark-theme .pd-nav-segment .pd-nav-btn:hover:not(:disabled) {
-    background: #2a2a2a;
-}
-
-.pd-nav-segment .pd-nav-btn:disabled {
-    opacity: 0.35;
-    cursor: default;
-}
-
-.fg-hero-window.fg-win-projects .pd-current-path {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 12.5px;
-    font-weight: 700;
-    color: #222222;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-current-path {
-    color: #eeeeee;
-}
-
-/* 3. Miller Columns 3-Column Body */
-.fg-hero-window.fg-win-projects .pd-3col-body {
-    flex: 1 1 auto;
-    display: flex;
-    min-height: 0;
-    overflow: hidden;
-    background: #ffffff;
-    border-bottom-left-radius: 7px;
-    border-bottom-right-radius: 7px;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-3col-body {
-    background: #181818;
-}
-
-/* Column 1: Folders */
-.fg-hero-window.fg-win-projects .pd-col-folders {
-    width: 156px;
-    min-width: 130px;
-    max-width: 190px;
-    flex-shrink: 0;
-    background: #f6f6f6;
-    border-right: 1px solid #dcdcdc;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 6px 0;
-    user-select: none;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-col-folders {
-    background: #1e1e1e;
-    border-right: 1px solid #2d2d2d;
-}
-
-.fg-hero-window.fg-win-projects .pd-folder-row {
-    height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 10px;
-    cursor: pointer;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    color: #222222;
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
-    transition: background 0.1s ease;
-    border-left: none;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-folder-row {
-    color: #dddddd;
-}
-
-.fg-hero-window.fg-win-projects .pd-folder-row:hover:not(.active) {
-    background: #ededed;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-folder-row:hover:not(.active) {
-    background: #2a2a2a;
-}
-
-.fg-hero-window.fg-win-projects .pd-folder-row.active {
-    background: #d8d8d8;
-    color: #000000;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-folder-row.active {
-    background: #333333;
-    color: #ffffff;
-}
-
-.fg-hero-window.fg-win-projects .pd-folder-row.active .pd-pill-count {
-    background: #a8a8a8 !important;
-    color: #ffffff !important;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-folder-row.active .pd-pill-count {
-    background: #606060 !important;
-    color: #ffffff !important;
-}
-
-.fg-hero-window.fg-win-projects .pd-pill-count {
-    background: #bcbcbc;
-    color: #ffffff;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 9.5px;
-    font-weight: 600;
-    padding: 1px 7px;
-    border-radius: 10px;
-    min-width: 15px;
-    text-align: center;
-    line-height: 1.25;
-    flex-shrink: 0;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-pill-count {
-    background: #505050;
-    color: #ffffff;
-}
-
-/* Column 2: Files */
-.fg-hero-window.fg-win-projects .pd-col-files {
-    width: 210px;
-    min-width: 170px;
-    max-width: 260px;
-    flex-shrink: 0;
-    background: #ffffff;
-    border-right: 1px solid #dcdcdc;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 6px 0;
-    user-select: none;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-col-files {
-    background: #181818;
-    border-right: 1px solid #2d2d2d;
-}
-
-.fg-hero-window.fg-win-projects .pd-file-row {
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 8px;
-    cursor: pointer;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 11px;
-    color: #222222;
-    transition: background 0.1s ease;
-    user-select: none;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-file-row {
-    color: #cccccc;
-}
-
-.fg-hero-window.fg-win-projects .pd-file-row:hover:not(.active) {
-    background: #f4f4f4;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-file-row:hover:not(.active) {
-    background: #222222;
-}
-
-.fg-hero-window.fg-win-projects .pd-file-left {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    min-width: 0;
-    overflow: hidden;
-}
-
-.fg-hero-window.fg-win-projects .pd-file-icon {
-    width: 13px;
-    height: 13px;
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    opacity: 0.8;
-}
-
-.fg-hero-window.fg-win-projects .pd-file-name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.fg-hero-window.fg-win-projects .pd-file-arrow {
-    font-size: 7.5px;
-    color: #c4c4c4;
-    flex-shrink: 0;
-    margin-left: 6px;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-file-arrow {
-    color: #555555;
-}
-
-/* Active File: Vibrant macOS Blue */
-.fg-hero-window.fg-win-projects .pd-file-row.active {
-    background: #007aff !important;
-    color: #ffffff !important;
-    font-weight: 500;
-}
-
-.fg-hero-window.fg-win-projects .pd-file-row.active .pd-file-icon svg {
-    fill: #ffffff !important;
-}
-
-.fg-hero-window.fg-win-projects .pd-file-row.active .pd-file-name {
-    color: #ffffff !important;
-}
-
-.fg-hero-window.fg-win-projects .pd-file-row.active .pd-file-arrow {
-    color: #ffffff !important;
-}
-
-/* Column 3: Inspector / Large Artboard Photo Preview */
-.fg-hero-window.fg-win-projects .pd-col-inspector {
-    flex: 1 1 auto;
-    min-width: 250px;
-    background: #e9e9e9;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    padding: 12px;
-}
-
-body.dark-theme .fg-hero-window.fg-win-projects .pd-col-inspector {
-    background: #121212;
-}
-
-.pd-artboard-wrapper {
+.fg-project-window {
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.pd-artboard-sheet {
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    border-radius: 4px;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 14px 16px;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
-body.dark-theme .pd-artboard-sheet {
-    background: #1c1c1c;
-    border: 1px solid #2a2a2a;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-}
-
-.pd-artboard-header {
-    margin-bottom: 6px;
-    flex-shrink: 0;
-}
-
-.pd-artboard-title {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 21px;
-    font-weight: 800;
-    color: #111111;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin: 0 0 4px 0;
-    text-transform: uppercase;
-}
-
-body.dark-theme .pd-artboard-title {
-    color: #f0f0f0;
-}
-
-.pd-artboard-sub {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 9.5px;
-    font-weight: 700;
-    color: #777777;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin: 0;
-}
-
-body.dark-theme .pd-artboard-sub {
-    color: #888888;
-}
-
-.pd-artboard-media {
-    flex: 1 1 auto;
-    min-height: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding: 6px 0;
-}
-
-.pd-artboard-image {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    border-radius: 3px;
-    transition: transform 0.25s ease;
-}
-
-.pd-artboard-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding-top: 10px;
-    border-top: 1px solid #eeeeee;
-    flex-shrink: 0;
-}
-
-body.dark-theme .pd-artboard-footer {
-    border-top-color: #2a2a2a;
-}
-
-.pd-artboard-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-    overflow: hidden;
-}
-
-.pd-artboard-filename {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    font-weight: 700;
-    color: #1a1a1a;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-body.dark-theme .pd-artboard-filename {
-    color: #eeeeee;
-}
-
-.pd-artboard-specs {
-    font-family: 'Space Mono', monospace;
-    font-size: 9.5px;
-    color: #777777;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-body.dark-theme .pd-artboard-specs {
-    color: #888888;
-}
-
-.pd-explore-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #000000;
-    color: #ffffff;
-    font-family: 'Space Mono', monospace;
-    font-size: 10.5px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 9px 16px;
-    border-radius: 4px;
-    flex-shrink: 0;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
-}
-
-.pd-explore-btn .pd-explore-arrow {
-    font-size: 13px;
-    line-height: 1;
-    display: inline-block;
-    transition: transform 0.2s ease;
-}
-
-.pd-explore-btn:hover {
-    background: #007aff;
-    color: #ffffff;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.35);
-}
-
-.pd-explore-btn:hover .pd-explore-arrow {
-    transform: translateX(3px);
-}
-
-body.dark-theme .pd-explore-btn {
-    background: #ffffff;
-    color: #111111;
-}
-
-body.dark-theme .pd-explore-btn:hover {
-    background: #007aff;
-    color: #ffffff;
-}
-
-/* Window 2: VLC MEDIA PLAYER ('reel') */
-.fg-hero-window.fg-win-vlc,
-.fg-vlc-window {
-    position: absolute;
-    top: 126px;
-    left: 58.5vw;
-    right: auto;
-    width: 511px;
-    height: 335px;
-    min-width: 280px;
-    min-height: 180px;
-    margin: 0;
-    z-index: 11;
-}
-
-@media (max-width: 1350px) {
-    .fg-hero-window.fg-win-projects {
-        left: 2vw;
-    }
-
-    .fg-hero-window.fg-win-vlc,
-    .fg-vlc-window {
-        left: calc(2vw + 680px + 20px);
-    }
-}
-
-/* Window 3: CONTACT NOTE WINDOW */
-.fg-hero-window.fg-contact-window {
-    position: absolute !important;
-    top: 50px;
-    left: 28vw;
-    width: 440px;
-    max-width: 90vw;
-    margin: 0;
-    z-index: 12;
-}
-
-@media (max-width: 900px) {
-    .fg-hero-windows {
-        display: flex !important;
-        flex-direction: column !important;
-        min-height: auto !important;
-        gap: 24px !important;
-        padding: 0 !important;
-    }
-
-    .fg-hero-window.fg-win-projects,
-    .fg-hero-window.fg-win-vlc,
-    .fg-hero-window.fg-contact-window {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        right: auto !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        transform: none !important;
-    }
-
-    .fg-win-resize-handle,
-    .kali-resize-grip {
-        display: none !important;
-    }
-}
-
-.fg-hero-window:hover {
-    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.22), 0 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-.fg-hero-window.is-dragging:hover {
-    transform: none;
 }
 
 .fg-hero-window .kali-titlebar {
     height: 30px;
     cursor: grab;
     user-select: none;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    touch-action: none;
 }
 
 .fg-hero-window.is-dragging .kali-titlebar {
@@ -1439,159 +912,60 @@ body.dark-theme .pd-explore-btn:hover {
     font-size: 11px;
 }
 
-/* Content Area — Image Preview (+20% larger: 276px, and fluidly expands when resized) */
+/* Content Area — Image Preview & Continuous Slideshow */
 .fg-hero-window-content {
-    flex: 1 1 auto;
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--media-bg);
-    height: 276px;
-    min-height: 180px;
+    height: 440px !important;
+    max-height: 440px !important;
+    min-height: 240px !important;
+    flex: none !important;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.25s ease;
 }
 
-/* Resize Handles (8 Edges & Corners) */
-.fg-win-resize-handle {
+.fg-slides-track {
     position: absolute;
-    pointer-events: auto;
-    touch-action: none;
-    user-select: none;
-    -webkit-user-select: none;
+    inset: 0;
+    width: 100%;
+    height: 100%;
 }
 
-/* 4 Edges */
-.fg-resize-n {
-    top: -6px;
-    left: 18px;
-    right: 18px;
-    height: 12px;
-    cursor: ns-resize;
-    z-index: 55;
+.fg-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.75s ease-in-out;
+    pointer-events: none;
 }
 
-.fg-resize-s {
-    bottom: -6px;
-    left: 18px;
-    right: 18px;
-    height: 12px;
-    cursor: ns-resize;
-    z-index: 55;
-}
-
-.fg-resize-e {
-    top: 18px;
-    bottom: 18px;
-    right: -6px;
-    width: 12px;
-    cursor: ew-resize;
-    z-index: 55;
-}
-
-.fg-resize-w {
-    top: 18px;
-    bottom: 18px;
-    left: -6px;
-    width: 12px;
-    cursor: ew-resize;
-    z-index: 55;
-}
-
-/* 4 Corners (Generous 22px x 22px hitbox, z-index 65 strictly above edges) */
-.fg-resize-nw,
-.fg-resize-ne,
-.fg-resize-se,
-.fg-resize-sw {
-    width: 22px;
-    height: 22px;
-    z-index: 65;
-}
-
-.fg-resize-nw {
-    top: -6px;
-    left: -6px;
-    cursor: nwse-resize;
-}
-
-.fg-resize-ne {
-    top: -6px;
-    right: -6px;
-    cursor: nesw-resize;
-}
-
-.fg-resize-se {
-    bottom: -6px;
-    right: -6px;
-    cursor: nwse-resize;
-}
-
-.fg-resize-sw {
-    bottom: -6px;
-    left: -6px;
-    cursor: nesw-resize;
-}
-
-.kali-resize-grip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: nwse-resize;
-    margin-left: 6px;
-    opacity: 0.6;
-    transition: opacity 0.15s ease;
-    position: relative;
-    z-index: 66;
-    touch-action: none;
-}
-
-.kali-resize-grip:hover {
+.fg-slide.is-active {
     opacity: 1;
+    visibility: visible;
+    z-index: 2;
+    pointer-events: auto;
 }
 
-/* Window Closed / Minimized / Maximized States */
-.fg-hero-window.is-closed {
-    opacity: 0;
-    transform: scale(0.92) translateY(20px) !important;
-    pointer-events: none;
-    transition: opacity 0.22s ease, transform 0.22s ease !important;
-}
-
-.fg-hero-window.is-minimized {
-    opacity: 0;
-    transform: scale(0.2) translate(-140%, -100%) !important;
-    pointer-events: none;
-    transition: opacity 0.22s ease, transform 0.22s ease !important;
-}
-
-.fg-hero-window.is-maximized {
-    width: 90vw !important;
-    max-width: 1200px !important;
-    height: 72vh !important;
-    position: fixed !important;
-    top: 14vh !important;
-    left: 5vw !important;
-    margin: 0 !important;
-    z-index: 999 !important;
-    box-shadow: 0 35px 90px rgba(0, 0, 0, 0.4) !important;
-    transform: none !important;
-}
-
-.fg-hero-window-content img {
+.fg-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
     user-select: none;
     -webkit-user-drag: none;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.fg-hero-window:hover .fg-hero-window-content img {
-    transform: scale(1.03);
+.fg-hero-window:hover .fg-slide.is-active img {
+    transform: scale(1.025);
 }
 
 .fg-hero-window-placeholder {
@@ -1602,26 +976,52 @@ body.dark-theme .pd-explore-btn:hover {
     letter-spacing: 0.1em;
 }
 
-.fg-window-badge {
+/* Slide Counter (01 / 05) */
+.fg-slides-counter {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
+    top: 12px;
+    right: 14px;
+    z-index: 10;
     font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    background: rgba(0, 0, 0, 0.78);
+    font-size: 11px;
     color: #ffffff;
-    padding: 3px 7px;
+    background: rgba(0, 0, 0, 0.68);
+    padding: 3px 8px;
     border-radius: 4px;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
     backdrop-filter: blur(4px);
     pointer-events: none;
-    transition: background 0.2s ease, transform 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* FULL PROJECT Hover Badge */
+.fg-window-badge {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    z-index: 10;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.88);
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 4px;
+    letter-spacing: 0.06em;
+    backdrop-filter: blur(6px);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .fg-hero-window:hover .fg-window-badge {
+    opacity: 1;
+    transform: translateY(0);
     background: #0000ff;
-    transform: scale(1.05);
+    border-color: #3b82f6;
 }
 
 body.dark-theme .fg-window-badge {
@@ -1630,7 +1030,7 @@ body.dark-theme .fg-window-badge {
 }
 
 body.dark-theme .fg-hero-window:hover .fg-window-badge {
-    background: #3b82f6;
+    background: #2563eb;
     border-color: #60a5fa;
 }
 
@@ -1639,895 +1039,14 @@ body.dark-theme .fg-hero-window:hover .fg-window-badge {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
     padding: 0 10px;
     background: var(--win-status-bg);
     border-top: 1px solid var(--win-border);
     font-family: 'Space Mono', monospace;
     font-size: 9.5px;
     color: var(--win-status-color);
-    overflow: hidden;
 }
 
-.fg-hero-window .kali-statusbar .kali-status-left,
-.fg-hero-window .kali-statusbar .kali-status-right {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* ============================================================
-   PROJECT WINDOWS: CAROUSEL & INFO DRAWER
-   ============================================================ */
-.fg-win-prev-btn,
-.fg-win-next-btn {
-    padding: 2px 7px;
-    min-width: 20px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: 3px;
-    color: var(--text-color);
-    transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.fg-win-prev-btn:hover,
-.fg-win-next-btn:hover {
-    background: rgba(0, 0, 0, 0.08);
-    border-color: rgba(0, 0, 0, 0.15);
-}
-
-body.dark-theme .fg-win-prev-btn:hover,
-body.dark-theme .fg-win-next-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.fg-win-img-counter {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 0 6px;
-    color: var(--text-color);
-    letter-spacing: 0.02em;
-    user-select: none;
-}
-
-.fg-win-info-btn {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    margin-left: 8px;
-    padding: 2px 7px;
-    border-radius: 3px;
-    background: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.18);
-    color: var(--text-color);
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-}
-
-.fg-win-info-btn:hover {
-    background: rgba(0, 0, 0, 0.08);
-}
-
-.fg-win-info-btn.is-active {
-    background: #0000ff !important;
-    color: #ffffff !important;
-    border-color: #0000ff !important;
-}
-
-body.dark-theme .fg-win-info-btn {
-    border-color: rgba(255, 255, 255, 0.22);
-}
-
-body.dark-theme .fg-win-info-btn.is-active {
-    background: #3b82f6 !important;
-    border-color: #3b82f6 !important;
-    color: #ffffff !important;
-}
-
-/* Info Drawer (Smooth slide-down inside window) */
-.fg-win-info-drawer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(14, 14, 16, 0.88);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: #ffffff;
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-10px);
-    transition: opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 15;
-}
-
-.fg-win-info-drawer.is-open {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-}
-
-.fg-drawer-inner {
-    max-width: 100%;
-}
-
-.fg-drawer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding-bottom: 8px;
-}
-
-.fg-drawer-title {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    margin: 0;
-    color: #ffffff;
-}
-
-.fg-drawer-meta {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: #60a5fa;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.fg-drawer-desc {
-    font-family: 'Courier Prime', Courier, monospace;
-    font-size: 13.5px;
-    line-height: 1.55;
-    color: #e5e5e5;
-    margin: 0;
-}
-
-.fg-drawer-actions {
-    margin-top: 14px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.fg-drawer-more-link {
-    font-family: 'Space Mono', monospace;
-    font-size: 11.5px;
-    font-weight: 700;
-    color: #60a5fa;
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: color 0.15s ease, transform 0.15s ease;
-}
-
-.fg-drawer-more-link:hover {
-    color: #ffffff;
-    transform: translateX(3px);
-    text-decoration: underline;
-}
-
-/* ============================================================
-   SLIDESHOW TRACK & FADE IN / FADE OUT PREVIEW
-   ============================================================ */
-.fg-slideshow-track {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #000000;
-}
-
-.fg-slide-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transform: scale(1.03);
-    transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
-    pointer-events: none;
-    user-select: none;
-    -webkit-user-drag: none;
-}
-
-.fg-slide-img.is-active {
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
-}
-
-/* ============================================================
-   "SEE MORE" HOVER BUTTON (Invites to view complete project)
-   ============================================================ */
-.fg-see-more-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
-    opacity: 0;
-    pointer-events: none;
-    background: #0000ff;
-    color: #ffffff;
-    font-family: 'Space Mono', monospace;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    padding: 11px 22px;
-    border-radius: 6px;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 10px 28px rgba(0, 0, 255, 0.45), 0 3px 8px rgba(0, 0, 0, 0.3);
-    transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-        background-color 0.2s ease,
-        color 0.2s ease,
-        box-shadow 0.2s ease;
-    z-index: 12;
-    cursor: pointer;
-}
-
-.fg-hero-window-content:hover .fg-see-more-btn {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-.fg-see-more-btn:hover {
-    background: #ffffff;
-    color: #000000;
-    transform: translate(-50%, -50%) scale(1.06);
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
-}
-
-body.dark-theme .fg-see-more-btn {
-    background: #2563eb;
-    box-shadow: 0 10px 28px rgba(37, 99, 235, 0.55), 0 3px 8px rgba(0, 0, 0, 0.5);
-}
-
-body.dark-theme .fg-see-more-btn:hover {
-    background: #ffffff;
-    color: #000000;
-    box-shadow: 0 14px 34px rgba(255, 255, 255, 0.25);
-}
-
-.fg-see-more-arrow {
-    font-size: 15px;
-    transition: transform 0.2s ease;
-}
-
-.fg-see-more-btn:hover .fg-see-more-arrow {
-    transform: translateX(4px);
-}
-
-/* ============================================================
-   DEDICATED PROJECT PAGE STYLES (e.g. harp-chair.html)
-   ============================================================ */
-.proj-page-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 72px 4vw 80px 4vw;
-}
-
-.proj-page-hero {
-    margin-bottom: 60px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 48px;
-}
-
-.proj-page-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    font-weight: 700;
-    color: #0000ff;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    display: inline-block;
-}
-
-body.dark-theme .proj-page-tag {
-    color: #60a5fa;
-}
-
-.proj-page-title {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: clamp(38px, 6vw, 68px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
-    margin: 0 0 16px 0;
-    text-transform: uppercase;
-}
-
-.proj-page-meta-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 16px;
-    font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 36px;
-}
-
-.proj-page-meta-sep {
-    opacity: 0.4;
-}
-
-.proj-page-statement-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 48px;
-    align-items: start;
-}
-
-.proj-page-statement {
-    font-family: 'Courier Prime', Courier, monospace;
-    font-size: clamp(16px, 1.8vw, 20px);
-    line-height: 1.6;
-    margin: 0;
-    color: var(--text-color);
-}
-
-.proj-page-specs {
-    background: var(--win-toolbar-bg);
-    border: 1px solid var(--win-border);
-    border-radius: 8px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.proj-spec-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-size: 12px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 8px;
-    gap: 16px;
-}
-
-.proj-spec-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.proj-spec-label {
-    font-family: 'Space Mono', monospace;
-    font-weight: 700;
-    color: var(--text-muted);
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-}
-
-.proj-spec-val {
-    font-family: 'Courier Prime', Courier, monospace;
-    font-weight: 600;
-    text-align: right;
-    color: var(--text-color);
-}
-
-/* Gallery Section */
-.proj-gallery-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-    margin-bottom: 80px;
-}
-
-.proj-gallery-card {
-    position: relative;
-    background: #000000;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-}
-
-.proj-gallery-card img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.proj-gallery-card:hover img {
-    transform: scale(1.015);
-}
-
-.proj-gallery-meta-overlay {
-    position: absolute;
-    bottom: 14px;
-    left: 14px;
-    right: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.72);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    padding: 8px 14px;
-    border-radius: 6px;
-    color: #ffffff;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    pointer-events: none;
-}
-
-/* Navigation footer */
-.proj-page-nav-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 32px;
-    border-top: 1px solid var(--border-color);
-    font-family: 'Space Mono', monospace;
-    font-size: 13px;
-}
-
-.proj-nav-back,
-.proj-nav-next {
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: color 0.15s ease, transform 0.15s ease;
-}
-
-.proj-nav-back:hover {
-    color: #0000ff;
-    transform: translateX(-4px);
-}
-
-.proj-nav-next:hover {
-    color: #0000ff;
-    transform: translateX(4px);
-}
-
-body.dark-theme .proj-nav-back:hover,
-body.dark-theme .proj-nav-next:hover {
-    color: #60a5fa;
-}
-
-@media (max-width: 820px) {
-    .proj-page-statement-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-    }
-}
-
-/* ============================================================
-   VLC MEDIA PLAYER WINDOW (macOS Authentic Style)
-   ============================================================ */
-.fg-vlc-window {
-    background: #111111;
-    border: 1px solid rgba(0, 0, 0, 0.35);
-    border-radius: 8px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    touch-action: none;
-    min-width: 320px;
-    min-height: 260px;
-}
-
-body.dark-theme .fg-vlc-window {
-    border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
-}
-
-/* VLC Titlebar */
-.vlc-titlebar {
-    height: 30px;
-    background: var(--win-title-bg);
-    border-bottom: 1px solid var(--win-title-border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 10px;
-    cursor: grab;
-    user-select: none;
-    flex-shrink: 0;
-}
-
-body.dark-theme .vlc-titlebar {
-    background: var(--win-title-bg);
-    border-bottom: 1px solid var(--win-title-border);
-}
-
-.fg-vlc-window.is-dragging .vlc-titlebar {
-    cursor: grabbing;
-}
-
-.vlc-title-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    flex: 1;
-    pointer-events: none;
-}
-
-.vlc-cone-icon {
-    width: 15px;
-    height: 15px;
-    flex-shrink: 0;
-    display: inline-block;
-}
-
-.vlc-title-text {
-    font-family: 'Space Mono', SFMono-Regular, monospace;
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--win-title-color);
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 320px;
-}
-
-body.dark-theme .vlc-title-text {
-    color: var(--win-title-color);
-}
-
-/* VLC Video Container (No black bands / fills container seamlessly) */
-.vlc-video-container {
-    flex: 1 1 auto;
-    position: relative;
-    background: var(--win-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100px;
-    height: auto;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.vlc-video-element {
-    width: 100%;
-    height: 100%;
-    object-fit: cover !important;
-    display: block;
-    background: transparent !important;
-}
-
-/* VLC Bottom Toolbar (Identical to Projects Window Statusbar / Controls) */
-.vlc-toolbar {
-    height: 36px;
-    background: var(--win-status-bg);
-    border-top: 1px solid var(--win-border);
-    display: flex;
-    align-items: center;
-    padding: 0 8px;
-    gap: 6px;
-    user-select: none;
-    position: relative;
-    z-index: 2;
-    flex-shrink: 0;
-}
-
-body.dark-theme .vlc-toolbar {
-    background: var(--win-status-bg);
-    border-top-color: var(--win-border);
-}
-
-.vlc-transport-btns {
-    display: flex;
-    align-items: center;
-    gap: 1px;
-}
-
-.vlc-ctrl-btn {
-    background: transparent;
-    border: none;
-    padding: 4px;
-    width: 24px;
-    height: 24px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: #444444;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease;
-}
-
-.vlc-ctrl-btn:hover {
-    background: rgba(0, 0, 0, 0.08);
-    color: #111111;
-}
-
-body.dark-theme .vlc-ctrl-btn {
-    color: #cccccc;
-}
-
-body.dark-theme .vlc-ctrl-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
-    color: #ffffff;
-}
-
-/* VLC Scrubber */
-.vlc-scrubber-wrap {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    min-width: 60px;
-    padding: 0 4px;
-}
-
-.vlc-scrubber {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 5px;
-    border-radius: 3px;
-    background: rgba(0, 0, 0, 0.22);
-    outline: none;
-    cursor: pointer;
-    transition: background 0.15s ease;
-}
-
-body.dark-theme .vlc-scrubber {
-    background: rgba(255, 255, 255, 0.22);
-}
-
-.vlc-scrubber::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background: #333333;
-    border: 1px solid #ffffff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-}
-
-body.dark-theme .vlc-scrubber::-webkit-slider-thumb {
-    background: #f58220;
-    /* VLC orange accent */
-    border-color: #222222;
-}
-
-/* VLC Time */
-.vlc-time-display {
-    font-family: 'Space Mono', SFMono-Regular, Menlo, monospace;
-    font-size: 11px;
-    color: #333333;
-    white-space: nowrap;
-    padding: 0 4px;
-    min-width: 42px;
-}
-
-body.dark-theme .vlc-time-display {
-    color: #bbbbbb;
-}
-
-/* VLC Volume */
-.vlc-volume-wrap {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-}
-
-.vlc-volume-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 48px;
-    height: 4px;
-    border-radius: 2px;
-    background: rgba(0, 0, 0, 0.22);
-    outline: none;
-    cursor: pointer;
-}
-
-body.dark-theme .vlc-volume-slider {
-    background: rgba(255, 255, 255, 0.22);
-}
-
-.vlc-volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #444444;
-    cursor: pointer;
-}
-
-body.dark-theme .vlc-volume-slider::-webkit-slider-thumb {
-    background: #cccccc;
-}
-
-/* ============================================================
-   CONTACT WINDOW (macOS TextEdit Style)
-   ============================================================ */
-.fg-contact-window {
-    background: var(--win-bg);
-    border: 1px solid var(--win-border);
-    border-radius: 8px;
-    box-shadow: 0 24px 65px rgba(0, 0, 0, 0.28), 0 4px 14px rgba(0, 0, 0, 0.12);
-    width: 440px;
-    max-width: 92vw;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 250;
-    display: flex;
-    flex-direction: column;
-}
-
-body.dark-theme .fg-contact-window {
-    box-shadow: 0 28px 75px rgba(0, 0, 0, 0.75);
-}
-
-.fg-contact-content {
-    padding: 24px 26px;
-    background: var(--bg-color);
-    flex: 1 1 auto;
-    font-family: 'Courier Prime', Courier, monospace;
-}
-
-.fg-contact-header {
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 14px;
-    margin-bottom: 16px;
-}
-
-.fg-contact-title {
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    margin: 0 0 4px 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: var(--text-color);
-}
-
-.fg-contact-subtitle {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin: 0;
-    font-family: 'Space Mono', monospace;
-}
-
-.fg-contact-body {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 18px;
-}
-
-.fg-contact-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-}
-
-.fg-contact-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 10.5px;
-    font-weight: 700;
-    width: 85px;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-    flex-shrink: 0;
-}
-
-.fg-contact-val {
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 500;
-    word-break: break-all;
-    transition: color 0.15s ease;
-}
-
-.fg-contact-val:hover {
-    color: #0000ff;
-    text-decoration: underline;
-}
-
-body.dark-theme .fg-contact-val:hover {
-    color: #3b82f6;
-}
-
-.fg-contact-copy-btn {
-    font-family: 'Space Mono', monospace;
-    font-size: 9.5px;
-    font-weight: 700;
-    padding: 2px 7px;
-    background: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease;
-    margin-left: auto;
-}
-
-.fg-contact-copy-btn:hover {
-    background: var(--text-color);
-    color: var(--bg-color);
-}
-
-.fg-contact-footer {
-    border-top: 1px solid var(--border-color);
-    padding-top: 12px;
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    color: var(--text-muted);
-}
-
-/* ============================================================
-   DESKTOP BOTTOM STATUS BAR
-   ============================================================ */
-.fg-desktop-bottom-bar {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    height: 46px;
-    padding: 0 4vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 9;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--text-muted);
-    border-top: none !important;
-    background: transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    margin: 0 !important;
-    box-sizing: border-box;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-    pointer-events: none;
-}
-
-.fg-desktop-bottom-bar>* {
-    pointer-events: auto;
-}
-
-body.dark-theme .fg-desktop-bottom-bar {
-    background: transparent !important;
-    border-top: none !important;
-}
 
 /* ============================================================
    SIDE FLOATING ABOUT BUTTON (Right Edge, Mid-Height)
@@ -2577,219 +1096,81 @@ body.dark-theme .fg-desktop-bottom-bar {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
 }
 
-/* --- Desktop Icons on Index (Projects Folder) --- */
-.fg-desktop-icons-row {
-    margin-top: 24px;
-    display: flex;
+/* Inverted Side Button for About page (Left Edge, Mid-Height, Adv Scam Style) */
+.fg-side-about.fg-side-about-back {
+    left: 14px !important;
+    right: auto !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 9990 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.sd-scam-home-link {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(20px, 1.8vw, 26px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--retro-blue) !important;
+    text-decoration: none !important;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
     align-items: center;
-    gap: 16px;
-    position: relative;
-    z-index: 10;
+    gap: 9px;
+    white-space: nowrap;
+    animation: scamAdvBlink 0.65s steps(1, start) infinite;
+    transition: transform 0.15s ease;
 }
 
-.fg-desktop-icons-row.fg-desktop-icons-center {
-    position: absolute;
-    top: 218px;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    z-index: 9;
+.sd-scam-home-link .sd-scam-about-text {
+    text-decoration: underline !important;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
 }
 
-@media (max-width: 900px) {
-    .fg-desktop-icons-row.fg-desktop-icons-center {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        transform: none !important;
-        margin: 20px auto 14px auto !important;
-        flex-direction: row !important;
-        justify-content: center !important;
-        gap: 24px !important;
-    }
-}
-
-/* Desktop File Icon: contact.txt (Un po' sotto la cartella projects) */
-.fg-desktop-icon-contact {
-    position: relative;
-    cursor: grab;
-    user-select: none;
-    background: transparent;
-    padding: 8px 12px;
-    width: 105px;
-    border-radius: 8px;
-    touch-action: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.fg-desktop-icon-contact:not(.is-moved):not(.is-dragging) {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-}
-
-.fg-desktop-icon-contact .kali-thumb-doc {
-    width: 50px;
-    height: 48px;
-    display: flex;
+.sd-scam-arrow-left-wrap {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    position: relative;
+    animation: scamArrowNudgeLeft 0.35s steps(1) infinite;
 }
 
-.fg-desktop-icon-contact .kali-icon-badge.kali-badge-txt {
-    background: #333333;
-    color: #ffffff;
-    bottom: -1px;
-    right: -4px;
-    font-size: 8.5px;
-    font-weight: 700;
-    padding: 1px 4px;
-    border-radius: 3px;
-    line-height: 1.1;
-    position: absolute;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+.sd-scam-arrow-left-svg {
+    display: block;
+    width: clamp(16px, 1.4vw, 20px);
+    height: clamp(16px, 1.4vw, 20px);
+    fill: currentColor;
+    shape-rendering: crispEdges;
 }
 
-body.dark-theme .fg-desktop-icon-contact .kali-icon-badge.kali-badge-txt {
-    background: #007aff;
-    color: #ffffff;
+body.dark-theme .sd-scam-home-link {
+    color: var(--retro-blue) !important;
 }
 
-.fg-desktop-icon-contact .kali-icon-label {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    margin-top: 3px;
-    letter-spacing: 0.02em;
-    color: #111111;
-    text-align: center;
-    white-space: nowrap;
-}
-
-body.dark-theme .fg-desktop-icon-contact .kali-icon-label {
-    color: #eeeeee;
-}
-
-.fg-desktop-icon-contact:hover {
-    background: rgba(120, 120, 120, 0.12);
-}
-
-.fg-desktop-icon-contact.is-selected {
-    background: rgba(0, 122, 255, 0.16);
-    border-color: rgba(0, 122, 255, 0.5);
-    box-shadow: 0 0 14px rgba(0, 122, 255, 0.22);
-}
-
-.fg-desktop-icon-contact.is-dragging {
-    cursor: grabbing !important;
-    opacity: 0.92;
+.sd-scam-home-link:hover {
+    animation-play-state: paused;
+    opacity: 1 !important;
+    visibility: visible !important;
     transform: scale(1.06);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
 }
 
-.fg-desktop-icon-contact.is-dragging,
-.fg-desktop-icon-contact.is-moved {
-    position: fixed !important;
-    z-index: 999999 !important;
-    cursor: grab;
+.sd-scam-home-link:hover .sd-scam-arrow-left-wrap {
+    animation-play-state: paused;
+    transform: translateX(-3px);
 }
 
-/* Desktop Folder Icon: Projects (Enlarged & Freely Movable) */
-.fg-desktop-icon-projects {
-    position: relative;
-    cursor: grab;
-    user-select: none;
-    background: transparent;
-    padding: 10px 14px;
-    width: 110px;
-    border-radius: 8px;
-    touch-action: none;
-    transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.fg-desktop-icon-projects:not(.is-moved):not(.is-dragging) {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-}
-
-.fg-desktop-icon-projects .kali-icon-thumb {
-    width: 60px;
-    height: 50px;
-}
-
-.fg-desktop-icon-projects .kali-icon-thumb svg {
-    width: 58px;
-    height: 48px;
-}
-
-.fg-desktop-icon-projects .kali-icon-badge {
-    bottom: 2px;
-    right: -2px;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 4px;
-}
-
-.fg-desktop-icon-projects .kali-icon-label {
-    font-size: 14px;
-    font-weight: 700;
-    margin-top: 3px;
-    letter-spacing: 0.02em;
-}
-
-.fg-desktop-icon-projects.is-dragging,
-.fg-desktop-icon-projects.is-moved {
-    position: fixed !important;
-    z-index: 999999 !important;
-    cursor: grab;
-}
-
-.fg-desktop-icon-projects.is-dragging {
-    cursor: grabbing !important;
-    opacity: 0.92;
-    transform: scale(1.06);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
-}
-
-.fg-desktop-icon-projects:hover {
-    background: rgba(120, 120, 120, 0.12);
-}
-
-.fg-desktop-icon-projects.is-selected {
-    background: rgba(0, 197, 212, 0.18);
-    border-color: rgba(0, 197, 212, 0.55);
-    box-shadow: 0 0 14px rgba(0, 197, 212, 0.25);
-}
-
-/* Pulse animation when Projects folder opens windows */
-@keyframes fgWinPulseAnim {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 rgba(0, 197, 212, 0.7);
+@keyframes scamArrowNudgeLeft {
+    0%, 49.9% {
+        transform: translateX(0);
     }
-
-    50% {
-        transform: scale(1.02);
-        box-shadow: 0 0 26px rgba(0, 197, 212, 0.55);
+    50%, 100% {
+        transform: translateX(-4px);
     }
-
-    100% {
-        transform: scale(1);
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
-    }
-}
-
-.fg-hero-window.fg-win-pulse {
-    animation: fgWinPulseAnim 0.75s ease;
 }
 
 @media (max-width: 768px) {
@@ -2803,12 +1184,21 @@ body.dark-theme .fg-desktop-icon-contact .kali-icon-label {
     .fg-side-about,
     .fg-bottom-center-about {
         position: fixed !important;
-        right: 14px !important;
-        top: 50% !important;
-        bottom: auto !important;
+        right: 16px !important;
+        bottom: 24px !important;
+        top: auto !important;
         left: auto !important;
-        transform: translateY(-50%) !important;
+        transform: none !important;
         margin: 0 !important;
+        z-index: 100 !important;
+    }
+
+    .fg-side-about.fg-side-about-back {
+        left: 14px !important;
+        right: auto !important;
+        bottom: 58px !important;
+        top: auto !important;
+        transform: none !important;
     }
 
     .fg-bottom-desktop-only {
@@ -2838,37 +1228,504 @@ body.dark-theme .fg-desktop-icon-contact .kali-icon-label {
     }
 }
 
-/* --- Motion Reel (Fullscreen Rick Owens Style — A Filo con la Top Navbar) ------------ */
-.nb-reel.nb-reel-fullscreen {
+/* ============================================================
+   SOPHIA DENISON STYLE HERO (TOC Left, Centered VLC Landscape Reel)
+   ============================================================ */
+.sd-hero-section {
     position: relative;
     width: 100%;
-    left: 0;
-    right: 0;
-    margin: 0 0 100px 0;
-    height: calc(100vh - 48px);
-    min-height: calc(100svh - 48px);
-    overflow: hidden;
-    background: #000000;
+    min-height: calc(100vh - 54px - 44px);
+    min-height: calc(100svh - 54px - 44px);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center; /* Vertically centers left TOC and center VLC window */
+    padding: 20px 14px 20px 14px;
+    box-sizing: border-box;
+    scroll-margin-top: 54px;
 }
 
-.nb-reel-video-wrap {
-    width: 100%;
+/* Left Column: Works Table of Contents (Vertically Centered) */
+.sd-hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
     height: 100%;
+    padding-right: 24px;
+}
+
+.sd-toc-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sd-toc-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 22px;
+    line-height: 1.15;
+}
+
+.sd-toc-label-main,
+.sd-toc-label-sub {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(20px, 1.8vw, 26px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--text-color);
+    transition: color 0.25s ease;
+}
+
+.sd-toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sd-toc-item {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(17px, 1.55vw, 23px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--retro-blue) !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    line-height: 1.25;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    white-space: nowrap;
+    transition: opacity 0.15s ease, transform 0.15s ease, color 0.25s ease;
+}
+
+body.dark-theme .sd-toc-item {
+    color: var(--retro-blue) !important;
+}
+
+.sd-toc-item:hover {
+    text-decoration: underline !important;
+    opacity: 0.75;
+    transform: translateX(3px);
+}
+
+.sd-toc-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.88em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--retro-blue) !important;
+}
+
+.sd-toc-label {
+    letter-spacing: 0.03em;
+    color: var(--retro-blue) !important;
+}
+
+/* --- Center Column: Dead-Center VLC Landscape Window --- */
+.sd-hero-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    overflow: hidden;
+    z-index: 10;
+}
+
+/* VLC Media Player Window (macOS / Landscape 16:9 Style - 30% Larger Base Size) */
+#hero-win-vlc.kali-window-vlc,
+.kali-window.kali-window-vlc {
+    position: relative;
+    width: clamp(680px, 60vw, 890px);
+    height: auto;
+    max-width: 92vw;
+    background: var(--win-bg);
+    border: 1px solid var(--win-border);
+    border-radius: 8px;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.16);
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    z-index: 10;
+    overflow: visible;
+    transition: box-shadow 0.25s ease, opacity 0.22s ease;
+}
+
+body.dark-theme .kali-window-vlc {
+    background: #181818;
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 54px rgba(0, 0, 0, 0.65);
+}
+
+.kali-window-vlc.is-focused {
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+    border-color: rgba(0, 0, 0, 0.25);
+}
+
+body.dark-theme .kali-window-vlc.is-focused {
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8);
+    border-color: rgba(255, 255, 255, 0.22);
+}
+
+.vlc-titlebar {
+    height: 32px;
+    background: var(--win-title-bg);
+    border-bottom: 1px solid var(--win-title-border);
+    color: var(--win-title-color);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    cursor: grab;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    user-select: none;
+    touch-action: none;
+    position: relative;
+    z-index: 2;
+}
+
+.vlc-titlebar.is-dragging,
+.kali-window.is-dragging .vlc-titlebar {
+    cursor: grabbing !important;
+}
+
+.vlc-title-info {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #000000;
+    gap: 7px;
+    flex: 1;
+    pointer-events: none;
 }
 
-.nb-fullscreen-reel {
+.vlc-cone-icon {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    display: inline-block;
+}
+
+.vlc-title-text {
+    font-family: 'Space Mono', SFMono-Regular, monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--win-title-color);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 320px;
+}
+
+/* VLC Video Container (Landscape 16:9 ratio) */
+.vlc-video-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.vlc-video-element {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover !important;
     display: block;
     background: #000000;
 }
+
+/* VLC Bottom Toolbar (macOS VLC Style) */
+.vlc-toolbar {
+    height: 36px;
+    background: var(--win-status-bg);
+    border-top: 1px solid var(--win-border);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    gap: 6px;
+    user-select: none;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+body.dark-theme .vlc-toolbar {
+    background: #1e1e1e;
+    border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.vlc-transport-btns {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+
+.vlc-ctrl-btn {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.vlc-ctrl-btn:hover {
+    background: rgba(0, 0, 0, 0.08);
+    color: #ff0000;
+}
+
+body.dark-theme .vlc-ctrl-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ff4d4d;
+}
+
+/* VLC Scrubber */
+.vlc-scrubber-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-width: 60px;
+    padding: 0 4px;
+}
+
+.vlc-scrubber {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.22);
+    outline: none;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+body.dark-theme .vlc-scrubber {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.vlc-scrubber::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #ff5500;
+    border: 1px solid #ffffff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+/* VLC Time */
+.vlc-time-display {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-color);
+    white-space: nowrap;
+    padding: 0 4px;
+    min-width: 40px;
+}
+
+/* VLC Volume */
+.vlc-volume-wrap {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.vlc-volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 44px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.22);
+    outline: none;
+    cursor: pointer;
+}
+
+body.dark-theme .vlc-volume-slider {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.vlc-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #ff5500;
+    cursor: pointer;
+}
+
+/* --- Right Column: About Link (Almost attached to right margin, Adv Scam Arrow & Blink) --- */
+.sd-hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Almost attached to the right margin! */
+    justify-content: center; /* Centered vertically at midY */
+    height: 100%;
+    padding-right: 0;
+    box-sizing: border-box;
+    pointer-events: auto;
+}
+
+.sd-scam-about-link {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(20px, 1.8vw, 26px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--retro-blue) !important;
+    text-decoration: none !important;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    white-space: nowrap;
+    animation: scamAdvBlink 0.65s steps(1, start) infinite;
+    transition: transform 0.15s ease;
+}
+
+.sd-scam-about-text {
+    text-decoration: underline !important;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+}
+
+.sd-scam-arrow-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    animation: scamArrowNudge 0.35s steps(1) infinite;
+}
+
+.sd-scam-arrow-svg {
+    display: block;
+    width: clamp(16px, 1.4vw, 20px);
+    height: clamp(16px, 1.4vw, 20px);
+    fill: currentColor;
+    shape-rendering: crispEdges;
+}
+
+body.dark-theme .sd-scam-about-link {
+    color: var(--retro-blue) !important;
+}
+
+.sd-scam-about-link:hover {
+    animation-play-state: paused;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: scale(1.06);
+}
+
+.sd-scam-about-link:hover .sd-scam-arrow-wrap {
+    animation-play-state: paused;
+    transform: translateX(3px);
+}
+
+@keyframes scamAdvBlink {
+    0%, 49.9% {
+        opacity: 1;
+        visibility: visible;
+    }
+    50%, 100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes scamArrowNudge {
+    0%, 49.9% {
+        transform: translateX(0);
+    }
+    50%, 100% {
+        transform: translateX(4px);
+    }
+}
+
+/* ============================================================
+   MSCHF HOTELS STYLE STATEMENT MARQUEE TICKER
+   ============================================================ */
+.mschf-marquee-wrap {
+    position: relative;
+    width: 100%;
+    height: 44px;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    background: transparent;
+    box-sizing: border-box;
+    z-index: 5;
+    transition: border-color 0.3s ease;
+}
+
+.mschf-marquee-track {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    height: 100%;
+    width: max-content;
+    white-space: nowrap;
+}
+
+.mschf-marquee-item {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    white-space: nowrap;
+    animation-name: mschfMarquee;
+    animation-duration: var(--marquee-duration, 26s);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+}
+
+.mschf-marquee-item span {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #ff0000;
+    display: inline-block;
+    line-height: 1;
+}
+
+body.dark-theme .mschf-marquee-item span {
+    color: #ff3333;
+}
+
+@keyframes mschfMarquee {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
 
 
 /* Kali Desktop Workspace (Transparent to show site background & film grain) */
@@ -2889,7 +1746,7 @@ body.dark-theme .fg-desktop-icon-contact .kali-icon-label {
 }
 
 /* Desktop Icon (reel.mp4 / about.html icons) - Draggable */
-.kali-desktop-icon:not(.fg-desktop-icon-projects) {
+.kali-desktop > .kali-desktop-icon:not(.fg-desktop-icon-projects):not(.fg-desktop-icon-contact) {
     position: absolute;
     top: 24px;
     left: 24px;
@@ -2985,6 +1842,31 @@ body.dark-theme .kali-badge-pdf {
 .kali-badge-mp4 {
     background: #00838f !important;
     color: #ffffff !important;
+}
+
+.kali-badge-txt {
+    background: #334155 !important;
+    color: #ffffff !important;
+}
+
+body.dark-theme .kali-badge-txt {
+    background: #475569 !important;
+}
+
+.kali-thumb-txt {
+    width: 44px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.18));
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+}
+
+.kali-desktop-icon:hover .kali-thumb-txt {
+    transform: translateY(-2px) scale(1.04);
+    filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.28));
 }
 
 /* Document & Video Media Preview Desktop Thumbs */
@@ -3118,15 +2000,33 @@ body.dark-theme .kali-badge-pdf {
     position: absolute;
     z-index: 20;
     transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-        width 0.25s ease,
-        height 0.25s ease,
         background-color 0.25s ease,
         border-color 0.25s ease;
 }
 
-.kali-window.is-dragging {
+.kali-window.is-dragging,
+.kali-window.is-resizing {
     transition: none !important;
     box-shadow: 0 25px 65px rgba(0, 0, 0, 0.65);
+}
+
+.kali-window.is-resizing {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+
+.kali-window.is-resizing * {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+
+body.is-window-interacting {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+
+body.is-window-interacting iframe {
+    pointer-events: none !important;
 }
 
 /* Window Closed / Minimized States */
@@ -3152,6 +2052,99 @@ body.dark-theme .kali-badge-pdf {
     left: 1% !important;
     border-radius: 2px;
     transform: none !important;
+}
+
+/* ============================================================
+   WINDOW RESIZE HANDLES (8 Directions: 4 Corners + 4 Edges)
+   ============================================================ */
+.kali-resize-handle {
+    position: absolute;
+    z-index: 120;
+    user-select: none;
+    touch-action: none;
+}
+
+/* 4 Edges (Spigoli) - generous 10px grab zone */
+.kali-resize-n {
+    top: -5px;
+    left: 14px;
+    right: 14px;
+    height: 10px;
+    cursor: ns-resize;
+}
+
+.kali-resize-s {
+    bottom: -5px;
+    left: 14px;
+    right: 14px;
+    height: 10px;
+    cursor: ns-resize;
+}
+
+.kali-resize-w {
+    left: -5px;
+    top: 14px;
+    bottom: 14px;
+    width: 10px;
+    cursor: ew-resize;
+}
+
+.kali-resize-e {
+    right: -5px;
+    top: 14px;
+    bottom: 14px;
+    width: 10px;
+    cursor: ew-resize;
+}
+
+/* 4 Corners (Angoli) - generous 18px grab zone */
+.kali-resize-nw {
+    top: -5px;
+    left: -5px;
+    width: 18px;
+    height: 18px;
+    cursor: nwse-resize;
+    z-index: 125;
+}
+
+.kali-resize-ne {
+    top: -5px;
+    right: -5px;
+    width: 18px;
+    height: 18px;
+    cursor: nesw-resize;
+    z-index: 125;
+}
+
+.kali-resize-sw {
+    bottom: -5px;
+    left: -5px;
+    width: 18px;
+    height: 18px;
+    cursor: nesw-resize;
+    z-index: 125;
+}
+
+.kali-resize-se {
+    bottom: -5px;
+    right: -5px;
+    width: 18px;
+    height: 18px;
+    cursor: nwse-resize;
+    z-index: 125;
+}
+
+/* Inactive states */
+.kali-window.is-closed .kali-resize-handle,
+.kali-window.is-minimized .kali-resize-handle,
+.kali-window.is-maximized .kali-resize-handle {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .kali-resize-handle {
+        display: none !important;
+    }
 }
 
 /* Titlebar (macOS Style: subtle silver-gray gradient, centered title, traffic light buttons on left) */
@@ -3223,7 +2216,7 @@ body.dark-theme .kali-title-text {
     width: 52px;
     flex-shrink: 0;
     position: relative;
-    z-index: 70;
+    z-index: 130;
 }
 
 .kali-btn {
@@ -3353,6 +2346,8 @@ body.dark-theme .kali-title-text {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 4px;
+    white-space: nowrap;
     font-size: 11px;
     cursor: pointer;
     transition: background 0.1s ease, border-color 0.1s ease;
@@ -3414,6 +2409,133 @@ body.dark-theme .kali-window.is-focused {
 .kali-window-cv {
     width: min(540px, 94%);
     height: min(620px, 86%);
+}
+
+/* Contacts Text Editor Window */
+.kali-window-contact {
+    width: min(440px, 94vw);
+    min-width: 270px;
+    min-height: 220px;
+    max-height: none;
+}
+
+.kali-contact-content {
+    padding: 16px 20px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    overflow-y: auto;
+    font-family: 'Space Mono', monospace;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.kali-contact-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+}
+
+.kali-contact-stamp {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent-color, #0097a7);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.kali-contact-title {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 0 0 3px 0;
+    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.kali-contact-subtitle {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin: 0;
+    font-family: 'Space Mono', monospace;
+}
+
+.kali-contact-body {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 14px;
+    flex: 1;
+}
+
+.kali-contact-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    flex-wrap: wrap;
+}
+
+.kali-contact-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    width: 90px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+}
+
+.kali-contact-val {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    word-break: break-all;
+    transition: color 0.18s ease;
+}
+
+.kali-contact-val:hover {
+    color: #00bcd4;
+    text-decoration: underline;
+}
+
+body.dark-theme .kali-contact-val:hover {
+    color: #38bdf8;
+}
+
+.kali-contact-copy-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 9.5px;
+    font-weight: 700;
+    padding: 3px 8px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    margin-left: auto;
+}
+
+.kali-contact-copy-btn:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+
+.kali-contact-copy-btn.copied {
+    background: #10b981;
+    border-color: #10b981;
+    color: #ffffff;
+}
+
+.kali-contact-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin-top: auto;
 }
 
 .kali-pdf-frame {
@@ -3866,6 +2988,150 @@ body.dark-theme .cv-sub {
     transition: color 0.3s ease;
 }
 
+/* --- Full Project Smart Placement (Next to last photo or right below) --- */
+.nb-media-action-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+
+/* 1. Desktop: Adjacent to last photo (when row is NOT full, e.g. Harp Chair, Luca) */
+.nb-action-adj-desk {
+    align-self: center;
+    min-height: 200px;
+    height: 100%;
+}
+
+.nb-action-adj-desk .nb-action-slot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    padding-left: 2px;
+}
+
+/* 2. Desktop: Under last photo (when row IS full, e.g. NOMOD) */
+.nb-action-under-desk {
+    grid-column: 4; /* Sits directly in Column 4 below the 4th photo */
+    align-self: start;
+    margin-top: -6px; /* Sits immediately 'appena sotto' */
+}
+
+.nb-action-under-desk .nb-action-slot {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.nb-btn-full-project {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 7px 15px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color, rgba(0, 0, 0, 0.14));
+    background: var(--win-tab-bg, rgba(120, 120, 120, 0.04));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0.88;
+}
+
+.nb-btn-full-project:hover {
+    opacity: 1;
+    background: var(--text-color);
+    color: var(--bg-color);
+    border-color: var(--text-color);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body.dark-theme .nb-btn-full-project {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-color);
+}
+
+body.dark-theme .nb-btn-full-project:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+    border-color: var(--text-color);
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.1);
+}
+
+.nb-btn-full-project .nb-btn-bracket {
+    opacity: 0.55;
+    transition: opacity 0.2s ease;
+}
+
+.nb-btn-full-project:hover .nb-btn-bracket {
+    opacity: 0.85;
+}
+
+.nb-btn-full-project .nb-btn-full-text {
+    text-transform: lowercase;
+}
+
+.nb-btn-full-project .nb-btn-full-arrow {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    transition: transform 0.2s ease;
+}
+
+.nb-btn-full-project:hover .nb-btn-full-arrow {
+    transform: translateX(3px);
+}
+
+@media (max-width: 768px) {
+    /* Mobile: Adjacent in Col 2 (when row is NOT full, e.g. NOMOD) */
+    .nb-action-adj-mob {
+        grid-column: 2 !important;
+        align-self: center !important;
+        min-height: 100px !important;
+        margin-top: 0 !important;
+    }
+
+    .nb-action-adj-mob .nb-action-slot {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        height: 100% !important;
+    }
+
+    /* Mobile: Under last photo in Col 2 (when row IS full, e.g. Harp Chair, Luca) */
+    .nb-action-under-mob {
+        grid-column: 2 !important;
+        align-self: start !important;
+        margin-top: 0px !important;
+        min-height: auto !important;
+    }
+
+    .nb-action-under-mob .nb-action-slot {
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+    }
+
+    .nb-btn-full-project {
+        font-size: 10.5px !important;
+        padding: 4px 8px !important;
+        letter-spacing: 0.02em !important;
+        gap: 4px !important;
+    }
+
+    .nb-btn-full-project .nb-btn-full-arrow {
+        font-size: 12px !important;
+    }
+}
+
 /* --- Footer ----------------------------------------------- */
 .nb-footer {
     display: grid;
@@ -4212,8 +3478,8 @@ body.kali-os-page::before {
 
 /* Column 1: Folders List */
 .pd-col-folders {
-    width: 200px;
-    min-width: 170px;
+    width: 180px;
+    min-width: 130px;
     max-width: 230px;
     flex-shrink: 0;
     border-right: 1px solid var(--win-toolbar-border);
@@ -4284,8 +3550,8 @@ body.dark-theme .pd-folder-row.active {
 
 /* Column 2: Files in Selected Folder */
 .pd-col-files {
-    width: 240px;
-    min-width: 210px;
+    width: 220px;
+    min-width: 160px;
     max-width: 270px;
     flex-shrink: 0;
     border-right: 1px solid var(--win-toolbar-border);
@@ -4894,54 +4160,131 @@ body.dark-theme .pd-preview-box {
         white-space: normal !important;
     }
 
-    .fg-hero-windows {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 20px !important;
-        padding: 0 !important;
-        margin: 20px 0 36px 0 !important;
-        min-height: auto !important;
+    .fg-projects-showcase {
+        padding: 30px 14px 60px 14px !important;
+        gap: 40px !important;
     }
 
-    .fg-hero-window-left,
-    .fg-hero-window-right,
-    .fg-win-aether,
-    .fg-win-nomod,
-    .fg-win-luca,
-    .fg-win-vlc,
-    .fg-vlc-window {
+    .fg-project-row.is-left,
+    .fg-project-row.is-right {
+        justify-content: center !important;
+    }
+
+    .fg-project-window-shell {
         width: 100% !important;
         max-width: 100% !important;
-        margin-top: 0 !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
     }
 
-    .fg-contact-window {
-        position: fixed !important;
-        width: 92vw !important;
-        left: 4vw !important;
-        top: 10vh !important;
-        transform: none !important;
-        z-index: 9999 !important;
+    .fg-project-window {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 
     .fg-hero-window-content {
-        height: 220px !important;
-        min-height: 180px !important;
+        height: 260px !important;
+        min-height: 220px !important;
+        max-height: 260px !important;
     }
 
-    /* Fullscreen Motion Reel on Mobile (Perfect 100% width, no offset) */
-    .nb-reel.nb-reel-fullscreen {
+    .fg-window-badge {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        font-size: 10px !important;
+        padding: 4px 10px !important;
+    }
+
+    .fg-project-row-stamp {
+        font-size: 10px !important;
+    }
+
+    /* Sophia Denison Hero on Mobile */
+    .sd-hero-section {
+        grid-template-columns: 1fr !important;
+        padding: 24px 14px 44px 14px !important;
+        min-height: auto !important;
+        gap: 28px !important;
+    }
+
+    .sd-hero-center {
+        order: 1 !important;
         width: 100% !important;
-        left: 0 !important;
-        right: 0 !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        height: calc(100svh - 52px) !important;
-        min-height: calc(100svh - 52px) !important;
-        margin-top: 0 !important;
-        margin-bottom: 56px !important;
+    }
+
+    .kali-window-vlc {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+
+    .sd-hero-left {
+        order: 2 !important;
+        width: 100% !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding-right: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    .sd-toc-wrap {
+        align-items: center !important;
+        width: 100% !important;
+    }
+
+    .sd-toc-header {
+        align-items: center !important;
+        text-align: center !important;
+        margin-bottom: 14px !important;
+    }
+
+    .sd-toc-label-main,
+    .sd-toc-label-sub {
+        font-size: clamp(18px, 5.2vw, 24px) !important;
+    }
+
+    .sd-toc-list {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px 14px !important;
+        width: 100% !important;
+        max-width: 440px !important;
+    }
+
+    .sd-toc-item {
+        font-size: clamp(14px, 4vw, 18px) !important;
+        line-height: 1.25 !important;
+        justify-content: flex-start !important;
+    }
+
+    .sd-hero-right {
+        order: 3 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-top: 14px !important;
+    }
+
+    .sd-scam-about-link {
+        font-size: clamp(17px, 4.8vw, 22px) !important;
+    }
+
+    .mschf-marquee-wrap {
+        height: 38px !important;
+        margin-top: 10px !important;
+    }
+
+    .mschf-marquee-item span {
+        font-size: 14.5px !important;
+    }
+
+    .nb-nav-about-top {
+        margin-right: 14px !important;
     }
 
     #app>main {
@@ -5101,6 +4444,10 @@ body.dark-theme .pd-preview-box {
 
     body.kali-os-page .kali-icon-label {
         font-size: 11px !important;
+    }
+
+    body.kali-os-page #icon-trash {
+        display: none !important;
     }
 
     /* Floating Windows: Stacked and fluidly scrollable down the page */
@@ -5276,6 +4623,25 @@ body.dark-theme .pd-preview-box {
         aspect-ratio: 16 / 9 !important;
         height: auto !important;
         max-height: 280px !important;
+    }
+
+    /* Specific Window 4: contacts.txt (Text Editor) */
+    body.kali-os-page .kali-window-contact {
+        height: auto !important;
+        max-height: 85vh !important;
+    }
+
+    body.kali-os-page .kali-contact-content {
+        padding: 18px 16px !important;
+    }
+
+    body.kali-os-page .kali-contact-row {
+        font-size: 11.5px !important;
+    }
+
+    body.kali-os-page .kali-contact-label {
+        width: 75px !important;
+        font-size: 10px !important;
     }
 
     /* Bottom Taskbar on Mobile */
@@ -5587,4 +4953,96 @@ body.macos-space-slide-in-right {
 
 body.macos-space-slide-in-left {
     animation: macosSpaceSlideInLeft 0.48s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+/* ============================================================
+   SITE INTRO SPLASH OVERLAY
+   ============================================================ */
+html.intro-already-played #site-intro-overlay {
+    display: none !important;
+}
+
+.site-intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color, #f7f7f7);
+    overflow: hidden;
+    cursor: pointer;
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, visibility;
+}
+
+.site-intro-overlay.is-faded {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(1.025);
+}
+
+/* Film Grain overlay from CodePen (https://codepen.io/ooblek/pen/vYxYomx) */
+.intro-film-grain {
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background-image: url('../assets/noise.png');
+    background-repeat: repeat;
+    background-size: 512px 512px;
+    opacity: 0.22;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+    animation: animateGrain 8s steps(10) infinite;
+    will-change: transform;
+}
+
+.intro-logo-center {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Black logo typography reduced 50% in size */
+.intro-logo-img {
+    width: min(340px, 50vw);
+    max-width: 340px;
+    height: auto;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-intro-overlay.is-faded .intro-logo-img {
+    transform: scale(0.97);
+}
+
+@media (max-width: 768px) {
+    .intro-logo-img {
+        width: min(210px, 55vw);
+        max-width: 210px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nb-nav-about-top {
+        display: none !important;
+    }
 }
