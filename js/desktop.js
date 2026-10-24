@@ -713,40 +713,12 @@
 
     // --------------- Curriculum Viewer Controls ----------
     function initCvControls() {
-        const toggleBtn = document.getElementById('cv-toggle-view');
-        const viewLabel = document.getElementById('cv-view-label');
-        const pdfIframe = document.getElementById('kali-cv-iframe');
-        const sheetContainer = document.getElementById('kali-cv-sheet');
         const zoomInBtn = document.getElementById('cv-zoom-in');
         const zoomOutBtn = document.getElementById('cv-zoom-out');
         const zoomVal = document.getElementById('cv-zoom-val');
         const sheetZoom = document.getElementById('kali-doc-sheet-zoom');
 
-        let isSheetView = false;
         let zoomLevel = 100;
-
-        // On mobile, default to adaptive responsive sheet for crisp reading
-        if (window.innerWidth <= 768 && pdfIframe && sheetContainer) {
-            isSheetView = true;
-            pdfIframe.style.display = 'none';
-            sheetContainer.style.display = 'flex';
-            if (viewLabel) viewLabel.textContent = 'PDF Nativo';
-        }
-
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', () => {
-                isSheetView = !isSheetView;
-                if (isSheetView) {
-                    pdfIframe.style.display = 'none';
-                    sheetContainer.style.display = 'flex';
-                    if (viewLabel) viewLabel.textContent = 'PDF Nativo';
-                } else {
-                    sheetContainer.style.display = 'none';
-                    pdfIframe.style.display = 'block';
-                    if (viewLabel) viewLabel.textContent = 'Vista Scheda';
-                }
-            });
-        }
 
         if (zoomInBtn && zoomOutBtn && zoomVal && sheetZoom) {
             zoomInBtn.addEventListener('click', () => {

@@ -351,11 +351,11 @@ function renderVlcWindow() {
         </div>`;
 }
 
-// --------------- Render Hero (Sophia Denison Style) ---------
+// --------------- Render Hero (Sophia Denison Style / Desktop OS Workspace) ---
 function renderSophiaHero() {
     return `
-        <section class="sd-hero-section" id="hero-section" aria-label="Hero Showcase">
-            <!-- Left: Works Table of Contents (Sophia Denison / Virgil Abloh style - Vertically Centered) -->
+        <section class="sd-hero-section sd-desktop-workspace" id="hero-section" aria-label="Desktop Workspace">
+            <!-- Left: Works Table of Contents (Sophia Denison / Virgil Abloh style) -->
             <div class="sd-hero-left" id="sd-toc">
                 <div class="sd-toc-wrap">
                     <div class="sd-toc-header">
@@ -371,15 +371,15 @@ function renderSophiaHero() {
                             <span class="sd-toc-num">[ 02 ]</span>
                             <span class="sd-toc-label">MOTION REEL</span>
                         </a>
-                        <a href="harp-chair.html" class="sd-toc-item">
+                        <a href="#project-win-0" class="sd-toc-item sd-toc-scroll">
                             <span class="sd-toc-num">[ 03 ]</span>
                             <span class="sd-toc-label">HARP CHAIR</span>
                         </a>
-                        <a href="nomod.html" class="sd-toc-item">
+                        <a href="#project-win-1" class="sd-toc-item sd-toc-scroll">
                             <span class="sd-toc-num">[ 04 ]</span>
                             <span class="sd-toc-label">NOMOD</span>
                         </a>
-                        <a href="luca.html" class="sd-toc-item">
+                        <a href="#project-win-2" class="sd-toc-item sd-toc-scroll">
                             <span class="sd-toc-num">[ 05 ]</span>
                             <span class="sd-toc-label">LUCA</span>
                         </a>
@@ -387,9 +387,19 @@ function renderSophiaHero() {
                 </div>
             </div>
 
-            <!-- Center: Dead-Center VLC Landscape Window -->
-            <div class="sd-hero-center">
+            <!-- Unified Desktop Canvas holding the 4 Interactive OS Windows -->
+            <div class="sd-desktop-canvas" id="desktop-canvas">
+                <!-- 1. VLC Media Player Window (Top Center/Left) -->
                 ${renderVlcWindow()}
+
+                <!-- 2. NOMOD Window (Top Right) -->
+                ${renderProjectWindow(PROJECTS[1], 1, "fg-win-nomod")}
+
+                <!-- 3. HARP CHAIR Window (Bottom Left) -->
+                ${renderProjectWindow(PROJECTS[0], 0, "fg-win-harp")}
+
+                <!-- 4. LUCA Window (Bottom Center/Right) -->
+                ${renderProjectWindow(PROJECTS[2], 2, "fg-win-luca")}
             </div>
 
             <!-- Right: About Link (Almost attached to right margin, Adv Scam Arrow & Blink) -->
@@ -425,7 +435,7 @@ function renderProjectWindow(project, idx, customClass = "") {
     const totalCountStr = String(items.length).padStart(2, '0');
 
     return `
-        <div class="fg-hero-window fg-project-window ${customClass}" id="${winId}" data-project-idx="${idx}">
+        <div class="fg-hero-window fg-project-window kali-window ${customClass}" id="${winId}" data-project-idx="${idx}">
             <!-- 8 Resize Handles (4 Edges + 4 Corners) -->
             <div class="kali-resize-handle kali-resize-n" data-dir="n" aria-hidden="true"></div>
             <div class="kali-resize-handle kali-resize-s" data-dir="s" aria-hidden="true"></div>
@@ -436,7 +446,7 @@ function renderProjectWindow(project, idx, customClass = "") {
             <div class="kali-resize-handle kali-resize-sw" data-dir="sw" aria-hidden="true"></div>
             <div class="kali-resize-handle kali-resize-se" data-dir="se" aria-hidden="true"></div>
 
-            <!-- 1. Titlebar (Draggable Handle) -->
+            <!-- 1. Titlebar (macOS Style Draggable Handle) -->
             <div class="kali-titlebar">
                 <div class="kali-controls">
                     <button class="kali-btn kali-btn-close" type="button" aria-label="Chiudi finestra" title="Chiudi"></button>
@@ -444,12 +454,12 @@ function renderProjectWindow(project, idx, customClass = "") {
                     <button class="kali-btn kali-btn-max" type="button" aria-label="Ingrandisci finestra" title="Ingrandisci"></button>
                 </div>
                 <div class="kali-title-info">
-                    <span class="kali-title-text">${escapeHTML(fileSlug)} — Project Viewer</span>
+                    <span class="kali-title-text">${escapeHTML(project.title)} — Project Viewer</span>
                 </div>
                 <div class="kali-titlebar-spacer" aria-hidden="true"></div>
             </div>
 
-            <!-- 2. Menubar (XFCE Style) -->
+            <!-- 2. Menubar (macOS / XFCE Style) -->
             <div class="kali-menubar">
                 <span class="kali-menu-item">File</span>
                 <span class="kali-menu-item">Edit</span>
@@ -469,12 +479,25 @@ function renderProjectWindow(project, idx, customClass = "") {
                     </a>
                 </div>
                 <div class="kali-tb-sep"></div>
+                <div class="kali-tool-group">
+                    <button class="kali-tb-btn fg-win-prev-btn" type="button" title="Immagine precedente" aria-label="Immagine precedente">
+                        <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
+                            <path d="M10 3L5 8l5 5V3z"/>
+                        </svg>
+                    </button>
+                    <button class="kali-tb-btn fg-win-next-btn" type="button" title="Immagine successiva" aria-label="Immagine successiva">
+                        <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor">
+                            <path d="M6 3l5 5-5 5V3z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="kali-tb-sep"></div>
                 <div class="kali-tool-group kali-tb-right">
                     <span class="kali-tb-info">${escapeHTML(project.meta || "")}</span>
                 </div>
             </div>
 
-            <!-- 4. Content Area (Continuous Slideshow & Full Project Badge on Hover) -->
+            <!-- 4. Content Area (16:9 Landscape Format, Smooth Fade Slideshow, Superimposed "FULL PROJECT" on Hover) -->
             <a href="${escapeHTML(project.url)}" class="fg-hero-window-content fg-project-slideshow" aria-label="Apri progetto: ${escapeHTML(project.title)}">
                 <div class="fg-slides-track">
                     ${slidesHtml}
@@ -482,7 +505,13 @@ function renderProjectWindow(project, idx, customClass = "") {
                 <div class="fg-slides-counter">
                     <span class="fg-slide-cur">01</span> / <span class="fg-slide-total">${totalCountStr}</span>
                 </div>
-                <span class="fg-window-badge">FULL PROJECT &rarr;</span>
+                <!-- Superimposed "FULL PROJECT" Overlay on hover -->
+                <div class="fg-project-overlay" aria-hidden="true">
+                    <div class="fg-project-overlay-center">
+                        <span class="fg-overlay-badge">FULL PROJECT</span>
+                        <span class="fg-overlay-arrow">&rarr;</span>
+                    </div>
+                </div>
             </a>
 
             <!-- 5. Statusbar -->
@@ -493,7 +522,7 @@ function renderProjectWindow(project, idx, customClass = "") {
                     <span>${escapeHTML(project.meta || "")}</span>
                 </div>
                 <div class="kali-status-right">
-                    <span>Lorenzo Kraja OS</span>
+                    <span>16:9 Landscape &bull; Lorenzo Kraja OS</span>
                 </div>
             </div>
         </div>`;
@@ -525,6 +554,97 @@ function renderProjectsShowcase() {
             ${rows}
         </section>
     `;
+}
+
+// --------------- Project Windows Slideshow Controller -------
+function initProjectSlideshows() {
+    const projectWindows = document.querySelectorAll('.fg-project-window');
+    if (!projectWindows.length) return;
+
+    projectWindows.forEach((winEl) => {
+        const pIdx = parseInt(winEl.dataset.projectIdx, 10);
+        const proj = PROJECTS[pIdx];
+        if (!proj) return;
+
+        const slides = Array.from(winEl.querySelectorAll('.fg-slide'));
+        const totalCount = slides.length;
+        if (totalCount <= 0) return;
+
+        const curCounterEl = winEl.querySelector('.fg-slide-cur');
+        const prevBtn = winEl.querySelector('.fg-win-prev-btn');
+        const nextBtn = winEl.querySelector('.fg-win-next-btn');
+
+        let currentIndex = 0;
+        let autoplayTimer = null;
+        let isPaused = false;
+
+        function goToSlide(idx) {
+            if (idx < 0) idx = totalCount - 1;
+            if (idx >= totalCount) idx = 0;
+            currentIndex = idx;
+
+            slides.forEach((slide, i) => {
+                if (i === currentIndex) {
+                    slide.classList.add('is-active');
+                } else {
+                    slide.classList.remove('is-active');
+                }
+            });
+
+            if (curCounterEl) {
+                curCounterEl.textContent = String(currentIndex + 1).padStart(2, '0');
+            }
+        }
+
+        function startAutoplay() {
+            if (totalCount <= 1) return;
+            stopAutoplay();
+            autoplayTimer = setInterval(() => {
+                if (!isPaused) {
+                    goToSlide(currentIndex + 1);
+                }
+            }, 3200);
+        }
+
+        function stopAutoplay() {
+            if (autoplayTimer) {
+                clearInterval(autoplayTimer);
+                autoplayTimer = null;
+            }
+        }
+
+        // Prev & Next Toolbar Buttons
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                goToSlide(currentIndex - 1);
+                startAutoplay();
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                goToSlide(currentIndex + 1);
+                startAutoplay();
+            });
+        }
+
+        // Pause slideshow on hover to invite viewing / clicking "FULL PROJECT"
+        winEl.addEventListener('mouseenter', () => {
+            isPaused = true;
+        });
+
+        winEl.addEventListener('mouseleave', () => {
+            isPaused = false;
+        });
+
+        // Initialize first slide and start continuous crossfade autoplay
+        goToSlide(0);
+        startAutoplay();
+    });
 }
 
 // --------------- Render MSCHF-Style Statement Ticker ---------
@@ -651,7 +771,7 @@ function buildPage() {
             </div>
         </div>
 
-        <!-- HERO SECTION (Sophia Denison Style: Centered Left TOC, Dead-Center VLC Landscape Window) -->
+        <!-- HERO / DESKTOP OS WORKSPACE -->
         ${renderSophiaHero()}
 
         <!-- MSCHF-STYLE STATEMENT MARQUEE TICKER -->
@@ -675,13 +795,14 @@ function buildPage() {
     bindHeroTocLinks();
     initVlcPlayer();
     initHeroWindows();
+    initProjectSlideshows();
     initHeroLogoDock();
     initMacosSpacesTransition();
     initSiteIntro();
     initMschfMarquee();
 }
 
-// --------------- Hero TOC smooth scroll --------------------
+// --------------- Hero TOC smooth scroll & window focus -----
 function bindHeroTocLinks() {
     document.querySelectorAll(".sd-toc-scroll, .fg-toc-scroll").forEach(link => {
         link.addEventListener("click", (e) => {
@@ -690,13 +811,31 @@ function bindHeroTocLinks() {
                 const target = document.querySelector(href);
                 if (target) {
                     e.preventDefault();
-                    target.scrollIntoView({ behavior: "smooth", block: "center" });
+                    if (target.id === "contact") {
+                        if (window.innerWidth <= 900) {
+                            target.scrollIntoView({ behavior: "smooth", block: "center" });
+                        } else {
+                            window.location.href = "mailto:lorenzokraja99@gmail.com";
+                        }
+                        return;
+                    }
+                    const win = (target.classList.contains('kali-window') || target.classList.contains('fg-hero-window'))
+                        ? target
+                        : target.querySelector('.kali-window, .fg-hero-window');
+                    if (win && typeof win._bringToFront === 'function') {
+                        win._bringToFront();
+                    } else if (win) {
+                        document.querySelectorAll('.kali-window, .fg-hero-window').forEach(w => w.classList.remove('is-focused'));
+                        win.classList.add('is-focused');
+                    }
                     if (target.id === "hero-win-vlc") {
-                        target.classList.add('is-focused');
                         const video = target.querySelector('.vlc-video-element');
                         if (video && video.paused) {
                             video.play().catch(() => {});
                         }
+                    }
+                    if (window.innerWidth <= 900) {
+                        target.scrollIntoView({ behavior: "smooth", block: "center" });
                     }
                 }
             }
@@ -880,9 +1019,10 @@ function initHeroWindows() {
         const bringToFront = () => {
             highestZ += 2;
             winEl.style.zIndex = highestZ;
-            document.querySelectorAll('.kali-window').forEach(w => w.classList.remove('is-focused'));
+            document.querySelectorAll('.kali-window, .fg-hero-window').forEach(w => w.classList.remove('is-focused'));
             winEl.classList.add('is-focused');
         };
+        winEl._bringToFront = bringToFront;
 
         winEl.addEventListener('pointerdown', () => {
             bringToFront();
@@ -954,7 +1094,7 @@ function initHeroWindows() {
                 const dx = e.clientX - startX;
                 const dy = e.clientY - startY;
 
-                const minW = 440;
+                const minW = 260;
                 const maxW = Math.max(minW, window.innerWidth - 40);
 
                 let newW = startW;
@@ -964,59 +1104,130 @@ function initHeroWindows() {
 
                 const isCorner = dir === 'nw' || dir === 'ne' || dir === 'sw' || dir === 'se';
 
-                if (isCorner) {
-                    let deltaW = 0;
-                    if (dir === 'se') deltaW = dx;
-                    else if (dir === 'sw') deltaW = -dx;
-                    else if (dir === 'ne') deltaW = dx;
-                    else if (dir === 'nw') deltaW = -dx;
+                // Check if this window's parent is flex-centered (like VLC in sd-hero-center)
+                const isParentFlexCentered = (() => {
+                    const parent = winEl.parentElement;
+                    if (!parent) return false;
+                    const style = window.getComputedStyle(parent);
+                    return style.display === 'flex' && style.justifyContent === 'center';
+                })();
 
-                    let targetW = Math.max(minW, Math.min(maxW, startW + deltaW));
-                    let targetH = Math.round(targetW * (9 / 16));
+                if (isParentFlexCentered) {
+                    if (isCorner) {
+                        let deltaW = 0;
+                        if (dir === 'se') deltaW = dx;
+                        else if (dir === 'sw') deltaW = -dx;
+                        else if (dir === 'ne') deltaW = dx;
+                        else if (dir === 'nw') deltaW = -dx;
 
-                    newW = targetW;
-                    newH = targetH;
+                        let targetW = Math.max(minW, Math.min(maxW, startW + deltaW));
+                        let targetH = Math.round(targetW * (9 / 16));
 
-                    // Flex-centering anchor compensation
-                    if (dir.indexOf('e') !== -1) {
-                        newTx = startTx + (newW - startW) / 2;
+                        newW = targetW;
+                        newH = targetH;
+
+                        // Flex-centering anchor compensation
+                        if (dir.indexOf('e') !== -1) {
+                            newTx = startTx + (newW - startW) / 2;
+                        } else {
+                            newTx = startTx - (newW - startW) / 2;
+                        }
+
+                        if (dir.indexOf('s') !== -1) {
+                            newTy = startTy + (newH - startH) / 2;
+                        } else {
+                            newTy = startTy - (newH - startH) / 2;
+                        }
                     } else {
-                        newTx = startTx - (newW - startW) / 2;
-                    }
-
-                    if (dir.indexOf('s') !== -1) {
-                        newTy = startTy + (newH - startH) / 2;
-                    } else {
-                        newTy = startTy - (newH - startH) / 2;
+                        if (dir === 'e') {
+                            newW = Math.max(minW, Math.min(maxW, startW + dx));
+                            newH = Math.round(newW * (9 / 16));
+                            newTx = startTx + (newW - startW) / 2;
+                            newTy = startTy + (newH - startH) / 2;
+                        } else if (dir === 'w') {
+                            newW = Math.max(minW, Math.min(maxW, startW - dx));
+                            newH = Math.round(newW * (9 / 16));
+                            newTx = startTx - (newW - startW) / 2;
+                            newTy = startTy + (newH - startH) / 2;
+                        } else if (dir === 's') {
+                            newH = Math.max(Math.round(minW * 9 / 16), startH + dy);
+                            newW = Math.max(minW, Math.min(maxW, Math.round(newH * (16 / 9))));
+                            newH = Math.round(newW * (9 / 16));
+                            newTx = startTx + (newW - startW) / 2;
+                            newTy = startTy + (newH - startH) / 2;
+                        } else if (dir === 'n') {
+                            newH = Math.max(Math.round(minW * 9 / 16), startH - dy);
+                            newW = Math.max(minW, Math.min(maxW, Math.round(newH * (16 / 9))));
+                            newH = Math.round(newW * (9 / 16));
+                            newTx = startTx + (newW - startW) / 2;
+                            newTy = startTy - (newH - startH) / 2;
+                        }
                     }
                 } else {
-                    if (dir === 'e') {
-                        newW = Math.max(minW, Math.min(maxW, startW + dx));
-                        newH = Math.round(newW * (9 / 16));
-                        newTx = startTx + (newW - startW) / 2;
-                        newTy = startTy + (newH - startH) / 2;
-                    } else if (dir === 'w') {
-                        newW = Math.max(minW, Math.min(maxW, startW - dx));
-                        newH = Math.round(newW * (9 / 16));
-                        newTx = startTx - (newW - startW) / 2;
-                        newTy = startTy + (newH - startH) / 2;
-                    } else if (dir === 's') {
-                        newH = Math.max(Math.round(minW * 9 / 16), startH + dy);
-                        newW = Math.max(minW, Math.min(maxW, Math.round(newH * (16 / 9))));
-                        newH = Math.round(newW * (9 / 16));
-                        newTx = startTx + (newW - startW) / 2;
-                        newTy = startTy + (newH - startH) / 2;
-                    } else if (dir === 'n') {
-                        newH = Math.max(Math.round(minW * 9 / 16), startH - dy);
-                        newW = Math.max(minW, Math.min(maxW, Math.round(newH * (16 / 9))));
-                        newH = Math.round(newW * (9 / 16));
-                        newTx = startTx + (newW - startW) / 2;
-                        newTy = startTy - (newH - startH) / 2;
+                    // Standard flow / left-aligned window anchor compensation (zero opposite-edge jitter)
+                    if (isCorner) {
+                        let deltaW = 0;
+                        if (dir === 'se') deltaW = dx;
+                        else if (dir === 'sw') deltaW = -dx;
+                        else if (dir === 'ne') deltaW = dx;
+                        else if (dir === 'nw') deltaW = -dx;
+
+                        let targetW = Math.max(minW, Math.min(maxW, startW + deltaW));
+                        let targetH = Math.round(targetW * (9 / 16));
+
+                        newW = targetW;
+                        newH = targetH;
+
+                        const dw = newW - startW;
+                        const dh = newH - startH;
+
+                        if (dir === 'se') {
+                            newTx = startTx;
+                            newTy = startTy;
+                        } else if (dir === 'sw') {
+                            newTx = startTx - dw;
+                            newTy = startTy;
+                        } else if (dir === 'ne') {
+                            newTx = startTx;
+                            newTy = startTy - dh;
+                        } else if (dir === 'nw') {
+                            newTx = startTx - dw;
+                            newTy = startTy - dh;
+                        }
+                    } else {
+                        if (dir === 'e') {
+                            newW = Math.max(minW, Math.min(maxW, startW + dx));
+                            newH = Math.round(newW * (9 / 16));
+                            newTx = startTx;
+                            newTy = startTy;
+                        } else if (dir === 'w') {
+                            newW = Math.max(minW, Math.min(maxW, startW - dx));
+                            newH = Math.round(newW * (9 / 16));
+                            newTx = startTx - (newW - startW);
+                            newTy = startTy;
+                        } else if (dir === 's') {
+                            newH = Math.max(Math.round(minW * 9 / 16), startH + dy);
+                            newW = Math.max(minW, Math.min(maxW, Math.round(newH * (16 / 9))));
+                            newH = Math.round(newW * (9 / 16));
+                            newTx = startTx;
+                            newTy = startTy;
+                        } else if (dir === 'n') {
+                            newH = Math.max(Math.round(minW * 9 / 16), startH - dy);
+                            newW = Math.max(minW, Math.min(maxW, Math.round(newH * (16 / 9))));
+                            newH = Math.round(newW * (9 / 16));
+                            newTx = startTx;
+                            newTy = startTy - (newH - startH);
+                        }
                     }
                 }
 
                 winEl.style.width = `${Math.round(newW)}px`;
                 winEl.style.maxWidth = 'none';
+                winEl.style.flexShrink = '0';
+                if (winEl.parentElement && winEl.parentElement.classList.contains('fg-project-window-shell')) {
+                    winEl.parentElement.style.maxWidth = 'none';
+                    winEl.parentElement.style.width = `${Math.round(newW)}px`;
+                }
                 if (contentEl) {
                     contentEl.style.height = `${Math.round(newH)}px`;
                     contentEl.style.maxHeight = 'none';
@@ -1594,4 +1805,8 @@ function initTypingBio() {
 
 // --------------- Init --------------------------------------
 initTheme();
-document.addEventListener("DOMContentLoaded", buildPage);
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", buildPage);
+} else {
+    buildPage();
+}

@@ -219,15 +219,6 @@
                         </svg>
                         <span class="kali-tb-label">Nuova scheda</span>
                     </a>
-                    <button class="kali-tb-btn kali-tb-toggle-view" id="cv-toggle-view"
-                        title="Cambia vista tra PDF Nativo e Scheda Adattabile">
-                        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
-                            <rect x="2" y="2" width="12" height="12" rx="2" />
-                            <path d="M2 6h12M6 6v8" />
-                        </svg>
-                        <span class="kali-tb-label" id="cv-view-label">Vista Scheda</span>
-                    </button>
                 </div>
 
                 <div class="kali-tb-sep"></div>
@@ -253,14 +244,9 @@
                 </div>
             </div>
 
-            <!-- Content Area: Native PDF iframe + Adaptive HTML sheet -->
+            <!-- Content Area: Responsive Document Sheet -->
             <div class="kali-window-content kali-cv-content" id="kali-cv-content">
-                <!-- Native PDF view -->
-                <iframe id="kali-cv-iframe" class="kali-pdf-frame" src="assets/cv_lorenzo_kraja.pdf#view=FitH"
-                    title="Curriculum Vitae di Lorenzo Kraja"></iframe>
-
-                <!-- Adaptive Responsive HTML Sheet Preview -->
-                <div id="kali-cv-sheet" class="kali-doc-sheet-container" style="display:none;">
+                <div id="kali-cv-sheet" class="kali-doc-sheet-container">
                     <div class="kali-doc-sheet" id="kali-doc-sheet-zoom">
                         <div class="cv-header">
                             <div class="cv-name-wrap">

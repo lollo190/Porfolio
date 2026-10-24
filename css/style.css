@@ -348,8 +348,11 @@ body.dark-theme .nb-theme-icon-moon {
 
 /* --- Top Navigation (Clean Two-Column Layout: Logo Left, Utilities Right) --- */
 .nb-top-nav {
-    position: sticky;
+    position: absolute;
     top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
     z-index: 100;
     background: transparent;
     display: flex;
@@ -359,6 +362,8 @@ body.dark-theme .nb-theme-icon-moon {
     font-size: 16px;
     color: var(--text-color);
     transition: color 0.25s ease;
+    pointer-events: none;
+    box-sizing: border-box;
 }
 
 .nb-nav-col-1,
@@ -367,6 +372,7 @@ body.dark-theme .nb-theme-icon-moon {
     transition: color 0.25s ease, text-shadow 0.25s ease;
     display: flex;
     align-items: center;
+    pointer-events: auto;
 }
 
 .nb-nav-col-4 {
@@ -869,6 +875,17 @@ body.dark-theme .fg-toc-item {
     box-shadow: 0 20px 52px rgba(0, 0, 0, 0.22), 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+body.dark-theme .fg-hero-window {
+    background: var(--win-bg);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65), 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-theme .fg-hero-window.is-focused {
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
 .fg-hero-window.is-dragging {
     transition: none !important;
     box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35), 0 8px 20px rgba(0, 0, 0, 0.18) !important;
@@ -884,13 +901,25 @@ body.dark-theme .fg-toc-item {
 
 .fg-project-window {
     width: 100%;
+    height: auto !important;
+    position: relative !important;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow: visible;
 }
 
 .fg-hero-window .kali-titlebar {
-    height: 30px;
+    height: 26px;
     cursor: grab;
     user-select: none;
     touch-action: none;
+    padding: 0 8px;
+}
+
+.fg-hero-window .kali-title-text {
+    font-size: 10.5px;
+    letter-spacing: 0.03em;
 }
 
 .fg-hero-window.is-dragging .kali-titlebar {
@@ -898,21 +927,22 @@ body.dark-theme .fg-toc-item {
 }
 
 .fg-hero-window .kali-menubar {
-    height: 24px;
-    font-size: 11px;
+    height: 20px;
+    font-size: 10px;
+    padding: 0 8px;
 }
 
 .fg-hero-window .kali-nav-toolbar {
-    height: 32px;
+    height: 26px;
     display: flex;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 6px;
     background: var(--win-toolbar-bg);
     border-bottom: 1px solid var(--win-toolbar-border);
-    font-size: 11px;
+    font-size: 10.5px;
 }
 
-/* Content Area — Image Preview & Continuous Slideshow */
+/* Content Area — Image Preview & Continuous Slideshow (Flexible Height) */
 .fg-hero-window-content {
     position: relative;
     overflow: hidden;
@@ -920,10 +950,9 @@ body.dark-theme .fg-toc-item {
     align-items: center;
     justify-content: center;
     background: var(--media-bg);
-    height: 440px !important;
-    max-height: 440px !important;
-    min-height: 240px !important;
-    flex: none !important;
+    width: 100%;
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.25s ease;
@@ -943,7 +972,7 @@ body.dark-theme .fg-toc-item {
     height: 100%;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.75s ease-in-out;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
 }
 
@@ -990,61 +1019,121 @@ body.dark-theme .fg-toc-item {
     border-radius: 4px;
     letter-spacing: 0.06em;
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     pointer-events: none;
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* FULL PROJECT Hover Badge */
-.fg-window-badge {
+/* Superimposed "FULL PROJECT" Overlay on Hover (in sovraimpressione) */
+.fg-project-overlay {
     position: absolute;
-    bottom: 16px;
-    right: 16px;
-    z-index: 10;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    font-weight: 700;
-    background: rgba(0, 0, 0, 0.88);
-    color: #ffffff;
-    padding: 6px 14px;
-    border-radius: 4px;
-    letter-spacing: 0.06em;
-    backdrop-filter: blur(6px);
-    pointer-events: none;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease, border-color 0.2s ease;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    visibility: hidden;
+    transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.28s ease;
+    z-index: 15;
+    pointer-events: none;
 }
 
-.fg-hero-window:hover .fg-window-badge {
+.fg-hero-window-content:hover .fg-project-overlay,
+.fg-hero-window:hover .fg-project-overlay,
+.fg-hero-window.hover-test .fg-project-overlay {
     opacity: 1;
-    transform: translateY(0);
-    background: #0000ff;
-    border-color: #3b82f6;
+    visibility: visible;
 }
 
-body.dark-theme .fg-window-badge {
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+.fg-project-overlay-center {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px;
+    background: #0000ee;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 4px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.25);
+    transform: translateY(8px) scale(0.96);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-body.dark-theme .fg-hero-window:hover .fg-window-badge {
+.fg-hero-window-content:hover .fg-project-overlay-center,
+.fg-hero-window:hover .fg-project-overlay-center,
+.fg-hero-window.hover-test .fg-project-overlay-center {
+    transform: translateY(0) scale(1);
+}
+
+body.dark-theme .fg-project-overlay-center {
     background: #2563eb;
-    border-color: #60a5fa;
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #ffffff;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65);
+}
+
+.fg-overlay-badge {
+    display: inline-block;
+}
+
+.fg-overlay-arrow {
+    display: inline-block;
+    font-size: 15px;
+    transition: transform 0.2s ease;
+}
+
+.fg-hero-window-content:hover .fg-overlay-arrow,
+.fg-hero-window:hover .fg-overlay-arrow {
+    transform: translateX(4px);
 }
 
 .fg-hero-window .kali-statusbar {
-    height: 24px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0 8px;
     background: var(--win-status-bg);
     border-top: 1px solid var(--win-border);
     font-family: 'Space Mono', monospace;
-    font-size: 9.5px;
+    font-size: 8.5px;
     color: var(--win-status-color);
+    overflow: hidden;
+    gap: 6px;
+}
+
+.fg-hero-window .kali-status-left {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.fg-hero-window .kali-status-left span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fg-hero-window .kali-status-right {
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-size: 8px;
+    opacity: 0.85;
 }
 
 
@@ -1258,47 +1347,50 @@ body.dark-theme .sd-scam-home-link {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    white-space: nowrap;
 }
 
 .sd-toc-header {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 22px;
+    margin-bottom: clamp(10px, 1.8vh, 18px);
     line-height: 1.15;
+    white-space: nowrap;
 }
 
 .sd-toc-label-main,
 .sd-toc-label-sub {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: clamp(20px, 1.8vw, 26px);
+    font-size: clamp(10px, 1vw, 15px);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
     color: var(--text-color);
+    line-height: 1.2;
     transition: color 0.25s ease;
 }
 
 .sd-toc-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: clamp(5px, 0.9vh, 10px);
 }
 
 .sd-toc-item {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: clamp(17px, 1.55vw, 23px);
+    font-size: clamp(9.5px, 0.9vw, 13.5px);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.025em;
     color: var(--retro-blue) !important;
     text-decoration: underline !important;
-    text-underline-offset: 3px;
-    text-decoration-thickness: 1.5px;
-    line-height: 1.25;
+    text-underline-offset: 2.5px;
+    text-decoration-thickness: 1.2px;
+    line-height: 1.2;
     display: inline-flex;
     align-items: baseline;
-    gap: 8px;
+    gap: 5px;
     white-space: nowrap;
     transition: opacity 0.15s ease, transform 0.15s ease, color 0.25s ease;
 }
@@ -1327,32 +1419,224 @@ body.dark-theme .sd-toc-item {
 }
 
 /* --- Center Column: Dead-Center VLC Landscape Window --- */
-.sd-hero-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+/* ============================================================
+   DESKTOP OS WORKSPACE & UNIFIED CANVAS (Exact Reference Layout)
+   ============================================================ */
+.sd-desktop-workspace {
     position: relative;
-    z-index: 10;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 480px;
+    display: block !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-/* VLC Media Player Window (macOS / Landscape 16:9 Style - 30% Larger Base Size) */
-#hero-win-vlc.kali-window-vlc,
-.kali-window.kali-window-vlc {
-    position: relative;
-    width: clamp(680px, 60vw, 890px);
+.sd-desktop-workspace .sd-hero-left {
+    position: absolute;
+    left: clamp(8px, 1.2vw, 20px);
+    top: 39.5vh;
+    z-index: 5;
     height: auto;
-    max-width: 92vw;
+    padding-right: 0;
+    pointer-events: auto;
+    white-space: nowrap;
+}
+
+.sd-desktop-workspace .sd-hero-right {
+    position: absolute;
+    right: clamp(8px, 1.2vw, 24px);
+    top: 49.5vh;
+    z-index: 5;
+    height: auto;
+    padding-right: 0;
+    pointer-events: auto;
+    white-space: nowrap;
+}
+
+.sd-desktop-canvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 480px;
+    overflow: visible;
+    box-sizing: border-box;
+}
+
+/* --- Window 1: VLC Media Player (Top Center/Left) --- */
+#hero-win-vlc.kali-window-vlc {
+    position: absolute !important;
+    top: 1.2vh !important;
+    left: 21vw !important;
+    width: 37.1vw !important;
+    height: 44.5vh !important;
+    min-width: 300px !important;
+    min-height: 180px !important;
+    max-width: none !important;
     background: var(--win-bg);
     border: 1px solid var(--win-border);
     border-radius: 8px;
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.16);
     display: flex;
     flex-direction: column;
     user-select: none;
     z-index: 10;
     overflow: visible;
+    margin: 0 !important;
     transition: box-shadow 0.25s ease, opacity 0.22s ease;
+}
+
+/* --- Window 2: NOMOD (Top Right) --- */
+#project-win-1.fg-win-nomod {
+    position: absolute !important;
+    top: 7.5vh !important;
+    left: 67vw !important;
+    width: 26.1vw !important;
+    height: 36.5vh !important;
+    min-width: 230px !important;
+    min-height: 160px !important;
+    max-width: none !important;
+    z-index: 11;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.16);
+    margin: 0 !important;
+}
+
+/* --- Window 3: HARP CHAIR (Bottom Left) --- */
+#project-win-0.fg-win-harp {
+    position: absolute !important;
+    top: 50.5vh !important;
+    left: 12.5vw !important;
+    width: 27.8vw !important;
+    height: 38.5vh !important;
+    min-width: 240px !important;
+    min-height: 170px !important;
+    max-width: none !important;
+    z-index: 12;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.16);
+    margin: 0 !important;
+}
+
+/* --- Window 4: LUCA (Bottom Center/Right) --- */
+#project-win-2.fg-win-luca {
+    position: absolute !important;
+    top: 49.5vh !important;
+    left: 51.5vw !important;
+    width: 28.8vw !important;
+    height: 38.5vh !important;
+    min-width: 250px !important;
+    min-height: 170px !important;
+    max-width: none !important;
+    z-index: 13;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.16);
+    margin: 0 !important;
+}
+
+/* --- Desktop 100% Single Viewport (Strictly No Vertical Scroll, Zero Gap, Transparent Ticker + Footer) --- */
+@media (min-width: 901px) {
+    html,
+    body:not(.kali-os-page) {
+        height: 100vh !important;
+        height: 100dvh !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    #app {
+        height: 100vh !important;
+        height: 100dvh !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        position: relative !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .sd-desktop-workspace {
+        flex: 1 1 0 !important;
+        min-height: 0 !important;
+        height: auto !important;
+        position: relative !important;
+        width: 100% !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .sd-desktop-canvas {
+        height: 100% !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+        position: relative !important;
+    }
+
+    /* Transparent Statement Ticker - No White Bar */
+    .mschf-marquee-wrap {
+        flex: 0 0 auto !important;
+        position: relative !important;
+        left: 0 !important;
+        bottom: auto !important;
+        width: 100% !important;
+        height: clamp(22px, 3.2vh, 28px) !important;
+        min-height: 22px !important;
+        background: transparent !important;
+        border-top: 1px solid var(--border-color) !important;
+        border-bottom: none !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        align-items: center !important;
+        z-index: 20 !important;
+        margin: 0 !important;
+    }
+
+    .mschf-marquee-item span {
+        font-size: clamp(11px, 2.1vh, 14px) !important;
+        line-height: 1 !important;
+        color: #ff0000;
+    }
+
+    body.dark-theme .mschf-marquee-item span {
+        color: #ff3333;
+    }
+
+    /* Bottom Footer Text Line - Completely Visible, Transparent & Compact */
+    .nb-footer {
+        flex: 0 0 auto !important;
+        position: relative !important;
+        width: 100% !important;
+        height: clamp(20px, 2.8vh, 26px) !important;
+        min-height: 20px !important;
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px !important;
+        padding: 0 14px 2px 14px !important;
+        align-items: center !important;
+        background: transparent !important;
+        border-top: none !important;
+        box-sizing: border-box !important;
+        font-size: clamp(11px, 1.25vh, 13px) !important;
+        color: var(--text-muted) !important;
+        z-index: 20 !important;
+        margin: 0 !important;
+    }
+
+    .nb-footer a {
+        color: var(--text-muted);
+        text-decoration: none;
+    }
+
+    .nb-footer a:hover {
+        color: var(--text-color);
+        opacity: 1;
+    }
+
+    .nb-footer-end {
+        display: flex;
+        justify-content: flex-end;
+    }
 }
 
 body.dark-theme .kali-window-vlc {
@@ -1372,13 +1656,13 @@ body.dark-theme .kali-window-vlc.is-focused {
 }
 
 .vlc-titlebar {
-    height: 32px;
+    height: 26px;
     background: var(--win-title-bg);
     border-bottom: 1px solid var(--win-title-border);
     color: var(--win-title-color);
     display: flex;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 8px;
     cursor: grab;
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
@@ -1403,15 +1687,15 @@ body.dark-theme .kali-window-vlc.is-focused {
 }
 
 .vlc-cone-icon {
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
     flex-shrink: 0;
     display: inline-block;
 }
 
 .vlc-title-text {
     font-family: 'Space Mono', SFMono-Regular, monospace;
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 500;
     color: var(--win-title-color);
     letter-spacing: 0.02em;
@@ -1421,10 +1705,11 @@ body.dark-theme .kali-window-vlc.is-focused {
     max-width: 320px;
 }
 
-/* VLC Video Container (Landscape 16:9 ratio) */
+/* VLC Video Container (Flexible Height) */
 .vlc-video-container {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
     position: relative;
     background: #000000;
     display: flex;
@@ -1444,7 +1729,7 @@ body.dark-theme .kali-window-vlc.is-focused {
 
 /* VLC Bottom Toolbar (macOS VLC Style) */
 .vlc-toolbar {
-    height: 36px;
+    height: 30px;
     background: var(--win-status-bg);
     border-top: 1px solid var(--win-border);
     display: flex;
@@ -1588,7 +1873,7 @@ body.dark-theme .vlc-volume-slider {
 
 .sd-scam-about-link {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: clamp(20px, 1.8vw, 26px);
+    font-size: clamp(13px, 1.1vw, 16px);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -1598,7 +1883,7 @@ body.dark-theme .vlc-volume-slider {
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 9px;
+    gap: 7px;
     white-space: nowrap;
     animation: scamAdvBlink 0.65s steps(1, start) infinite;
     transition: transform 0.15s ease;
@@ -2025,7 +2310,8 @@ body.is-window-interacting {
     -webkit-user-select: none !important;
 }
 
-body.is-window-interacting iframe {
+body.is-window-interacting iframe,
+body.is-window-interacting a {
     pointer-events: none !important;
 }
 
@@ -2321,10 +2607,10 @@ body.dark-theme .kali-title-text {
     border-bottom: 1px solid var(--win-toolbar-border);
     display: flex;
     align-items: center;
-    padding: 0 10px;
-    gap: 8px;
+    padding: 0 8px;
+    gap: 6px;
     flex-shrink: 0;
-    overflow-x: auto;
+    overflow: hidden;
     user-select: none;
     transition: background-color 0.25s ease, border-color 0.25s ease;
 }
@@ -2336,9 +2622,9 @@ body.dark-theme .kali-title-text {
 }
 
 .kali-tb-btn {
-    height: 26px;
-    min-width: 26px;
-    padding: 0 7px;
+    height: 24px;
+    min-width: 24px;
+    padding: 0 6px;
     border-radius: 3px;
     border: 1px solid transparent;
     background: transparent;
@@ -2350,6 +2636,7 @@ body.dark-theme .kali-title-text {
     white-space: nowrap;
     font-size: 11px;
     cursor: pointer;
+    flex-shrink: 0;
     transition: background 0.1s ease, border-color 0.1s ease;
 }
 
@@ -2362,18 +2649,25 @@ body.dark-theme .kali-title-text {
     width: 1px;
     height: 18px;
     background: var(--win-toolbar-border);
-    margin: 0 4px;
+    margin: 0 3px;
+    flex-shrink: 0;
 }
 
 .kali-tb-right {
     margin-left: auto;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .kali-tb-info {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--win-status-color);
     font-family: 'Space Mono', monospace;
-    margin-right: 6px;
+    margin-right: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
 }
 
 /* Video Content Container */
@@ -2546,6 +2840,14 @@ body.dark-theme .kali-contact-val:hover {
     background: #525659;
 }
 
+.kali-cv-content {
+    background: #525659 !important;
+}
+
+body.dark-theme .kali-cv-content {
+    background: #18191a !important;
+}
+
 /* Adaptive CV Document Sheet (HTML View) */
 .kali-doc-sheet-container {
     width: 100%;
@@ -2555,11 +2857,23 @@ body.dark-theme .kali-contact-val:hover {
     padding: 30px 16px;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     background: rgba(120, 120, 120, 0.12);
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+}
+
+body.dark-theme .kali-doc-sheet-container {
+    background: #18191a;
 }
 
 .kali-doc-sheet {
     width: min(720px, 100%);
+    height: auto;
+    min-height: min-content;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-bottom: 30px;
     background: #ffffff;
     color: #111111;
     padding: 42px 48px;
@@ -2568,6 +2882,7 @@ body.dark-theme .kali-contact-val:hover {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.45;
     font-size: 13.5px;
+    box-sizing: border-box;
     transition: transform 0.2s ease, background-color 0.25s ease, color 0.25s ease;
 }
 
@@ -3898,6 +4213,8 @@ body.dark-theme .pd-preview-box {
 
     /* Top Navigation: Clean, High-Contrast Header */
     .nb-top-nav {
+        position: relative !important;
+        pointer-events: auto !important;
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
@@ -4185,23 +4502,112 @@ body.dark-theme .pd-preview-box {
     }
 
     .fg-hero-window-content {
-        height: 260px !important;
-        min-height: 220px !important;
-        max-height: 260px !important;
+        width: 100% !important;
+        aspect-ratio: 16 / 9 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
     }
 
-    .fg-window-badge {
+    .fg-project-overlay {
         opacity: 1 !important;
-        transform: translateY(0) !important;
+        visibility: visible !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        align-items: flex-end !important;
+        justify-content: flex-end !important;
+        padding: 10px !important;
+        pointer-events: none !important;
+    }
+
+    .fg-project-overlay-center {
+        transform: none !important;
         font-size: 10px !important;
-        padding: 4px 10px !important;
+        padding: 5px 11px !important;
+        gap: 6px !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
     }
 
     .fg-project-row-stamp {
         font-size: 10px !important;
     }
 
-    /* Sophia Denison Hero on Mobile */
+    .fg-hero-window .kali-status-right {
+        display: none !important;
+    }
+
+    .kali-tb-info {
+        max-width: 140px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    /* Sophia Denison / Desktop OS Workspace on Mobile */
+    .sd-desktop-workspace {
+        min-height: auto !important;
+        height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 16px 14px 30px 14px !important;
+        gap: 24px !important;
+    }
+
+    .sd-desktop-workspace .sd-hero-left {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        align-items: center !important;
+        text-align: center !important;
+        order: 2 !important;
+        margin: 10px 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .sd-desktop-workspace .sd-hero-right {
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
+        width: 100% !important;
+        align-items: center !important;
+        order: 3 !important;
+        margin: 10px 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .sd-desktop-canvas {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 28px !important;
+        order: 1 !important;
+    }
+
+    #hero-win-vlc.kali-window-vlc,
+    #project-win-1.fg-win-nomod,
+    #project-win-0.fg-win-harp,
+    #project-win-2.fg-win-luca {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        transform: none !important;
+    }
+
+    #hero-win-vlc { order: 1 !important; }
+    #project-win-0 { order: 2 !important; }
+    #project-win-1 { order: 3 !important; }
+    #project-win-2 { order: 4 !important; }
+
     .sd-hero-section {
         grid-template-columns: 1fr !important;
         padding: 24px 14px 44px 14px !important;
@@ -4590,9 +4996,21 @@ body.dark-theme .pd-preview-box {
         font-size: 10px !important;
     }
 
+    body.kali-os-page .kali-doc-sheet-container {
+        padding: 16px 10px !important;
+        align-items: flex-start !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
     body.kali-os-page .kali-doc-sheet {
-        padding: 18px 14px !important;
-        font-size: 11px !important;
+        padding: 22px 16px !important;
+        font-size: 11.5px !important;
+        height: auto !important;
+        min-height: min-content !important;
+        flex-shrink: 0 !important;
+        align-self: flex-start !important;
+        margin-bottom: 24px !important;
+        width: 100% !important;
     }
 
     body.kali-os-page .cv-header {
