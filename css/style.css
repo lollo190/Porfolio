@@ -2,7 +2,7 @@
    PORTFOLIO — Stylesheet
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&family=Space+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@1,400;1,500;1,600&family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500;1,6..72,600&family=Space+Mono&display=swap');
 
 /* --- Reset & Base ------------------------------------------ */
 *,
@@ -445,26 +445,13 @@ body.dark-theme .nb-theme-icon-moon {
 }
 
 .nb-nav-home-text {
-    display: inline-block;
+    display: inline-block !important;
     opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .nb-nav-logo-dock {
-    position: static !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    transform: none !important;
-}
-
-.nb-nav-home-text {
-    display: inline-block;
-    transition: opacity 0.3s ease;
-    opacity: 0;
-}
-
-/* Fallback for pages without docking logo (e.g. about.html) */
-body:not(.has-dock-logo) .nb-nav-home-text {
-    opacity: 1;
+    display: none !important;
 }
 
 /* --- Docking 3D Spinning Logo GIF --- */
@@ -1535,8 +1522,8 @@ body.dark-theme .sd-toc-item {
 
 /* --- Desktop 100% Single Viewport (Strictly No Vertical Scroll, Zero Gap, Transparent Ticker + Footer) --- */
 @media (min-width: 901px) {
-    html,
-    body:not(.kali-os-page) {
+    html:not(:has(.fos-project-body)),
+    body:not(.kali-os-page):not(.fos-project-body) {
         height: 100vh !important;
         height: 100dvh !important;
         overflow: hidden !important;
@@ -2947,7 +2934,8 @@ body.dark-theme .cv-roles {
 }
 
 .cv-intro {
-    font-size: 13px;
+    font-family: 'Times New Roman', Times, 'Nimbus Roman No9 L', serif;
+    font-size: 14px;
     line-height: 1.5;
     margin-bottom: 22px;
     color: #444444;
@@ -5437,10 +5425,32 @@ html.intro-already-played #site-intro-overlay {
     user-select: none;
 }
 
-/* Black logo typography reduced 50% in size */
+/* Intro Logo Typography & Image: Scaled up +30% in Times New Roman */
+.intro-logo-text {
+    font-family: 'Times New Roman', Times, 'Nimbus Roman No9 L', serif;
+    font-size: clamp(18px, 1.75vw, 23.5px);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--text-color, #111111);
+    line-height: 1.2;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+
+.site-intro-overlay.is-faded .intro-logo-text {
+    transform: scale(0.97);
+    opacity: 0;
+}
+
+/* Scaled up +30% fallback for logo image (30% of original * 1.30 = ~132px) */
 .intro-logo-img {
-    width: min(340px, 50vw);
-    max-width: 340px;
+    width: min(132px, 26vw);
+    max-width: 132px;
     height: auto;
     object-fit: contain;
     user-select: none;
@@ -5453,14 +5463,311 @@ html.intro-already-played #site-intro-overlay {
 }
 
 @media (max-width: 768px) {
+    .intro-logo-text {
+        font-size: 18px;
+    }
     .intro-logo-img {
-        width: min(210px, 55vw);
-        max-width: 210px;
+        width: min(98px, 30vw);
+        max-width: 98px;
     }
 }
 
 @media (max-width: 480px) {
     .nb-nav-about-top {
         display: none !important;
+    }
+}
+
+/* ============================================================
+   VIRGIL ABLOH "FIGURES OF SPEECH" PROJECT MONOGRAPH LAYOUT
+   Editorial Monograph / Exhibition Catalog Style (Photo Reference)
+   ============================================================ */
+
+html:has(.fos-project-body),
+body.fos-project-body {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    line-height: 1.4;
+}
+
+/* Ensure film grain stays strictly on the background behind project content & images */
+body.fos-project-body .film-grain {
+    z-index: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Minimalist Transparent Top Navbar (No arrow, no about, no contact) */
+.nb-top-nav.fos-nav {
+    position: relative !important;
+    width: 100% !important;
+    z-index: 10 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: none !important;
+    padding: 24px 32px 0 32px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    pointer-events: auto !important;
+}
+
+.nb-top-nav.fos-nav .nb-nav-home-text {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--text-color);
+}
+
+/* Monograph Content Container (Elevated above background film-grain) */
+.fos-project-container {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100%;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 28px 32px 80px 32px;
+    box-sizing: border-box;
+}
+
+/* 1. Top Header: Year + Title (Same as "2019 FIGURES OF SPEECH EXHIBITION") */
+.fos-project-header {
+    display: flex;
+    align-items: baseline;
+    gap: 32px;
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+}
+
+.fos-header-year {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(15px, 1.35vw, 18px);
+    font-weight: 500;
+    color: var(--text-color);
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+}
+
+.fos-header-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(15px, 1.35vw, 18px);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* 2. Didascalia: Two-Column Editorial Essay (Italic Serif like Virgil Abloh book) */
+.fos-statement-section {
+    margin-bottom: clamp(40px, 6vh, 68px);
+}
+
+.fos-statement-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: start;
+}
+
+.fos-col p {
+    font-family: 'Times New Roman', Times, 'Nimbus Roman No9 L', serif !important;
+    font-style: italic !important;
+    font-size: clamp(15.5px, 1.18vw, 18px);
+    line-height: 1.48;
+    color: var(--text-color);
+    margin: 0 0 16px 0;
+    letter-spacing: 0.005em;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* Author sign-off & Date at end of column 2 */
+.fos-col-author {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Times New Roman', Times, 'Nimbus Roman No9 L', serif !important;
+    font-style: italic !important;
+    font-size: clamp(15px, 1.15vw, 17.5px);
+    line-height: 1.35;
+    color: var(--text-color);
+}
+
+.fos-author-name {
+    font-weight: 500;
+}
+
+.fos-author-year {
+    color: var(--text-muted);
+}
+
+/* Technical specifications block */
+.fos-specs-block {
+    margin-top: 28px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.fos-spec-line strong {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* 3. Large Quasi-Fullscreen Plates (Strictly ABOVE background film-grain) */
+.fos-plates-section {
+    position: relative !important;
+    z-index: 2 !important;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(56px, 8vh, 100px);
+}
+
+.fos-plate-item {
+    position: relative !important;
+    z-index: 2 !important;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.fos-img-box {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100%;
+    background-color: var(--bg-color) !important;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+body.dark-theme .fos-img-box {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.fos-img-box img {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100%;
+    height: auto;
+    max-height: 88vh;
+    object-fit: contain;
+    display: block;
+}
+
+/* Caption and Plate Code (Matching "A-FOS-1635") */
+.fos-plate-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 8px;
+}
+
+.fos-plate-code {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-color);
+}
+
+.fos-plate-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+/* 4. Bottom Page Footer Navigation */
+.fos-page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 44px 0 20px 0;
+    margin-top: 72px;
+    border-top: 1px solid var(--border-color);
+}
+
+.fos-nav-link {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.fos-nav-link:hover {
+    opacity: 0.6;
+}
+
+/* --- Responsive Adjustments (Tablets & Mobile) --- */
+@media (max-width: 860px) {
+    .nb-top-nav.fos-nav {
+        padding: 16px 16px 0 16px !important;
+    }
+
+    .fos-project-container {
+        padding: 20px 16px 60px 16px;
+    }
+
+    .fos-project-header {
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 20px;
+    }
+
+    .fos-statement-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .fos-col p {
+        text-align: left;
+    }
+
+    .fos-img-box img {
+        max-height: 72vh;
+    }
+
+    .fos-plate-footer {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .fos-page-footer {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
     }
 }

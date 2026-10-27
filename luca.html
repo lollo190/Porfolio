@@ -3,34 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luca (2024) — Lorenzo Kraja</title>
-    <meta name="description" content="Luca — Progetto Eyewear & Hardware di Lorenzo Kraja. Dettagli metallici, precisione formale e acetato scultoreo.">
+    <title>LUCA (2024) — Lorenzo Kraja</title>
+    <meta name="description" content="LUCA — Eyewear e hardware scultoreo d'avanguardia in titanio Grado 5 e acetato Mazzucchelli. Design di Lorenzo Kraja.">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Luca (2024) — Lorenzo Kraja">
-    <meta property="og:description" content="Luca — Eyewear & Hardware di Lorenzo Kraja.">
+    <meta property="og:title" content="LUCA (2024) — Lorenzo Kraja">
+    <meta property="og:description" content="LUCA — Eyewear & Hardware scultoreo di Lorenzo Kraja.">
     <meta property="og:image" content="images/luca/luca_01.jpg">
 
     <meta name="view-transition" content="same-origin">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="proj-page-body">
-    <!-- Film Grain Texture Overlay -->
+<body class="fos-project-body">
+    <!-- Film Grain Texture Overlay (Kept on page background behind content) -->
     <div class="film-grain" aria-hidden="true"></div>
 
-    <!-- TOP NAVIGATION BAR -->
-    <nav class="nb-top-nav">
+    <!-- TOP NAVIGATION BAR (Transparent, No Arrow, No About/Contact) -->
+    <nav class="nb-top-nav fos-nav">
         <div class="nb-nav-col-1">
             <a href="index.html" class="nb-nav-home-link" aria-label="Torna alla Home">
-                <span class="nb-nav-home-text">&larr; Lorenzo Kraja</span>
+                <span class="nb-nav-home-text">Lorenzo Kraja</span>
             </a>
         </div>
-        <div class="nb-nav-col-3">
-            <a href="about.html" class="nb-nav-about-link">About</a>
-        </div>
         <div class="nb-nav-col-4">
-            <a href="index.html#contact" class="nb-nav-contact-link">Contact</a>
             <div class="nb-clock-toggle-wrap">
                 <span id="live-clock">00:00:00 RM</span>
                 <button id="theme-toggle" class="nb-theme-toggle" aria-label="Cambia tema chiaro / scuro" title="Tema chiaro / scuro">
@@ -57,93 +53,87 @@
         </div>
     </nav>
 
-    <!-- MAIN PROJECT CONTAINER -->
-    <main class="proj-page-container">
-        <!-- PROJECT HERO HEADER -->
-        <header class="proj-page-hero">
-            <span class="proj-page-tag">// PROJECT 03 &bull; EYEWEAR &amp; HARDWARE</span>
-            <h1 class="proj-page-title">LUCA</h1>
-            <div class="proj-page-meta-row">
-                <span>Lorenzo Kraja</span>
-                <span class="proj-page-meta-sep">&bull;</span>
-                <span>Eyewear &amp; Hardware, 2024</span>
-                <span class="proj-page-meta-sep">&bull;</span>
-                <span>Milan / Rome, Italy</span>
-                <span class="proj-page-meta-sep">&bull;</span>
-                <span>Status: Capsule Collection</span>
-            </div>
-
-            <div class="proj-page-statement-grid">
-                <p class="proj-page-statement">
-                    Per Luca, un brand di lifestyle ed eyewear, abbiamo disegnato i dettagli metallici delle cerniere e la struttura delle montature in acetato. Il cliente voleva posizionarsi all’intersezione tra moda, ingegneria di precisione e cultura contemporanea.
-                </p>
-                <div class="proj-page-specs">
-                    <div class="proj-spec-item">
-                        <span class="proj-spec-label">TIPOLOGIA</span>
-                        <span class="proj-spec-val">Eyewear &amp; Hardware scultoreo</span>
-                    </div>
-                    <div class="proj-spec-item">
-                        <span class="proj-spec-label">MATERIALI</span>
-                        <span class="proj-spec-val">Acetato Mazzucchelli 8mm, Titanio Grado 5</span>
-                    </div>
-                    <div class="proj-spec-item">
-                        <span class="proj-spec-label">LAVORAZIONE</span>
-                        <span class="proj-spec-val">Fresatura CNC pantografo, Burattatura artigianale 72h</span>
-                    </div>
-                    <div class="proj-spec-item">
-                        <span class="proj-spec-label">FINITURA</span>
-                        <span class="proj-spec-val">Lucidatura manuale con paste abrasive e cere naturali</span>
-                    </div>
-                    <div class="proj-spec-item">
-                        <span class="proj-spec-label">DETTAGLI</span>
-                        <span class="proj-spec-val">Cerniere a 7 snodi con rivetti a vista</span>
-                    </div>
-                </div>
-            </div>
+    <!-- MAIN PROJECT CONTAINER (Virgil Abloh "Figures of Speech" Monograph Layout) -->
+    <main class="fos-project-container">
+        <!-- 1. HEADER: YEAR + PROJECT / EXHIBITION TITLE -->
+        <header class="fos-project-header">
+            <span class="fos-header-year">2024</span>
+            <h1 class="fos-header-title">&ldquo;LUCA&rdquo; EYEWEAR &amp; SCULPTURAL HARDWARE</h1>
         </header>
 
-        <!-- LOOKBOOK GALLERY SECTION -->
-        <section class="proj-gallery-grid" aria-label="Galleria Immagini Luca">
-            <!-- 1. Front View -->
-            <article class="proj-gallery-card">
-                <img src="images/luca/luca_01.jpg" alt="Luca — Vista frontale montatura" loading="eager">
-                <div class="proj-gallery-meta-overlay">
-                    <span>LUCA_01.JPG</span>
-                    <span>VISTA FRONTALE MONTATURA</span>
-                    <span>2024</span>
+        <!-- 2. DIDASCALIA: TWO-COLUMN EDITORIAL ESSAY (ITALIC SERIF) -->
+        <section class="fos-statement-section" aria-label="Didascalia del progetto">
+            <div class="fos-statement-grid">
+                <div class="fos-col fos-col-left">
+                    <p>
+                        Per Luca, brand indipendente di lifestyle ed eyewear d'avanguardia, il progetto si è concentrato sulla riprogettazione dell'hardware scultoreo e delle cerniere metalliche per una serie limitata di montature da vista e da sole. Rompendo con la tendenza verso cerniere standardizzate e invisibili, il disegno valorizza la cerniera a 7 snodi in titanio Grado 5 come perno visivo ed elemento architettonico distintivo. I rivetti passanti a vista sono cesellati con micro-incisioni lineari che creano riflessi cangianti al movimento, ancorando le aste al frontale con assoluta indeformabilità meccanica.
+                    </p>
                 </div>
-            </article>
+                <div class="fos-col fos-col-right">
+                    <p>
+                        Il corpo della montatura è ricavato da lastre di acetato Mazzucchelli da 8 mm di spessore, lavorate a pantografo CNC e sottoposte a un processo di burattatura artigianale di 72 ore con trucioli di faggio e cere naturali per conferire smussature organiche e una lucentezza profonda e tattile. L'ergonomia dell'appoggio nasale e il bilanciamento dei pesi tra metallo e acetato offrono un comfort prolungato senza rinunciare a una presenza scultorea decisa e identitaria.
+                    </p>
+                    <div class="fos-col-author">
+                        <span class="fos-author-name">Lorenzo Kraja</span>
+                        <span class="fos-author-year">2024</span>
+                    </div>
 
-            <!-- 2. Hinge Detail -->
-            <article class="proj-gallery-card">
-                <img src="images/luca/luca_02.jpg" alt="Luca — Dettaglio cerniera metallica" loading="lazy">
-                <div class="proj-gallery-meta-overlay">
-                    <span>LUCA_02.JPG</span>
-                    <span>DETTAGLIO CERNIERA &amp; METALLO</span>
-                    <span>2024</span>
+                    <div class="fos-specs-block">
+                        <div class="fos-spec-line"><strong>TIPOLOGIA:</strong> Eyewear &amp; Hardware scultoreo</div>
+                        <div class="fos-spec-line"><strong>MATERIALI:</strong> Acetato Mazzucchelli 8 mm, Titanio Grado 5</div>
+                        <div class="fos-spec-line"><strong>LAVORAZIONE:</strong> Fresatura CNC pantografo, Burattatura artigianale 72h</div>
+                        <div class="fos-spec-line"><strong>DETTAGLI:</strong> Cerniere custom a 7 snodi con rivetti a vista &bull; <strong>STATUS:</strong> Capsule Collection</div>
+                    </div>
                 </div>
-            </article>
-
-            <!-- 3. Profile & Thickness -->
-            <article class="proj-gallery-card">
-                <img src="images/luca/luca_03.jpg" alt="Luca — Profilo e spessore acetato" loading="lazy">
-                <div class="proj-gallery-meta-overlay">
-                    <span>LUCA_03.JPG</span>
-                    <span>PROFILO &amp; SPESSORE ACETATO</span>
-                    <span>2024</span>
-                </div>
-            </article>
+            </div>
         </section>
 
-        <!-- PAGE FOOTER NAVIGATION -->
-        <footer class="proj-page-nav-bar">
-            <a href="index.html" class="proj-nav-back">&larr; Torna alla Home</a>
-            <a href="harp-chair.html" class="proj-nav-next">Prossimo Progetto: Harp Chair &rarr;</a>
+        <!-- 3. PLATES GALLERY: LARGE QUASI-FULLSCREEN IMAGES (ABOVE FILM-GRAIN) -->
+        <section class="fos-plates-section" aria-label="Tavole fotografiche del progetto">
+            <!-- Plate 01 -->
+            <figure class="fos-plate-item" id="plate-01">
+                <div class="fos-img-box">
+                    <img src="images/luca/luca_01.jpg" alt="Luca — Vista frontale montatura" loading="eager">
+                </div>
+                <figcaption class="fos-plate-footer">
+                    <span class="fos-plate-code">A-LCA-01</span>
+                    <span class="fos-plate-title">VISTA FRONTALE MONTATURA</span>
+                </figcaption>
+            </figure>
+
+            <!-- Plate 02 -->
+            <figure class="fos-plate-item" id="plate-02">
+                <div class="fos-img-box">
+                    <img src="images/luca/luca_02.jpg" alt="Luca — Dettaglio cerniera metallica" loading="lazy">
+                </div>
+                <figcaption class="fos-plate-footer">
+                    <span class="fos-plate-code">A-LCA-02</span>
+                    <span class="fos-plate-title">DETTAGLIO CERNIERA &amp; METALLO</span>
+                </figcaption>
+            </figure>
+
+            <!-- Plate 03 -->
+            <figure class="fos-plate-item" id="plate-03">
+                <div class="fos-img-box">
+                    <img src="images/luca/luca_03.jpg" alt="Luca — Profilo e spessore acetato" loading="lazy">
+                </div>
+                <figcaption class="fos-plate-footer">
+                    <span class="fos-plate-code">A-LCA-03</span>
+                    <span class="fos-plate-title">PROFILO &amp; SPESSORE ACETATO</span>
+                </figcaption>
+            </figure>
+        </section>
+
+        <!-- 4. PAGE FOOTER NAVIGATION -->
+        <footer class="fos-page-footer">
+            <a href="index.html" class="fos-nav-link">&larr; Torna alla Home</a>
+            <a href="harp-chair.html" class="fos-nav-link">Prossimo Progetto: HARP CHAIR &rarr;</a>
         </footer>
     </main>
 
     <!-- THEME & CLOCK SCRIPT -->
     <script>
+        // Live Clock
         function startClock() {
             const el = document.getElementById("live-clock");
             if (!el) return;
@@ -165,6 +155,7 @@
             setInterval(tick, 1000);
         }
 
+        // Theme Toggle Sync
         function initTheme() {
             const savedTheme = localStorage.getItem("portfolio_theme");
             if (savedTheme === "dark") {

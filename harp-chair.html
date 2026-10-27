@@ -15,22 +15,18 @@
     <meta name="view-transition" content="same-origin">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="proj-page-body">
-    <!-- Film Grain Texture Overlay -->
+<body class="fos-project-body">
+    <!-- Film Grain Texture Overlay (Kept on page background behind content) -->
     <div class="film-grain" aria-hidden="true"></div>
 
-    <!-- TOP NAVIGATION BAR -->
-    <nav class="nb-top-nav">
+    <!-- TOP NAVIGATION BAR (Transparent, No Arrow, No About/Contact) -->
+    <nav class="nb-top-nav fos-nav">
         <div class="nb-nav-col-1">
             <a href="index.html" class="nb-nav-home-link" aria-label="Torna alla Home">
-                <span class="nb-nav-home-text">&larr; Lorenzo Kraja</span>
+                <span class="nb-nav-home-text">Lorenzo Kraja</span>
             </a>
         </div>
-        <div class="nb-nav-col-3">
-            <a href="about.html" class="nb-nav-about-link">About</a>
-        </div>
         <div class="nb-nav-col-4">
-            <a href="index.html#contact" class="nb-nav-contact-link">Contact</a>
             <div class="nb-clock-toggle-wrap">
                 <span id="live-clock">00:00:00 RM</span>
                 <button id="theme-toggle" class="nb-theme-toggle" aria-label="Cambia tema chiaro / scuro" title="Tema chiaro / scuro">
@@ -57,108 +53,104 @@
         </div>
     </nav>
 
-    <!-- MAIN PROJECT CONTAINER -->
-    <main class="proj-page-container">
-        <!-- PROJECT HERO HEADER -->
-        <header class="proj-page-hero">
-            <span class="proj-page-tag">// PROJECT 01 &bull; PRODUCT &amp; FURNITURE DESIGN</span>
-            <h1 class="proj-page-title">HARP CHAIR</h1>
-            <div class="proj-page-meta-row">
-                <span>Lorenzo Kraja</span>
-                <span class="proj-page-meta-sep">&bull;</span>
-                <span>Furniture Design, 2025</span>
-                <span class="proj-page-meta-sep">&bull;</span>
-                <span>Rome [RM], Italy</span>
-                <span class="proj-page-meta-sep">&bull;</span>
-                <span>Status: Prototype 1:1</span>
-            </div>
-
-            <div class="proj-page-statement-grid">
-                <p class="proj-page-statement">
-                    Harp Chair esplora l'eleganza strutturale e la tensione formale ispirata alla geometria di un'arpa da concerto. Il telaio in profilato d'alluminio sagomato a freddo lavora in sinergia con cavi metallici in tensione calibrata, offrendo una seduta che unisce una silhouette aerea a un rigoroso studio ergonomico e materico.
-                </p>
-                <div class="proj-page-specs">
-                    <div class="proj-spec-item">
-                        <span class="proj-spec-label">TIPOLOGIA</span>
-                        <span class="proj-spec-val">Lounge Chair / Scultura d'Arredo</span>
-                    </div>
-                    <div class="proj-spec-item">
-                        <span class="proj-spec-label">MATERIALI</span>
-                        <span class="proj-spec-val">Alluminio 6061-T6, Acciaio armonico, Cuoio naturale</span>
-                    </div>
-                    <div class="proj-spec-item">
-                        <span class="proj-spec-label">LAVORAZIONE</span>
-                        <span class="proj-spec-val">Fresatura CNC a 5 assi, Calandratura &amp; Assemblaggio manuale</span>
-                    </div>
-                    <div class="proj-spec-item">
-                        <span class="proj-spec-label">FINITURA</span>
-                        <span class="proj-spec-val">Anodizzazione satinata micropallinata</span>
-                    </div>
-                    <div class="proj-spec-item">
-                        <span class="proj-spec-label">DIMENSIONI</span>
-                        <span class="proj-spec-val">820 &times; 680 &times; 740 mm</span>
-                    </div>
-                </div>
-            </div>
+    <!-- MAIN PROJECT CONTAINER (Virgil Abloh "Figures of Speech" Monograph Layout) -->
+    <main class="fos-project-container">
+        <!-- 1. HEADER: YEAR + PROJECT / EXHIBITION TITLE -->
+        <header class="fos-project-header">
+            <span class="fos-header-year">2025</span>
+            <h1 class="fos-header-title">&ldquo;HARP CHAIR&rdquo; PRODUCT &amp; FURNITURE DESIGN</h1>
         </header>
 
-        <!-- LOOKBOOK GALLERY SECTION -->
-        <section class="proj-gallery-grid" aria-label="Galleria Immagini Harp Chair">
-            <!-- 1. Front Perspective -->
-            <article class="proj-gallery-card">
-                <img src="images/harp-chair/1.jpg" alt="Harp Chair — Vista d'insieme prospettica" loading="eager">
-                <div class="proj-gallery-meta-overlay">
-                    <span>HARP_01.JPG</span>
-                    <span>VISTA PROSPETTICA D'INSIEME</span>
-                    <span>2025</span>
+        <!-- 2. DIDASCALIA: TWO-COLUMN EDITORIAL ESSAY (ITALIC SERIF) -->
+        <section class="fos-statement-section" aria-label="Didascalia del progetto">
+            <div class="fos-statement-grid">
+                <div class="fos-col fos-col-left">
+                    <p>
+                        Non è subito evidente a un primo sguardo, ma Harp Chair nasce da una riflessione sulla tensione formale e sull'ingegneria dei materiali come linguaggio scultoreo applicato all'oggetto d'arredo. Il progetto trae origine dalla geometria essenziale e dalla fisica acustica di un'arpa: una struttura portante rigida che trattiene corde metalliche in costante tensione calibrata. In Harp Chair, il profilato in lega d'alluminio 6061-T6 lavora a flessione continua mentre i cavi d'acciaio armonico definiscono il piano di seduta e lo schienale, creando un equilibrio cinematico in cui ogni elemento strutturale è al tempo stesso supporto funzionale e segno grafico nello spazio.
+                    </p>
                 </div>
-            </article>
+                <div class="fos-col fos-col-right">
+                    <p>
+                        La sfida centrale risiede nella sottrazione radicale: eliminare ogni imbottitura convenzionale per lasciare emergere la pura interazione tra la flessibilità del metallo e l'adattamento ergonomico del corpo. Le piastre di snodo, lavorate mediante fresatura CNC a 5 assi e successivamente rifinite a mano con anodizzazione satinata micropallinata, esibiscono le giunzioni meccaniche senza infingimenti decorativi. L'oggetto si posiziona così all'intersezione tra scultura architettonica e rigore industriale, dove la leggerezza visiva non compromette la solidità costruttiva.
+                    </p>
+                    <div class="fos-col-author">
+                        <span class="fos-author-name">Lorenzo Kraja</span>
+                        <span class="fos-author-year">2025</span>
+                    </div>
 
-            <!-- 2. Profile View -->
-            <article class="proj-gallery-card">
-                <img src="images/harp-chair/2.jpg" alt="Harp Chair — Profilo e geometria strutturale" loading="lazy">
-                <div class="proj-gallery-meta-overlay">
-                    <span>HARP_02.JPG</span>
-                    <span>PROFILO &amp; TENSIONE STRUTTURALE</span>
-                    <span>2025</span>
+                    <div class="fos-specs-block">
+                        <div class="fos-spec-line"><strong>TIPOLOGIA:</strong> Lounge Chair / Scultura d'Arredo</div>
+                        <div class="fos-spec-line"><strong>MATERIALI:</strong> Alluminio 6061-T6, Acciaio armonico, Cuoio naturale</div>
+                        <div class="fos-spec-line"><strong>LAVORAZIONE:</strong> Fresatura CNC a 5 assi, Calandratura &amp; Assemblaggio manuale</div>
+                        <div class="fos-spec-line"><strong>FINITURA:</strong> Anodizzazione satinata micropallinata</div>
+                        <div class="fos-spec-line"><strong>DIMENSIONI:</strong> 820 &times; 680 &times; 740 mm &bull; <strong>STATUS:</strong> Prototipo funzionale 1:1</div>
+                    </div>
                 </div>
-            </article>
-
-            <!-- 4. Structural Joint Detail -->
-            <article class="proj-gallery-card">
-                <img src="images/harp-chair/4.jpg" alt="Harp Chair — Dettaglio innesti CNC" loading="lazy">
-                <div class="proj-gallery-meta-overlay">
-                    <span>HARP_04.JPG</span>
-                    <span>DETTAGLIO SNODI &amp; INNESTI CNC</span>
-                    <span>2025</span>
-                </div>
-            </article>
-
-            <!-- 6. Axonometric Angle -->
-            <article class="proj-gallery-card">
-                <img src="images/harp-chair/6.jpg" alt="Harp Chair — Vista angolare tridimensionale" loading="lazy">
-                <div class="proj-gallery-meta-overlay">
-                    <span>HARP_06.JPG</span>
-                    <span>VISTA ASSONOMETRICA</span>
-                    <span>2025</span>
-                </div>
-            </article>
-
-            <!-- 8. Material Texture Detail -->
-            <article class="proj-gallery-card">
-                <img src="images/harp-chair/8.jpg" alt="Harp Chair — Finitura superficiale e texture materiale" loading="lazy">
-                <div class="proj-gallery-meta-overlay">
-                    <span>HARP_08.JPG</span>
-                    <span>TEXTURE &amp; ANODIZZAZIONE SATINATA</span>
-                    <span>2025</span>
-                </div>
-            </article>
+            </div>
         </section>
 
-        <!-- PAGE FOOTER NAVIGATION -->
-        <footer class="proj-page-nav-bar">
-            <a href="index.html" class="proj-nav-back">&larr; Torna alla Home</a>
-            <a href="nomod.html" class="proj-nav-next">Prossimo Progetto: NOMOD &rarr;</a>
+        <!-- 3. PLATES GALLERY: LARGE QUASI-FULLSCREEN IMAGES (ABOVE FILM-GRAIN) -->
+        <section class="fos-plates-section" aria-label="Tavole fotografiche del progetto">
+            <!-- Plate 01 -->
+            <figure class="fos-plate-item" id="plate-01">
+                <div class="fos-img-box">
+                    <img src="images/harp-chair/1.jpg" alt="Harp Chair — Vista d'insieme prospettica" loading="eager">
+                </div>
+                <figcaption class="fos-plate-footer">
+                    <span class="fos-plate-code">A-HARP-01</span>
+                    <span class="fos-plate-title">VISTA D'INSIEME PROSPETTICA</span>
+                </figcaption>
+            </figure>
+
+            <!-- Plate 02 -->
+            <figure class="fos-plate-item" id="plate-02">
+                <div class="fos-img-box">
+                    <img src="images/harp-chair/2.jpg" alt="Harp Chair — Profilo e geometria strutturale" loading="lazy">
+                </div>
+                <figcaption class="fos-plate-footer">
+                    <span class="fos-plate-code">A-HARP-02</span>
+                    <span class="fos-plate-title">PROFILO &amp; TENSIONE STRUTTURALE</span>
+                </figcaption>
+            </figure>
+
+            <!-- Plate 03 -->
+            <figure class="fos-plate-item" id="plate-03">
+                <div class="fos-img-box">
+                    <img src="images/harp-chair/4.jpg" alt="Harp Chair — Dettaglio innesti CNC" loading="lazy">
+                </div>
+                <figcaption class="fos-plate-footer">
+                    <span class="fos-plate-code">A-HARP-04</span>
+                    <span class="fos-plate-title">DETTAGLIO SNODI &amp; INNESTI CNC</span>
+                </figcaption>
+            </figure>
+
+            <!-- Plate 04 -->
+            <figure class="fos-plate-item" id="plate-04">
+                <div class="fos-img-box">
+                    <img src="images/harp-chair/6.jpg" alt="Harp Chair — Vista assonometrica" loading="lazy">
+                </div>
+                <figcaption class="fos-plate-footer">
+                    <span class="fos-plate-code">A-HARP-06</span>
+                    <span class="fos-plate-title">VISTA ASSONOMETRICA</span>
+                </figcaption>
+            </figure>
+
+            <!-- Plate 05 -->
+            <figure class="fos-plate-item" id="plate-05">
+                <div class="fos-img-box">
+                    <img src="images/harp-chair/8.jpg" alt="Harp Chair — Finitura superficiale e texture" loading="lazy">
+                </div>
+                <figcaption class="fos-plate-footer">
+                    <span class="fos-plate-code">A-HARP-08</span>
+                    <span class="fos-plate-title">TEXTURE &amp; ANODIZZAZIONE SATINATA</span>
+                </figcaption>
+            </figure>
+        </section>
+
+        <!-- 4. PAGE FOOTER NAVIGATION -->
+        <footer class="fos-page-footer">
+            <a href="index.html" class="fos-nav-link">&larr; Torna alla Home</a>
+            <a href="nomod.html" class="fos-nav-link">Prossimo Progetto: NOMOD &rarr;</a>
         </footer>
     </main>
 

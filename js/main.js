@@ -697,15 +697,11 @@ function buildPage() {
     const app = document.getElementById("app");
 
     app.innerHTML = `
-        <!-- TOP BAR (Minimalist: Brand + Spinning Logo on Left, About + Live Clock & Theme on Right) -->
+        <!-- TOP BAR (Minimalist: Brand on Left, About + Live Clock & Theme on Right) -->
         <nav class="nb-top-nav">
             <div class="nb-nav-col-1">
                 <a href="index.html" class="nb-nav-home-link" aria-label="Torna alla Home">
                     <span class="nb-nav-home-text">${escapeHTML(CONFIG.designerName)}</span>
-                    <span class="nb-nav-logo-dock" id="nb-nav-logo-dock" aria-label="Lorenzo Kraja Home">
-                        <img src="assets/lorenzo-spinning.gif" alt="Lorenzo Kraja" class="nb-dock-gif nb-dock-light" draggable="false">
-                        <img src="assets/lorenzo-spinning-dark.gif" alt="Lorenzo Kraja" class="nb-dock-gif nb-dock-dark" draggable="false">
-                    </span>
                 </a>
             </div>
             <div class="nb-nav-col-4">
@@ -786,7 +782,6 @@ function buildPage() {
             </div>
             <div>${escapeHTML(CONFIG.footerCenter)}</div>
             <div>${escapeHTML(CONFIG.footerRight)}</div>
-            <div class="nb-footer-end">Imprint</div>
         </footer>
     `;
 
